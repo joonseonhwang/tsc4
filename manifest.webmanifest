@@ -1,0 +1,30 @@
+{
+ "name": "TSC 4급 13주",
+ "short_name": "TSC 4급",
+ "description": "노베이스에서 TSC 4급까지: 계획, 발음, 템플릿, 예상문제, 단어 카드, 쓰기 연습",
+ "lang": "ko",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#F5F7F4",
+ "theme_color": "#0D6A5A",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

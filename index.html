@@ -1,0 +1,1368 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D6A5A" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1513" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TSC 4급">
+<title>TSC 4급 13주</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head><body>
+<title>TSC 4급 13주</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: phone-first single column. Sticky header + tab bar; content as stacked sheets. Hanzi set large in serif, pinyin + 뜻 below and toggleable. */
+:root{
+  --bg:#F5F7F4; --surface:#FFFFFF; --fg:#18221E; --muted:#5B6862; --line:#DCE3DE;
+  --accent:#0D6A5A; --accent-soft:#E0EFE9; --seal:#B5322A; --seal-soft:#F6E3E0;
+  --f-body:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-zh:"Noto Serif SC","Songti SC","SimSun",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1513; --surface:#171F1C; --fg:#E4ECE8; --muted:#94A39C; --line:#28332F;
+  --accent:#55BBA2; --accent-soft:#1B332D; --seal:#E36A5E; --seal-soft:#3A1F1C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1513; --surface:#171F1C; --fg:#E4ECE8; --muted:#94A39C; --line:#28332F;
+  --accent:#55BBA2; --accent-soft:#1B332D; --seal:#E36A5E; --seal-soft:#3A1F1C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 0}
+.titlerow{display:flex;align-items:center;gap:12px}
+.seal{flex:none;width:44px;height:44px;border-radius:8px;background:var(--seal);color:#fff;display:grid;place-items:center;font-family:var(--f-zh);font-weight:700;font-size:15px;line-height:1.05;text-align:center}
+.titlerow h1{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.titlerow p{margin:0;color:var(--muted);font-size:13px}
+.prog{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+nav.tabs{display:flex;gap:4px;margin-top:12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{flex:1 0 auto;text-align:center;padding:10px 12px;font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+nav.tabs a[aria-current="page"]{color:var(--accent);border-bottom-color:var(--accent)}
+nav.tabs a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+.toggles{display:flex;gap:8px;flex-wrap:wrap;padding-block:12px}
+.chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:13px;font-weight:500;padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+
+section.view{display:flex;flex-direction:column;gap:14px}
+.lead{margin:4px 0 0;color:var(--muted);font-size:14px}
+h2{margin:18px 0 0;font-size:17px;font-weight:700}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* routine */
+.routine{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.routine div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}
+.routine b{display:block;font-size:18px;font-variant-numeric:tabular-nums}
+.routine span{font-size:12px;color:var(--muted);line-height:1.4;display:block}
+
+/* weeks */
+.weeks{display:flex;flex-direction:column;gap:8px}
+.week{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.week.now{border-color:var(--seal);box-shadow:0 0 0 1px var(--seal) inset}
+.week.done{opacity:.6}
+.week input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--accent)}
+.week .body{min-width:0;flex:1}
+.week .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.week .meta b{color:var(--fg);font-family:var(--f-mono);font-size:12px}
+.tag{font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--seal-soft);color:var(--seal)}
+.tag.green{background:var(--accent-soft);color:var(--accent)}
+.week .what{margin:4px 0 0;font-size:14px;font-weight:500}
+.week .goal{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.week label{display:contents}
+
+/* parts table */
+.parts{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.parts th,.parts td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.parts tr:last-child td{border-bottom:0}
+.parts th{font-size:11px;color:var(--muted);font-weight:600}
+
+/* accordion */
+details.part{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.part>summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:10px}
+details.part>summary::-webkit-details-marker{display:none}
+details.part>summary .pn{font-family:var(--f-mono);font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:6px;flex:none}
+details.part>summary .pt{font-weight:600;flex:1;min-width:0}
+details.part>summary .pm{font-size:12px;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+details.part>summary::after{content:"";width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:-4px 4px 0 0;transition:transform .2s;flex:none}
+details.part[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+.pbody{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px}
+.tip{font-size:13px;color:var(--muted);margin:0}
+
+.line{display:flex;gap:10px}
+.line .n{flex:none;font-family:var(--f-mono);font-size:12px;color:var(--muted);width:18px;padding-top:4px}
+.line .c{min-width:0;flex:1}
+.lab{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:2px}
+.zh{font-family:var(--f-zh);font-size:19px;font-weight:500;line-height:1.5;word-break:break-all}
+.zh .blank{color:var(--seal)}
+.py{font-size:13px;color:var(--accent);margin-top:2px}
+.ko{font-size:13px;color:var(--muted);margin-top:1px}
+body.no-py .py{display:none}
+body.no-ko .ko{display:none}
+
+/* questions */
+.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filters::-webkit-scrollbar{display:none}
+.filters .chip{flex:none}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.q .qh{display:flex;gap:8px;align-items:center}
+.q .ans{border-top:1px dashed var(--line);padding-top:10px}
+.q .ans .zh{font-size:17px}
+.reveal{align-self:flex-start;appearance:none;border:1px solid var(--accent);background:transparent;color:var(--accent);font:inherit;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer}
+.topics{display:flex;flex-wrap:wrap;gap:6px}
+.topics span{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+
+/* words */
+.wgroup{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.wgroup h3{margin:0 0 10px;font-size:14px}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.word{border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0}
+.word .zh{font-size:18px}
+.word .py{font-size:12px}
+.word .ko{font-size:12px}
+
+/* checklist */
+.checks{display:flex;flex-direction:column;gap:6px}
+.check{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;cursor:pointer}
+.check input{flex:none;width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent)}
+.check.on span{text-decoration:line-through;color:var(--muted)}
+ul.rules{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.rules li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px}
+ul.rules li .zh{font-size:16px;display:inline}
+.foot{font-size:12px;color:var(--muted);margin-top:8px}
+.foot a{color:var(--accent)}
+/* pronunciation */
+.zhrow{display:flex;align-items:flex-start;gap:8px}
+.zhrow .zh{flex:1;min-width:0}
+.say{flex:none;appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--accent);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0}
+.say:active{background:var(--accent-soft)}
+.line.playing .zh,.word.playing .zh{color:var(--accent)}
+.line.playing .say{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.line.repeat .zh{color:var(--seal)}
+.word{cursor:pointer}
+.word.playing{border-color:var(--accent)}
+.shadowbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.shadowbar .st{font-size:13px;color:var(--muted)}
+.shadowbar .st.rep{color:var(--seal);font-weight:600}
+/* how-to per part */
+.howto{background:var(--accent-soft);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.hw{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.hw span{display:inline-block;min-width:52px;font-size:11px;font-weight:700;color:var(--accent);margin-right:6px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:12px;font-weight:600}
+.flow span{background:var(--surface);border-radius:6px;padding:4px 8px}
+.flow span.rec{background:var(--seal);color:#fff}
+.flow i{font-style:normal;color:var(--muted)}
+.sigs{display:flex;flex-direction:column;gap:6px}
+.sig{display:flex;gap:10px;background:var(--surface);border-radius:8px;padding:8px 10px;align-items:center}
+.sig .sk{flex:none;width:38%;min-width:0;display:flex;flex-direction:column}
+.sig .sk .zh{font-size:16px}
+.sig .sk .py{font-size:11px;margin:0}
+.sig .sv{min-width:0;flex:1;display:flex;flex-direction:column;font-size:12px}
+.sig .sv b{color:var(--muted);font-weight:600}
+.sig .sv .zh{font-size:15px}
+.alloc{display:flex;gap:2px;border-radius:8px;overflow:hidden}
+.seg{min-width:38px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:10px;line-height:1.3}
+.seg b{font-size:12px;font-variant-numeric:tabular-nums}
+.seg.s0{background:var(--accent);color:var(--bg)}
+.seg.s1{background:var(--surface);color:var(--fg)}
+.howto .tip b{color:var(--accent)}
+/* illustrations */
+.ill{display:block;width:100%;height:auto;max-height:200px}
+.ill .s{stroke:var(--fg);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.ill .f1{fill:var(--accent-soft)}
+.ill .f2{fill:var(--surface)}
+.ill .ac{fill:var(--accent)}
+.ill .sl{fill:var(--seal)}
+.ill .mu{fill:var(--muted);opacity:.6}
+.ill .dr{stroke:var(--accent)}
+.ill text{font-family:var(--f-mono);font-size:14px;font-weight:600}
+.ill .tw{fill:#fff}
+.q .pic,.scr-body .pic{border-style:solid;padding:8px;background:var(--surface)}
+.pics .pic small{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:left;margin:0 0 2px}
+/* handwriting sheet */
+.sheet{position:fixed;inset:0;z-index:30;background:rgba(10,16,14,.5);display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none!important}
+.sheet-in{background:var(--bg);width:100%;max-width:520px;border-radius:16px 16px 0 0;padding-block:16px calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;max-height:94vh;overflow:auto}
+.ws-head{display:flex;align-items:flex-start;gap:10px}
+.ws-head>div{flex:1;min-width:0}
+.ws-head .zh{font-size:28px}
+.ws-chars{display:flex;gap:6px;flex-wrap:wrap}
+.ws-chars:empty{display:none}
+.ws-pad{align-self:center;width:min(300px,100%);aspect-ratio:1;background:var(--surface);border:1px solid var(--line);border-radius:12px;position:relative;touch-action:none;overflow:hidden}
+.ws-pad svg.grid{position:absolute;inset:0;width:100%;height:100%}
+.ws-pad svg.grid path{stroke:var(--line);stroke-width:1;stroke-dasharray:4 4;fill:none}
+#ws-target{position:absolute;inset:0}
+#ws-target canvas{position:absolute;inset:0;width:100%;height:100%}
+#ws-target .ghost{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-zh);font-size:200px;color:var(--line);line-height:1}
+.ws-msg{font-size:13px;line-height:1.4;color:var(--muted);text-align:center;min-height:2.8em;display:flex;align-items:center;justify-content:center}
+.sheet .simctl{justify-content:center}
+.sheet .simctl .btn{padding:10px 14px}
+#ws-blind[aria-pressed="true"],#ws-quiz[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+#ws-quiz[aria-pressed="false"]{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.mine{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.rec{color:var(--seal)}
+/* tap-to-write characters */
+#v-tpl .hz{cursor:pointer;border-radius:4px;text-decoration:underline dotted var(--line);text-underline-offset:5px}
+.hz:active{background:var(--accent-soft)}
+#ws-title.long{font-size:17px;line-height:1.45}
+.sheet-in.long .ws-head .py,.sheet-in.long .ws-head .ko{font-size:12px;line-height:1.4}
+.sheet-in.long{gap:8px}
+.sheet-in>*{flex:none}
+.ws-chars{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.ws-chars::-webkit-scrollbar{display:none}
+.ws-chars .chip{flex:none}
+/* AI grammar */
+.gram{display:none;flex:none;appearance:none;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);height:34px;padding:0 10px;border-radius:17px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+body.ai-on .gram{display:inline-block}
+.g-out{font-size:14px;line-height:1.6;min-height:120px}
+.g-out h4{margin:14px 0 4px;font-size:14px;color:var(--accent)}
+.g-out h4:first-child{margin-top:0}
+.g-out p{margin:4px 0}
+.g-out ul{margin:4px 0;padding-left:18px;display:flex;flex-direction:column;gap:2px}
+.g-out .wait{color:var(--muted)}
+.g-note{font-size:12px;color:var(--muted)}
+.tap{cursor:pointer;border-radius:4px}
+.tap .spk{display:inline-block;vertical-align:middle;margin-left:4px;color:var(--accent);opacity:.8}
+.tap.playing{color:var(--accent);background:var(--surface)}
+/* vocab quiz */
+.wquiz{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.wquiz h2{margin:0}
+.wq-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.wq-row{display:flex;align-items:center;gap:8px}
+.wq-row select{flex:1;min-width:0;font:inherit;font-size:14px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.wq-box{display:flex;flex-direction:column;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
+.wq-prog{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.wq-q{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;min-height:64px;text-align:center}
+.wq-q .zh{font-size:40px}
+.wq-ko{font-size:22px;font-weight:700}
+.wq-q .py{font-size:15px}
+.wq-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wq-opt{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:15px;padding:14px 8px;border-radius:10px;cursor:pointer;min-height:56px}
+.wq-opt.zh{font-family:var(--f-zh);font-size:22px}
+.wq-opt.ok{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.wq-opt.no{border-color:var(--seal);background:var(--seal-soft);color:var(--seal)}
+.wq-fb{min-height:1.5em;text-align:center;font-size:14px}
+.wq-fb.ok{color:var(--accent)}
+.wq-fb.no{color:var(--seal)}
+.wq-fb .zh{font-size:18px}
+.wq-pad{width:min(260px,100%)}
+.wq-end{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0}
+.wq-end b{font-size:36px;font-variant-numeric:tabular-nums}
+.wq-end span{color:var(--muted);font-size:14px}
+/* compact header on scroll */
+header.top.compact .titlerow,header.top.compact .prog{display:none}
+header.top.compact{padding-block:4px 0}
+.fc-card{perspective:900px;cursor:pointer;outline:none}
+.fc-in{position:relative;min-height:220px;transition:transform .45s;transform-style:preserve-3d}
+.fc-card.flip .fc-in{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:14px;background:var(--bg);backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:12px;text-align:center}
+.fc-front .zh{font-size:56px}
+.fc-back{transform:rotateY(180deg)}
+.fc-back .zh{font-size:34px}
+.fc-back .py{font-size:18px}
+.fc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc-btns .btn{padding:14px}
+details.lvl .pn{min-width:34px;text-align:center}
+.startbox{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.startbox label{display:flex;flex-direction:column;gap:2px;min-width:0}
+.startbox input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+ul.tasks{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+ul.tasks label{display:flex;gap:8px;align-items:flex-start;font-size:14px;cursor:pointer}
+ul.tasks input{flex:none;width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
+ul.tasks input:checked+span{text-decoration:line-through;color:var(--muted)}
+.gos{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gos .chip{text-decoration:none;font-size:12px;padding:4px 10px}
+.pr-list{display:flex;flex-direction:column;gap:6px}
+.pr-row{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.pr-k{flex:none;width:42%;display:flex;align-items:center;gap:6px;min-width:0}
+.pr-k .zh{font-size:22px}
+.pr-tag{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--seal);background:var(--seal-soft);border-radius:6px;padding:1px 6px}
+.pr-v{flex:1;min-width:0;display:flex;flex-direction:column}
+.pr-v .py{font-size:15px;margin:0}
+.pr-v .ko{font-size:12px}
+.pr-row.playing{border-color:var(--accent)}
+.tone-chart{width:100%;max-width:420px;height:auto;align-self:center}
+.tone-chart .tg{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.tone-chart .tl{stroke:var(--accent);stroke-width:4;stroke-linecap:round;fill:none}
+.tone-chart text{fill:var(--muted);font-size:12px;text-anchor:middle;font-family:var(--f-body)}
+.ci{border-top:1px dashed var(--line);padding-top:10px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.ci:empty{display:none}
+.ci-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.ci-h>b.zh{font-size:28px}
+.ci-l{color:var(--muted)}
+.ci-l b{color:var(--fg)}
+.ci-p{font-size:15px;color:var(--fg);margin-top:2px}
+.ci .zh{font-family:var(--f-zh)}
+.ci-out{font-size:14px;line-height:1.6}
+.ci-out h4{margin:10px 0 2px;font-size:13px;color:var(--accent)}
+.ci-out p{margin:2px 0}
+.ci-out ul{margin:2px 0;padding-left:18px}
+.ex{display:flex;flex-direction:column;align-items:center;gap:1px;margin-top:6px;padding:8px 10px;border-radius:10px;background:var(--surface);border:1px dashed var(--line);text-align:center;max-width:100%}
+.ex .zh{font-size:17px}
+.ex .py{font-size:12px}
+.ex .ko{font-size:12px}
+.ex.playing{border-color:var(--accent)}
+.wq-fb .ex{margin:6px auto 0}
+#ws-ex .ex{align-items:flex-start;text-align:left;margin-top:4px;padding:6px 8px}
+.sheet-in.long #ws-ex{display:none}
+.fc-in{min-height:330px}
+/* exam flow */
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0}
+.steps li{display:flex;gap:12px;padding-bottom:14px;position:relative}
+.steps li:not(:last-child)::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.steps .dot{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-size:12px;display:grid;place-items:center;position:relative;z-index:1}
+.steps .st{min-width:0}
+.steps b{display:block;font-size:14px}
+.steps span{font-size:13px;color:var(--muted)}
+.cycle{display:flex;flex-direction:column;gap:6px}
+.cy{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.cy .k{flex:none;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);min-width:52px;text-align:center}
+.cy.rec .k{background:var(--seal-soft);color:var(--seal)}
+.cy p{margin:0;font-size:13px;min-width:0}
+.arrow{font-size:12px;color:var(--muted);padding-left:24px}
+.note{background:var(--seal-soft);color:var(--fg);border-radius:12px;padding:14px;font-size:14px}
+.note b{color:var(--seal)}
+.note ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+
+/* simulator */
+.screen{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.scr-top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.scr-top b{color:var(--fg);font-family:var(--f-mono)}
+.scr-body{padding:18px 14px;min-height:190px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.scr-body .zh{font-size:20px}
+.pic{border:1.5px dashed var(--line);border-radius:10px;padding:16px;text-align:center;font-size:14px;color:var(--muted)}
+.pic small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;margin-bottom:4px}
+.pics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pics .pic{padding:12px 8px;font-size:13px}
+.listen{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.wave{display:flex;gap:3px;align-items:flex-end;height:18px}
+.wave i{width:3px;background:var(--accent);border-radius:2px;animation:wv 1s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}.wave i:nth-child(4){animation-delay:.45s}
+@keyframes wv{0%,100%{height:5px}50%{height:18px}}
+.scr-foot{padding:12px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.phase{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.phase .sec{font-family:var(--f-mono);font-size:18px}
+.phase.rec{color:var(--seal)}
+.recdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--seal);margin-right:6px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.2}}
+.tbar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--accent);width:100%}
+.phase.rec+.tbar i{background:var(--seal)}
+.simctl{display:flex;gap:8px;flex-wrap:wrap}
+.btn{appearance:none;border:0;background:var(--accent);color:var(--bg);font:inherit;font-size:14px;font-weight:600;padding:10px 18px;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.review .q{gap:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.fc-card:focus-visible .fc-in{outline:2px solid var(--accent);outline-offset:3px;border-radius:14px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="titlerow">
+      <div class="seal" aria-hidden="true">四<br>级</div>
+      <div>
+        <h1>TSC 4급 13주</h1>
+        <p id="dday">11/2 시작 · 2월 초 1차 응시</p>
+      </div>
+    </div>
+    <div class="prog"><div class="bar"><i id="barfill"></i></div><span id="progtext">0/13주</span></div>
+    <nav class="tabs" aria-label="섹션">
+      <a href="#plan" data-v="plan">계획</a>
+      <a href="#pron" data-v="pron">발음</a>
+      <a href="#sim" data-v="sim">실전</a>
+      <a href="#tpl" data-v="tpl">템플릿</a>
+      <a href="#qs" data-v="qs">예상문제</a>
+      <a href="#words" data-v="words">단어</a>
+      <a href="#day" data-v="day">당일</a>
+    </nav>
+  </header>
+
+  <div class="toggles" id="toggles">
+    <button class="chip" id="t-py" aria-pressed="true">병음</button>
+    <button class="chip" id="t-ko" aria-pressed="true">뜻</button>
+    <button class="chip" id="t-slow" aria-pressed="false">느리게 읽기</button>
+    <button class="chip" id="t-voice" aria-pressed="true">남자 목소리</button>
+  </div>
+
+  <section class="view" id="v-plan"></section>
+  <section class="view" id="v-pron" hidden></section>
+  <section class="view" id="v-sim" hidden></section>
+  <section class="view" id="v-tpl" hidden></section>
+  <section class="view" id="v-qs" hidden></section>
+  <section class="view" id="v-words" hidden></section>
+  <section class="view" id="v-day" hidden></section>
+</div>
+<div class="sheet" id="wsheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="ws-title">
+    <div class="ws-head"><div><div class="zh" id="ws-title" lang="zh-CN"></div><div class="py" id="ws-py"></div><div class="ko" id="ws-ko"></div><div id="ws-ex"></div></div>
+      <button class="say" type="button" id="ws-say" data-say="" aria-label="발음 듣기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button class="btn ghost" type="button" id="ws-close">닫기</button></div>
+    <div class="ws-chars" id="ws-chars"></div>
+    <div class="ws-pad"><svg class="grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0V100M0 50H100M0 0L100 100M100 0L0 100"/></svg><div id="ws-target"></div></div>
+    <div class="ws-msg" id="ws-msg" aria-live="polite"></div>
+    <div class="simctl"><button class="btn ghost" type="button" id="ws-anim">획순 보기</button><button class="btn" type="button" id="ws-quiz">따라 쓰기</button><button class="btn ghost" type="button" id="ws-blind">안 보고 쓰기</button></div>
+    <div class="ci" id="ws-info" aria-live="polite"></div>
+  </div>
+</div>
+<div class="sheet" id="gsheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="gs-title">
+    <div class="ws-head"><div><div class="eyebrow">AI 문법 분석</div><div class="zh" id="gs-title" lang="zh-CN" style="font-size:20px;line-height:1.45"></div><div class="py" id="gs-py"></div><div class="ko" id="gs-ko"></div></div>
+      <button class="btn ghost" type="button" id="gs-close">닫기</button></div>
+    <div class="g-out" id="gs-out" aria-live="polite"></div>
+    <div class="simctl"><button class="btn ghost" type="button" id="gs-stop" hidden>멈추기</button><button class="btn ghost" type="button" id="gs-again" hidden>다시 분석</button></div>
+    <p class="g-note">분석은 Claude가 그때그때 만들어서 가끔 틀릴 수 있어. 처음 한 번은 AI 사용 허용을 물어봐.</p>
+  </div>
+</div>
+<input type="file" id="recfile" accept="audio/*" capture hidden>
+
+<script>
+let START=(()=>{let v="2026-11-02";try{const x=JSON.parse(localStorage.getItem("tsc-start"));if(/^\d{4}-\d{2}-\d{2}$/.test(x))v=x}catch(e){}const [y,m,d]=v.split("-").map(Number);return new Date(y,m-1,d)})();
+const isoD=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const addD=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const G=(tab,label)=>({tab,label});
+const WEEKS = [
+ {t:"발음 기초 + TSC 핵심 단어",go:[G("pron","발음"),G("words","단어")],tasks:["발음 탭 성조·성조 변화·헷갈리는 소리 듣고 따라 하기 (매일 10분)","단어 탭 '카드 뒤집기' TSC 핵심 20장 (매일)","주말: TSC 핵심 '뜻 맞히기' 10문제 2번"],goal:"성조 4개를 듣고 구분할 수 있다"},
+ {t:"HSK 1급 단어 + 발음 복습",go:[G("words","단어"),G("pron","발음")],tasks:["단어 카드 HSK 1급 20장 (매일)","발음 탭 한 번 더 따라 하기 (격일)","주말: HSK 1급 '듣고 고르기' 10문제 3번"],goal:"HSK 1급 뜻 맞히기 8/10 이상"},
+ {t:"Part 1 자기소개",go:[G("tpl","템플릿"),G("sim","실전")],tasks:["템플릿 P1 '따라 말하기' (매일)","P1 문장 한자 눌러서 쓰기 연습","실전 탭 P1 모의 3번","단어 카드 HSK 1급 계속"],goal:"P1 4문항을 10초 안에 막힘없이"},
+ {t:"Part 2 그림 보고 답하기",go:[G("tpl","템플릿"),G("qs","예상문제")],tasks:["템플릿 P2 5패턴 따라 말하기 (매일)","예상문제 P2 6개: 그림 보고 먼저 말하고 '답 보기'","단어: 위치·숫자·양사 카드"],goal:"그림 보고 3초 안에 첫 문장"},
+ {t:"Part 2 마무리 + HSK 2급 시작",go:[G("sim","실전"),G("words","단어")],tasks:["실전 탭 P2 모의 (매일 1회)","단어 카드 HSK 2급 20장 (매일)","P2 문장 '문법' 버튼으로 구조 보기"],goal:"P2 모의 6문제 무응답 0"},
+ {t:"Part 3 빠른 응답",go:[G("tpl","템플릿"),G("qs","예상문제"),G("words","단어")],tasks:["템플릿 P3 따라 말하기 (매일)","예상문제 P3 5개 답 말하기","단어 '듣고 고르기' HSK 1~2급 (매일 10문제)"],goal:"들린 단어로 15초 동안 2문장"},
+ {t:"Part 4 일상 대답",go:[G("tpl","템플릿"),G("qs","예상문제")],tasks:["템플릿 P4 4문장 공식 따라 말하기","예상문제 P4 모범답안 4개 소리 내서 외우기","단어 카드 HSK 2급 계속"],goal:"P4 질문에 25초 채우기"},
+ {t:"Part 4 마무리 + 시험 접수",go:[G("sim","실전"),G("day","당일")],tasks:["실전 탭 P4 모의 (매일 1회)","P4 답 2개를 내 이야기로 바꿔 말하기 ('문법'으로 확인)","YBM TSC 사이트에서 W13 주간 회차 접수"],goal:"시험 접수 완료",tag:"접수"},
+ {t:"Part 5 의견 말하기 + HSK 3급",go:[G("tpl","템플릿"),G("qs","예상문제"),G("words","단어")],tasks:["템플릿 P5 뼈대 + 이유 문장 따라 말하기","예상문제 P5 빈출 주제 6개 중 매일 하나 말하기","단어 카드 HSK 3급 20장 (매일)"],goal:"아무 주제나 40초 말하기"},
+ {t:"복습·따라잡기 주",go:[G("words","단어"),G("tpl","템플릿")],tasks:["밀린 주차 할 일 채우기","단어 '틀린 단어 다시' 전부","템플릿 P1~P5 따라 말하기 (하루 한 파트)"],goal:"지난 주차 체크 다 채우기",tag:"여유"},
+ {t:"Part 6 상황 대응 + Part 7 스토리",go:[G("tpl","템플릿"),G("qs","예상문제"),G("sim","실전")],tasks:["템플릿 P6 4종, P7 6문장 틀 따라 말하기","예상문제 P6·P7 답 말하기","단어 카드 HSK 3급 계속"],goal:"실전 P6·P7 모의 무응답 0"},
+ {t:"실전 모의고사 주",go:[G("sim","실전"),G("qs","예상문제"),G("words","단어")],tasks:["실전 탭 미니 모의고사 매일 1회 (폰 녹음 켜고)","예상문제 전체: 답 숨긴 채로 말하기","단어 '손으로 쓰기' 10문제"],goal:"미니 모의 7문항 전부 말하기"},
+ {t:"마무리 + 시험 응시",go:[G("sim","실전"),G("day","당일")],tasks:["실전 미니 모의 2회 이상","단어 '틀린 단어 다시' 비우기","당일 탭 체크리스트 확인","시험 응시"],goal:"시험 응시",tag:"시험"}
+];
+const PARTS = [
+  ["1","자기소개","4","0/10","100% 암기"],
+  ["2","그림 보고 답하기","4","3/6","한 문장 정확히"],
+  ["3","빠른 응답","5","2/15","2문장"],
+  ["4","간단한 대답","5","15/25","3~4문장"],
+  ["5","의견 말하기","4","30/50","만능 템플릿"],
+  ["6","상황 대응","3","30/40","템플릿 4종"],
+  ["7","4컷 스토리","1","30/90","5~6문장"]
+];
+
+const L = (zh,py,ko,lab)=>({zh,py,ko,lab});
+const TPL = [
+ {p:1,t:"자기소개",m:"본인용 · 통암기",tip:"본인 정보로 다 채운 완성본. 연도는 숫자를 하나씩(一九九五) 읽는다. 채점은 안 되지만 첫인상이라 막힘없이.",lines:[
+  L("我叫黄俊善。","Wǒ jiào Huáng Jùnshàn.","제 이름은 황준선입니다."),
+  L("我是一九九五年三月二十一号出生的。","Wǒ shì yī jiǔ jiǔ wǔ nián sān yuè èrshíyī hào chūshēng de.","1995년 3월 21일생입니다."),
+  L("我家有两口人，我和我老婆。明年五月我们的宝宝就要出生了。","Wǒ jiā yǒu liǎng kǒu rén, wǒ hé wǒ lǎopo. Míngnián wǔ yuè wǒmen de bǎobao jiù yào chūshēng le.","저랑 와이프 두 식구예요. 내년 5월에 아기가 태어나요."),
+  L("我在三星电子上班，是做机械设计的。","Wǒ zài Sānxīng Diànzǐ shàngbān, shì zuò jīxiè shèjì de.","삼성전자 다니고, 기구 설계 일을 해요.")]},
+ {p:2,t:"그림 보고 답하기",m:"5가지 패턴",tip:"질문의 동사·명사를 그대로 받아서 한 문장.",lines:[
+  L("书在桌子上边。","Shū zài zhuōzi shàngbian.","책은 책상 위에 있다.","위치 · A在B的 上边/下边/旁边/里边"),
+  L("他在跑步。","Tā zài pǎobù.","그는 달리고 있다.","동작 · 他/她在 + 동사"),
+  L("哥哥比弟弟高。","Gēge bǐ dìdi gāo.","형이 동생보다 크다.","비교 · A比B + 형용사"),
+  L("这件衣服八十块钱。","Zhè jiàn yīfu bāshí kuài qián.","이 옷은 80위안이다.","가격 · 这个___块钱"),
+  L("现在三点半。","Xiànzài sān diǎn bàn.","지금 3시 반이다.","시간·수량 · 现在___点 / 一共有___个")]},
+ {p:3,t:"빠른 응답",m:"답 + 한 마디",tip:"대답 한 문장 + 되묻기나 이유 한 문장.",lines:[
+  L("我一般___。你呢？","Wǒ yìbān ___. Nǐ ne?","저는 보통 ___해요. 너는?","습관"),
+  L("我喜欢___，因为很有意思。","Wǒ xǐhuan ___, yīnwèi hěn yǒu yìsi.","___을 좋아해요, 재밌거든요.","선호"),
+  L("我打算___。你也一起去吧！","Wǒ dǎsuàn ___. Nǐ yě yìqǐ qù ba!","___할 계획이에요. 같이 가자!","계획"),
+  L("我___过___，挺好的。","Wǒ ___guo ___, tǐng hǎo de.","___해봤는데 꽤 좋았어요.","경험"),
+  L("好啊，我们一起___吧！","Hǎo a, wǒmen yìqǐ ___ ba!","좋아, 같이 ___하자!","제안 받을 때")]},
+ {p:4,t:"간단한 대답",m:"4문장 공식",tip:"답 → 이유 → 예시 → 마무리. 이 순서만 지키면 25초가 찬다.",lines:[
+  L("我平时___。","Wǒ píngshí ___.","저는 평소에 ___.","① 답"),
+  L("因为___，而且___。","Yīnwèi ___, érqiě ___.","왜냐하면 ___, 게다가 ___.","② 이유"),
+  L("比如说，___。","Bǐrú shuō, ___.","예를 들면 ___.","③ 예시"),
+  L("所以我觉得___很重要。","Suǒyǐ wǒ juéde ___ hěn zhòngyào.","그래서 ___이 중요하다고 생각해요.","④ 마무리")]},
+ {p:5,t:"의견 말하기",m:"만능 5문장",tip:"어떤 주제든 이 뼈대 + 아래 이유 문장 2개를 끼운다. 말하듯 자연스러운 구어체 버전.",lines:[
+  L("我觉得___。","Wǒ juéde ___.","저는 ___라고 생각해요.","① 주장"),
+  L("首先，___。","Shǒuxiān, ___.","우선 ___.","② 이유 1"),
+  L("还有，___。","Háiyǒu, ___.","그리고 ___.","③ 이유 2"),
+  L("当然也有不好的地方，不过好处更多。","Dāngrán yě yǒu bù hǎo de dìfang, búguò hǎochù gèng duō.","물론 안 좋은 점도 있지만 좋은 점이 더 많아요.","④ 반론"),
+  L("所以我觉得___。","Suǒyǐ wǒ juéde ___.","그래서 저는 ___라고 생각해요.","⑤ 결론")],
+  extra:{title:"首先/还有에 끼울 이유 문장",lines:[
+  L("能省时间","néng shěng shíjiān","시간을 아낄 수 있다"),
+  L("对身体好","duì shēntǐ hǎo","몸에 좋다"),
+  L("能放松一下","néng fàngsōng yíxià","스트레스를 풀 수 있다"),
+  L("做事更快","zuò shì gèng kuài","일을 더 빨리 할 수 있다"),
+  L("能学到很多东西","néng xuédào hěn duō dōngxi","많은 걸 배울 수 있다"),
+  L("太费钱了","tài fèi qián le","돈이 너무 많이 든다 (반대 의견용)")]}},
+ {p:6,t:"상황 대응",m:"4종",tip:"인사 → 용건 → 구체 정보 → 마무리 인사.",lines:[
+  L("喂，你好！我想请你帮个忙。你能___吗？太谢谢你了，下次我请你吃饭。","Wéi, nǐ hǎo! Wǒ xiǎng qǐng nǐ bāng ge máng. Nǐ néng ___ ma? Tài xièxie nǐ le, xià cì wǒ qǐng nǐ chīfàn.","여보세요! 부탁 좀 할게. ___해줄 수 있어? 고마워, 다음에 밥 살게.","부탁"),
+  L("你好，我想订___。我们一共___个人，___点到。有___吗？","Nǐ hǎo, wǒ xiǎng dìng ___. Wǒmen yígòng ___ ge rén, ___ diǎn dào. Yǒu ___ ma?","___ 예약하고 싶어요. 총 _명이고 _시에 가요. ___ 있나요?","예약"),
+  L("真不好意思，我___有事儿，去不了了。下次再一起___吧！","Zhēn bù hǎoyìsi, wǒ ___ yǒu shìr, qù bu liǎo le. Xià cì zài yìqǐ ___ ba!","정말 미안, ___에 일이 있어서 못 가겠다. 다음에 같이 ___하자!","거절·사과"),
+  L("你好，我昨天在这儿买了___，但是有问题。能不能给我换一个？","Nǐ hǎo, wǒ zuótiān zài zhèr mǎile ___, dànshì yǒu wèntí. Néng bu néng gěi wǒ huàn yí ge?","어제 여기서 ___을 샀는데 문제가 있어요. 교환해 주실 수 있나요?","항의·교환")]},
+ {p:7,t:"4컷 스토리",m:"6문장 틀",tip:"그림 4컷을 이 6문장에 순서대로 끼운다.",lines:[
+  L("今天天气很好，___去了___。","Jīntiān tiānqì hěn hǎo, ___ qùle ___.","오늘 날씨가 좋아서 ___는 ___에 갔다."),
+  L("他在那儿___。","Tā zài nàr ___.","그는 거기서 ___했다."),
+  L("突然，___。","Tūrán, ___.","갑자기 ___."),
+  L("他特别着急。","Tā tèbié zháojí.","그는 엄청 당황했다."),
+  L("最后，___。","Zuìhòu, ___.","결국 ___."),
+  L("这真是难忘的一天。","Zhè zhēn shì nánwàng de yì tiān.","정말 잊지 못할 하루였다.")]}
+];
+
+const Q = (p,q,a,pic)=>({p,q,a,pic});
+const QS = [
+ Q(2,L("桌子上有什么？","Zhuōzi shang yǒu shénme?","책상 위에 뭐가 있어?"),L("桌子上有一本书。","Zhuōzi shang yǒu yì běn shū.","책상 위에 책 한 권이 있어요."),"책상 위에 책 한 권"),
+ Q(2,L("猫在哪儿？","Māo zài nǎr?","고양이 어디 있어?"),L("猫在椅子下边。","Māo zài yǐzi xiàbian.","고양이는 의자 아래에 있어요."),"의자 아래에 고양이"),
+ Q(2,L("他在做什么？","Tā zài zuò shénme?","그는 뭐 하고 있어?"),L("他在看电视。","Tā zài kàn diànshì.","TV를 보고 있어요."),"소파에서 TV 보는 남자"),
+ Q(2,L("哪个更贵？","Nǎge gèng guì?","어느 게 더 비싸?"),L("电脑比手机贵。","Diànnǎo bǐ shǒujī guì.","컴퓨터가 휴대폰보다 비싸요."),"컴퓨터 5000元 · 휴대폰 3000元"),
+ Q(2,L("一共有几个人？","Yígòng yǒu jǐ ge rén?","모두 몇 명이야?"),L("一共有三个人。","Yígòng yǒu sān ge rén.","모두 세 명이에요."),"식탁에 앉은 사람 세 명"),
+ Q(2,L("现在几点？","Xiànzài jǐ diǎn?","지금 몇 시야?"),L("现在八点一刻。","Xiànzài bā diǎn yí kè.","지금 8시 15분이에요."),"벽시계 8:15"),
+ Q(3,L("你周末一般做什么？","Nǐ zhōumò yìbān zuò shénme?","주말에 보통 뭐 해?"),L("我周末一般去健身房运动。你呢？","Wǒ zhōumò yìbān qù jiànshēnfáng yùndòng. Nǐ ne?","주말엔 보통 헬스장 가서 운동해. 너는?")),
+ Q(3,L("你喜欢吃什么菜？","Nǐ xǐhuan chī shénme cài?","무슨 음식 좋아해?"),L("我喜欢吃中国菜，特别好吃。","Wǒ xǐhuan chī Zhōngguó cài, tèbié hǎochī.","중국 음식 좋아해, 엄청 맛있거든.")),
+ Q(3,L("这个周末一起去看电影，怎么样？","Zhège zhōumò yìqǐ qù kàn diànyǐng, zěnmeyàng?","주말에 같이 영화 볼래?"),L("好啊，我们一起去吧！几点见？","Hǎo a, wǒmen yìqǐ qù ba! Jǐ diǎn jiàn?","좋아, 같이 가자! 몇 시에 볼까?")),
+ Q(3,L("你去过中国吗？","Nǐ qùguo Zhōngguó ma?","중국 가봤어?"),L("我没去过中国，明年我想去北京旅游。","Wǒ méi qùguo Zhōngguó, míngnián wǒ xiǎng qù Běijīng lǚyóu.","안 가봤어, 내년에 베이징 여행 가고 싶어.")),
+ Q(3,L("你明天有空吗？","Nǐ míngtiān yǒu kòng ma?","내일 시간 있어?"),L("明天我要加班，后天有空。","Míngtiān wǒ yào jiābān, hòutiān yǒu kòng.","내일은 야근이고 모레는 시간 있어.")),
+ Q(4,L("你平时常做运动吗？","Nǐ píngshí cháng zuò yùndòng ma?","평소에 운동 자주 해?"),L("我平时经常运动。因为上班压力挺大的，而且运动对身体好。比如说，我一个星期去三次健身房。所以我觉得运动挺重要的。","Wǒ píngshí jīngcháng yùndòng. Yīnwèi shàngbān yālì tǐng dà de, érqiě yùndòng duì shēntǐ hǎo. Bǐrú shuō, wǒ yí ge xīngqī qù sān cì jiànshēnfáng. Suǒyǐ wǒ juéde yùndòng tǐng zhòngyào de.","자주 해요. 회사 스트레스가 꽤 크고 운동은 몸에 좋거든요. 예를 들어 일주일에 세 번 헬스장에 가요. 그래서 운동이 꽤 중요한 것 같아요.")),
+ Q(4,L("你喜欢在家做饭还是去饭店吃饭？","Nǐ xǐhuan zài jiā zuòfàn háishi qù fàndiàn chīfàn?","집밥이 좋아, 외식이 좋아?"),L("我喜欢在家做饭。因为在家做饭比较省钱，而且更健康。比如说，周末我经常给我老婆做饭。所以我觉得在家吃更好。","Wǒ xǐhuan zài jiā zuòfàn. Yīnwèi zài jiā zuòfàn bǐjiào shěng qián, érqiě gèng jiànkāng. Bǐrú shuō, zhōumò wǒ jīngcháng gěi wǒ lǎopo zuòfàn. Suǒyǐ wǒ juéde zài jiā chī gèng hǎo.","집밥이 좋아요. 돈도 아끼고 더 건강하거든요. 예를 들어 주말엔 자주 와이프한테 밥을 해줘요. 그래서 집에서 먹는 게 더 좋아요.")),
+ Q(4,L("你怎么去上班？","Nǐ zěnme qù shàngbān?","출근 어떻게 해?"),L("我开车上班。因为开车很方便，而且我家离公司有点儿远。比如说，坐公交车要一个小时，开车只要三十分钟。所以我每天都开车上班。","Wǒ kāichē shàngbān. Yīnwèi kāichē hěn fāngbiàn, érqiě wǒ jiā lí gōngsī yǒudiǎnr yuǎn. Bǐrú shuō, zuò gōngjiāochē yào yí ge xiǎoshí, kāichē zhǐ yào sānshí fēnzhōng. Suǒyǐ wǒ měitiān dōu kāichē shàngbān.","차로 출근해요. 편하고 집이 회사에서 좀 멀어요. 버스는 한 시간, 차는 30분이면 돼요. 그래서 매일 운전해서 출근해요.")),
+ Q(4,L("你有什么爱好？","Nǐ yǒu shénme àihào?","취미가 뭐야?"),L("我平时喜欢看棒球比赛。因为特别有意思，而且能放松一下。比如说，周末我经常跟朋友一起去看比赛。所以我觉得有个爱好挺好的。","Wǒ píngshí xǐhuan kàn bàngqiú bǐsài. Yīnwèi tèbié yǒu yìsi, érqiě néng fàngsōng yíxià. Bǐrú shuō, zhōumò wǒ jīngcháng gēn péngyou yìqǐ qù kàn bǐsài. Suǒyǐ wǒ juéde yǒu ge àihào tǐng hǎo de.","평소에 야구 보는 걸 좋아해요. 엄청 재밌고 스트레스도 풀리거든요. 주말에 친구랑 자주 경기 보러 가요. 그래서 취미가 있는 게 좋은 것 같아요.")),
+ Q(5,L("你认为在家工作有什么好处？","Nǐ rènwéi zài jiā gōngzuò yǒu shénme hǎochù?","재택근무의 장점은?"),L("我觉得在家工作好处挺多的。首先，不用上下班，能省很多时间。还有，在家工作压力小，做事更快。当然也有不好的地方，不过好处更多。所以我觉得在家工作挺好的。","Wǒ juéde zài jiā gōngzuò hǎochù tǐng duō de. Shǒuxiān, búyòng shàng xià bān, néng shěng hěn duō shíjiān. Háiyǒu, zài jiā gōngzuò yālì xiǎo, zuò shì gèng kuài. Dāngrán yě yǒu bù hǎo de dìfang, búguò hǎochù gèng duō. Suǒyǐ wǒ juéde zài jiā gōngzuò tǐng hǎo de.","장점이 꽤 많은 것 같아요. 우선 출퇴근을 안 해도 돼서 시간을 많이 아껴요. 그리고 스트레스가 적어서 일을 더 빨리 해요. 물론 안 좋은 점도 있지만 좋은 점이 더 많아요. 그래서 재택근무가 괜찮다고 생각해요.")),
+ Q(5,L("你认为孩子从小学外语好吗？","Nǐ rènwéi háizi cóngxiǎo xué wàiyǔ hǎo ma?","어릴 때부터 외국어 배우는 게 좋을까?"),L("我觉得孩子从小学外语挺好的。首先，小时候学语言特别快。还有，能学到很多东西，以后找工作也有帮助。当然也有不好的地方，比如太费钱了，不过好处更多。所以我觉得应该从小学外语。","Wǒ juéde háizi cóngxiǎo xué wàiyǔ tǐng hǎo de. Shǒuxiān, xiǎo shíhou xué yǔyán tèbié kuài. Háiyǒu, néng xuédào hěn duō dōngxi, yǐhòu zhǎo gōngzuò yě yǒu bāngzhù. Dāngrán yě yǒu bù hǎo de dìfang, bǐrú tài fèi qián le, búguò hǎochù gèng duō. Suǒyǐ wǒ juéde yīnggāi cóngxiǎo xué wàiyǔ.","좋은 것 같아요. 우선 어릴 때는 언어를 엄청 빨리 배워요. 그리고 많은 걸 배우고 나중에 취업에도 도움이 돼요. 돈이 너무 드는 단점도 있지만 좋은 점이 더 많아요. 그래서 어릴 때부터 배워야 한다고 생각해요.")),
+ Q(6,L("这个星期六你要搬家，请给朋友打电话，请他来帮忙。","Zhège xīngqīliù nǐ yào bānjiā, qǐng gěi péngyou dǎ diànhuà, qǐng tā lái bāngmáng.","이번 토요일에 이사해요. 친구에게 전화해서 도와달라고 하세요."),L("喂，小王，你好！我想请你帮个忙。这个星期六我要搬家，你能来帮我吗？太谢谢你了，下次我请你吃饭。","Wéi, Xiǎo Wáng, nǐ hǎo! Wǒ xiǎng qǐng nǐ bāng ge máng. Zhège xīngqīliù wǒ yào bānjiā, nǐ néng lái bāng wǒ ma? Tài xièxie nǐ le, xià cì wǒ qǐng nǐ chīfàn.","샤오왕! 부탁 좀 할게. 이번 토요일에 이사하는데 도와줄 수 있어? 고마워, 다음에 밥 살게.")),
+ Q(6,L("你想明天晚上和朋友去饭店吃饭，请给饭店打电话预订。","Nǐ xiǎng míngtiān wǎnshang hé péngyou qù fàndiàn chīfàn, qǐng gěi fàndiàn dǎ diànhuà yùdìng.","내일 저녁 친구들과 식당에 가려고 해요. 전화로 예약하세요."),L("你好，我想订明天晚上的位子。我们一共四个人，七点到。有包间吗？谢谢。","Nǐ hǎo, wǒ xiǎng dìng míngtiān wǎnshang de wèizi. Wǒmen yígòng sì ge rén, qī diǎn dào. Yǒu bāojiān ma? Xièxie.","내일 저녁 자리 예약하고 싶어요. 4명이고 7시에 가요. 룸 있나요? 감사합니다.")),
+ Q(6,L("朋友约你明天去看电影，可是你要加班。请你拒绝他。","Péngyou yuē nǐ míngtiān qù kàn diànyǐng, kěshì nǐ yào jiābān. Qǐng nǐ jùjué tā.","친구가 내일 영화 보자는데 야근이에요. 거절하세요."),L("真不好意思，我明天得加班，看不了电影了。下次再一起去吧！","Zhēn bù hǎoyìsi, wǒ míngtiān děi jiābān, kàn bu liǎo diànyǐng le. Xià cì zài yìqǐ qù ba!","정말 미안, 내일 야근해야 해서 영화 못 보겠다. 다음에 같이 가자!")),
+ Q(6,L("你昨天买的衣服太小了，请你去商店要求换一件。","Nǐ zuótiān mǎi de yīfu tài xiǎo le, qǐng nǐ qù shāngdiàn yāoqiú huàn yí jiàn.","어제 산 옷이 너무 작아요. 가게에 가서 교환을 요청하세요."),L("你好，我昨天在这儿买了一件衣服，但是太小了。能不能给我换一件大的？","Nǐ hǎo, wǒ zuótiān zài zhèr mǎile yí jiàn yīfu, dànshì tài xiǎo le. Néng bu néng gěi wǒ huàn yí jiàn dà de?","어제 여기서 옷을 샀는데 너무 작아요. 큰 걸로 바꿔주실 수 있나요?")),
+ Q(7,L("请根据四幅图的内容讲述一个完整的故事。","Qǐng gēnjù sì fú tú de nèiróng jiǎngshù yí ge wánzhěng de gùshi.","4컷 그림을 보고 하나의 이야기를 말하세요."),L("今天天气很好，小明去了公园。他坐在椅子上看书。突然，下雨了。他没带雨伞，很着急。最后，一个女孩儿给了他一把雨伞。这真是难忘的一天。","Jīntiān tiānqì hěn hǎo, Xiǎo Míng qùle gōngyuán. Tā zuò zài yǐzi shang kàn shū. Tūrán, xià yǔ le. Tā méi dài yǔsǎn, hěn zháojí. Zuìhòu, yí ge nǚháir gěile tā yì bǎ yǔsǎn. Zhè zhēn shì nánwàng de yì tiān.","날씨가 좋아 샤오밍은 공원에 갔다. 벤치에서 책을 읽었다. 갑자기 비가 왔다. 우산이 없어 당황했다. 결국 한 여자아이가 우산을 줬다. 잊지 못할 하루였다."),["① 공원에 가는 남자","② 벤치에서 책 읽기","③ 갑자기 비","④ 여자아이가 우산을 줌"])
+];
+const P1Q = [
+ L("请说出你的名字。","Qǐng shuōchū nǐ de míngzi.","이름을 말해 주세요."),
+ L("请说出你的出生日期。","Qǐng shuōchū nǐ de chūshēng rìqī.","생년월일을 말해 주세요."),
+ L("你家有几口人？","Nǐ jiā yǒu jǐ kǒu rén?","가족이 몇 명인가요?"),
+ L("你在什么地方工作？","Nǐ zài shénme dìfang gōngzuò?","어디에서 일하나요?")
+];
+const P1A = TPL[0].lines;
+const SIMCFG = {1:{prep:0,ans:10,mode:"text",name:"자기소개"},2:{prep:3,ans:6,mode:"pic",name:"그림 보고 답하기"},3:{prep:2,ans:15,mode:"audio",name:"빠른 응답"},4:{prep:15,ans:25,mode:"text",name:"간단한 대답"},5:{prep:30,ans:50,mode:"text",name:"의견 말하기"},6:{prep:30,ans:40,mode:"text",name:"상황 대응"},7:{prep:30,ans:90,mode:"pics",name:"4컷 스토리"}};
+const TOPICS5 = ["재택근무","스마트폰의 영향","어릴 때 외국어 교육","온라인 쇼핑","맞벌이","운동의 중요성"];
+
+const W = (zh,py,ko)=>({zh,py,ko});
+const WORDS = [
+ ["가족·사람",[W("妻子","qīzi","아내"),W("老婆","lǎopo","와이프 (구어)"),W("孩子","háizi","아이"),W("爸爸","bàba","아빠"),W("妈妈","māma","엄마"),W("朋友","péngyou","친구"),W("同事","tóngshì","동료")]],
+ ["시간",[W("今天","jīntiān","오늘"),W("明天","míngtiān","내일"),W("昨天","zuótiān","어제"),W("周末","zhōumò","주말"),W("晚上","wǎnshang","저녁"),W("点","diǎn","시"),W("分","fēn","분"),W("半","bàn","반")]],
+ ["장소",[W("公司","gōngsī","회사"),W("家","jiā","집"),W("公园","gōngyuán","공원"),W("饭店","fàndiàn","식당"),W("医院","yīyuàn","병원"),W("健身房","jiànshēnfáng","헬스장"),W("超市","chāoshì","마트")]],
+ ["위치",[W("上边","shàngbian","위"),W("下边","xiàbian","아래"),W("旁边","pángbiān","옆"),W("里边","lǐbian","안"),W("前边","qiánbian","앞"),W("后边","hòubian","뒤")]],
+ ["동작",[W("跑步","pǎobù","달리기"),W("看书","kàn shū","책 읽다"),W("做饭","zuòfàn","밥하다"),W("买","mǎi","사다"),W("开车","kāichē","운전"),W("加班","jiābān","야근"),W("搬家","bānjiā","이사"),W("旅游","lǚyóu","여행")]],
+ ["형용사",[W("贵","guì","비싸다"),W("便宜","piányi","싸다"),W("大","dà","크다"),W("小","xiǎo","작다"),W("忙","máng","바쁘다"),W("方便","fāngbiàn","편리하다"),W("健康","jiànkāng","건강하다"),W("着急","zháojí","당황하다")]],
+ ["양사",[W("个","ge","일반"),W("本","běn","책"),W("件","jiàn","옷"),W("杯","bēi","컵"),W("把","bǎ","우산·의자"),W("只","zhī","동물"),W("口","kǒu","식구")]],
+ ["연결어",[W("因为","yīnwèi","왜냐하면"),W("所以","suǒyǐ","그래서"),W("而且","érqiě","게다가"),W("但是","dànshì","하지만"),W("比如说","bǐrú shuō","예를 들면"),W("突然","tūrán","갑자기"),W("最后","zuìhòu","결국")]],
+ ["시간 벌기",[W("这个嘛…","zhège ma…","음…"),W("怎么说呢","zěnme shuō ne","뭐라고 할까"),W("我想想","wǒ xiǎng xiang","생각해볼게")]]
+];
+
+const CHECKS = [
+ "__REG__",
+ "Knox에서 TSC 4급의 사내 어학 등급 환산 확인",
+ "신분증 챙기기, 30분 전 도착",
+ "대기실에서 Part 1 자기소개 4문장 소리 내서 2번",
+ "Part 5 만능 템플릿 한 번 읽기 (我觉得 → 首先 → 还有 → 当然 → 所以我觉得)",
+ "마이크 테스트 때 평소보다 조금 크게 말하기"
+];
+
+/* storage (per-viewer convenience only) */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const zhHTML=s=>esc(s).replace(/[\u4e00-\u9fff]/g,c=>`<span class="hz">${c}</span>`).replace(/___/g,'<span class="blank">___</span>');
+const SPK='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const lineHTML=(l,i)=>`<div class="line">${i!=null?`<div class="n">${i}</div>`:""}<div class="c">${l.lab?`<div class="lab">${esc(l.lab)}</div>`:""}<div class="zhrow"><div class="zh" lang="zh-CN">${zhHTML(l.zh)}</div><button class="say" type="button" aria-label="발음 듣기" data-say="${esc(l.zh)}">${SPK}</button><button class="gram" type="button" aria-label="AI 문법 분석" data-gram>문법</button></div>${l.py?`<div class="py">${esc(l.py)}</div>`:""}${l.ko?`<div class="ko">${esc(l.ko)}</div>`:""}</div></div>`;
+const fmt=d=>`${d.getMonth()+1}/${d.getDate()}`;
+
+function currentWeek(){
+  const now=new Date(); const diff=Math.floor((now-START)/864e5);
+  if(diff<0) return 0; const w=Math.floor(diff/7)+1; return w>13?14:w;
+}
+
+function renderPlan(){
+  const cw=currentWeek(), v=document.getElementById("v-plan"), end=addD(START,90);
+  let h=`<div class="startbox"><label for="startdate"><b>공부 시작일</b><span class="g-note">바꾸면 주차 날짜가 전부 다시 계산돼</span></label><input type="date" id="startdate" value="${isoD(START)}"></div>
+  <p class="lead">노베이스에서 주 4~5시간, 이 페이지만으로 하는 13주 계획. 시험은 ${fmt(addD(START,84))}~${fmt(end)} 주에 보는 걸 목표로 해. 솔직히 13주면 빠듯해서 1차에 3급이 나와도 이상한 게 아니야. 그러면 W10~W13을 4주 더 반복하고 2차에서 4급을 노리면 돼.</p>
+  <div class="routine">
+    <div><b>10분</b><span>평일<br>단어 카드 20장</span></div>
+    <div><b>15분</b><span>평일<br>이번 주 템플릿 따라 말하기</span></div>
+    <div><b>2시간</b><span>주말<br>실전 모의·예상문제·복습</span></div>
+  </div>
+  <h2>주차별 계획</h2><p class="g-note">할 일을 다 체크하면 그 주가 완료로 바뀌어. 버튼을 누르면 해당 탭으로 바로 가.</p><div class="weeks">`;
+  WEEKS.forEach((w,i)=>{
+    const n=i+1, s0=addD(START,i*7), e0=addD(s0,6);
+    const done=w.tasks.every((_,k)=>store.get(`tsc-t${n}-${k}`,false));
+    const isNow=(cw===n)||(cw===0&&n===1);
+    const nowTag=isNow?`<span class="tag">${cw===0?"곧 시작":"이번 주"}</span>`:"";
+    const extra=w.tag?`<span class="tag green">${esc(w.tag)}</span>`:"";
+    h+=`<div class="week${isNow?" now":""}${done?" done":""}" data-wk="${n}"><div class="body"><div class="meta"><b>W${String(n).padStart(2,"0")}</b><span>${fmt(s0)}~${fmt(e0)}</span>${nowTag}${extra}${done?'<span class="tag green">완료</span>':""}</div>
+      <p class="what">${esc(w.t)}</p>
+      <ul class="tasks">${w.tasks.map((t,k)=>`<li><label><input type="checkbox" id="t${n}-${k}" data-t="${n}-${k}" ${store.get(`tsc-t${n}-${k}`,false)?"checked":""}><span>${esc(t)}</span></label></li>`).join("")}</ul>
+      <p class="goal">완료 기준 · ${esc(w.goal)}</p>
+      <div class="gos">${w.go.map(g=>`<a class="chip" href="#${g.tab}">${esc(g.label)} 탭 →</a>`).join("")}</div></div></div>`;
+  });
+  h+=`</div>
+  <h2>시험 구조</h2><p class="lead">7파트 26문항, 약 50분. 시간은 대략값이라 접수할 때 공식 안내로 확인.</p>
+  <div class="scroll"><table class="parts"><thead><tr><th>파트</th><th>유형</th><th>문항</th><th>준비/답변(초)</th><th>4급 목표</th></tr></thead><tbody>
+  ${PARTS.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td>${p[3]}</td><td>${p[4]}</td></tr>`).join("")}
+  </tbody></table></div>`;
+  v.innerHTML=h;
+  v.querySelectorAll("input[data-t]").forEach(cb=>cb.addEventListener("change",()=>{
+    store.set("tsc-t"+cb.dataset.t,cb.checked);
+    const wk=cb.closest(".week"), n=+wk.dataset.wk, all=WEEKS[n-1].tasks.every((_,k)=>store.get(`tsc-t${n}-${k}`,false));
+    wk.classList.toggle("done",all); updateProg();
+  }));
+  document.getElementById("startdate").addEventListener("change",e=>{const v2=e.target.value;if(!/^\d{4}-\d{2}-\d{2}$/.test(v2))return;store.set("tsc-start",v2);const [y,m,d]=v2.split("-").map(Number);START=new Date(y,m-1,d);renderPlan();renderDay();});
+  updateProg();
+}
+function weeksDone(){return WEEKS.filter((w,i)=>w.tasks.every((_,k)=>store.get(`tsc-t${i+1}-${k}`,false))).length}
+function updateProg(){
+  const d=weeksDone();
+  document.getElementById("barfill").style.width=(d/13*100)+"%";
+  document.getElementById("progtext").textContent=`${d}/13주`;
+  const end=addD(START,90); const left=Math.ceil((end-new Date())/864e5);
+  const st=Math.ceil((START-new Date())/864e5);
+  document.getElementById("dday").textContent=st>0?`시작까지 D-${st} · ${fmt(START)} 시작`:left>0?`W13 종료까지 D-${left} · ${fmt(addD(START,84))}~${fmt(end)} 응시`:"응시 주간 지남 · 시작일을 다시 정해줘";
+}
+
+const SCR = {
+ 1:{see:"질문 문장 (중국어)",hear:"같은 질문을 읽어줌",flow:[["질문"],["준비 0초"],["답변 10초","rec"],["자동 다음"]],
+  sig:[["名字","míngzi","이름","我叫黄俊善。"],["出生日期","chūshēng rìqī","생일","我是一九九五年三月二十一号出生的。"],["几口人","jǐ kǒu rén","가족","我家有两口人…"],["什么地方工作","shénme dìfang gōngzuò","소속","我在三星电子上班…"]],
+  alloc:[["외운 문장 그대로",10]],how:"질문이 들리자마자 외운 문장을 그대로. 준비 시간이 없으니 키워드(名字·出生·几口人·工作)만 듣고 바로 시작."},
+ 2:{see:"그림 1장 (사람·물건·숫자·가격표·시계)",hear:"그림에 대한 짧은 질문 1개",flow:[["그림+질문"],["준비 3초"],["답변 6초","rec"],["자동 다음"]],
+  sig:[["在哪儿？","zài nǎr","위치","○○在○○上边/下边/旁边。"],["在做什么？","zài zuò shénme","동작","他/她在＋동사。"],["哪个更…？","nǎge gèng","비교","A比B＋형용사。"],["多少钱？","duōshao qián","가격","○○块钱。"],["几点？ / 几个？","jǐ diǎn / jǐ ge","시간·수량","现在○点。/ 一共有○个。"],["有什么？","yǒu shénme","사물","○○上有一本书。"]],
+  alloc:[["한 문장",4],["한 마디 더",2]],how:"질문 문장을 그대로 두고 의문사(哪儿·什么·几·多少) 자리만 그림 속 답으로 바꾼다. 猫在哪儿？ → 猫在椅子下边。 시간 남으면 很可爱 같은 한 마디."},
+ 3:{see:"질문 글 없음",hear:"상대가 건네는 한 마디 (대화 첫 문장)",flow:[["말 듣기"],["준비 2초"],["답변 15초","rec"],["자동 다음"]],
+  sig:[["一般 / 平时…？","yìbān / píngshí","습관","我一般…。你呢？"],["喜欢…吗？","xǐhuan ma","선호","我特别喜欢…，因为…。"],["…怎么样？","zěnmeyàng","제안","好啊，我们一起…吧！"],["…过…吗？","guo ma","경험","我…过，挺好的。/ 我没…过。"],["能 / 可以…吗？","néng / kěyǐ ma","부탁","没问题！/ 不好意思，我…。"],["明天 / 周末…？","míngtiān / zhōumò","계획","我打算…。"]],
+  alloc:[["대답",5],["이유·추가",6],["되묻기",4]],how:"질문에 들린 동사를 그대로 받아서 대답 → 이유나 추가 한 마디 → 你呢? 로 되묻기. 다 못 알아들어도 들린 단어 하나로 시작."},
+ 4:{see:"질문 문장",hear:"같은 질문을 읽어줌",flow:[["질문"],["준비 15초"],["답변 25초","rec"],["자동 다음"]],
+  sig:[["常…吗？","cháng ma","빈도","我平时常…。"],["A还是B？","háishi","선택","我喜欢A。因为…"],["怎么…？","zěnme","방법","我开车/坐地铁…。因为…"],["有什么…？","yǒu shénme","내용","我的…是…。"],["…的时候做什么？","de shíhou zuò shénme","상황","…的时候，我常常…。"]],
+  alloc:[["답",4],["이유",8],["예시",8],["마무리",5]],how:"준비 15초에 4문장 공식의 키워드만 정한다 (답·이유·예시). A还是B는 하나만 골라서 끝까지 밀고 간다."},
+ 5:{see:"질문 문장 (사회 이슈)",hear:"같은 질문을 읽어줌",flow:[["질문"],["준비 30초"],["답변 50초","rec"],["자동 다음"]],
+  sig:[["有什么好处 / 坏处？","hǎochù / huàichù","장단점","我觉得…好处挺多的。"],["你同意…吗？","tóngyì ma","찬반","我挺同意…的。"],["有什么影响？","yǒu shénme yǐngxiǎng","영향","我觉得…影响挺大的。"],["应该…吗？","yīnggāi ma","당위","我觉得应该…。"]],
+  alloc:[["주장",5],["이유1",15],["이유2",15],["반론",7],["결론",8]],how:"준비 30초에 찬성·반대를 정하고 만능 이유 문장 2개를 고른다. 진짜 생각 말고 말하기 쉬운 쪽으로."},
+ 6:{see:"상황 설명 문장",hear:"상황 설명을 읽어줌",flow:[["상황"],["준비 30초"],["답변 40초","rec"],["자동 다음"]],
+  sig:[["给…打电话","gěi … dǎ diànhuà","전화 (부탁·예약)","喂，你好！我想…"],["拒绝 / 道歉","jùjué / dàoqiàn","거절·사과","真不好意思，…"],["要求 / 换","yāoqiú / huàn","교환·항의","你好，我昨天在这儿买了…"],["劝 / 建议","quàn / jiànyì","조언","我觉得你应该…。"]],
+  alloc:[["인사",5],["용건",15],["구체 정보",12],["마무리",8]],how:"상대가 앞에 있다고 생각하고 你로 직접 말한다 (他로 설명 X). 인사로 시작해서 고맙다·미안하다로 끝낸다."},
+ 7:{see:"4컷 그림",hear:"이야기하라는 지시",flow:[["4컷 그림"],["준비 30초"],["답변 90초","rec"],["종료"]],
+  sig:[["讲述一个故事","jiǎngshù yí ge gùshi","스토리","今天天气很好，小明去了…"]],
+  alloc:[["컷①",20],["컷②",20],["컷③",20],["컷④",20],["마무리",10]],how:"준비 30초에 컷마다 동사 하나씩 정한다. 주인공 이름(小明) 붙이고 과거는 了, 연결은 然后·突然·最后."}
+};
+const SPKS='<svg class="spk" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const SIGKO={"我叫黄俊善。":"제 이름은 황준선입니다.","我是一九九五年三月二十一号出生的。":"1995년 3월 21일생입니다.","我家有两口人…":"우리 집은 두 식구예요…","我在三星电子上班…":"삼성전자 다녀요…","○○在○○上边/下边/旁边。":"○○는 ○○ 위/아래/옆에 있어요.","他/她在＋동사。":"그/그녀는 ~하고 있어요.","A比B＋형용사。":"A가 B보다 ~해요.","○○块钱。":"○○위안이에요.","现在○点。/ 一共有○个。":"지금 ○시예요. / 모두 ○개 있어요.","○○上有一本书。":"○○ 위에 책이 한 권 있어요.","我一般…。你呢？":"저는 보통 ~해요. 너는?","我特别喜欢…，因为…。":"~를 엄청 좋아해요, 왜냐하면 ~","好啊，我们一起…吧！":"좋아, 같이 ~하자!","我…过，挺好的。/ 我没…过。":"~해봤는데 꽤 좋았어요. / ~해본 적 없어요.","没问题！/ 不好意思，我…。":"문제없어! / 미안, 나 ~해서…","我打算…。":"~할 계획이에요.","我平时常…。":"저는 평소에 자주 ~해요.","我喜欢A。因为…":"A가 좋아요. 왜냐하면 ~","我开车/坐地铁…。因为…":"운전해서/지하철 타고 ~해요. 왜냐하면 ~","我的…是…。":"제 ~는 ~예요.","…的时候，我常常…。":"~할 때 저는 자주 ~해요.","我觉得…好处挺多的。":"~는 장점이 꽤 많은 것 같아요.","我挺同意…的。":"~에 동의해요.","我觉得…影响挺大的。":"~의 영향이 꽤 큰 것 같아요.","我觉得应该…。":"~해야 한다고 생각해요.","喂，你好！我想…":"여보세요, 안녕! 나 ~하고 싶어.","真不好意思，…":"정말 미안해, ~","你好，我昨天在这儿买了…":"안녕하세요, 어제 여기서 ~를 샀는데요.","我觉得你应该…。":"내 생각엔 네가 ~해야 할 것 같아.","今天天气很好，小明去了…":"오늘 날씨가 좋아서 샤오밍은 ~에 갔어요."};
+function howtoHTML(p){
+  const s=SCR[p]; if(!s) return "";
+  const total=s.alloc.reduce((a,b)=>a+b[1],0);
+  return `<div class="howto">
+   <div class="eyebrow">시험 화면에선 이렇게 나와</div>
+   <div class="hw"><div><span>화면</span>${esc(s.see)}</div><div><span>헤드폰</span>${esc(s.hear)}</div></div>
+   <div class="flow">${s.flow.map(f=>`<span class="${f[1]||""}">${esc(f[0])}</span>`).join("<i>→</i>")}</div>
+   <div class="eyebrow">질문 듣고 유형 알아채기</div>
+   <div class="sigs">${s.sig.map(r=>`<div class="sig"><div class="sk"><span class="zh tap" lang="zh-CN" role="button" tabindex="0" data-say="${esc(r[0])}">${esc(r[0])}${SPKS}</span><span class="py">${esc(r[1])}</span></div><div class="sv"><b>${esc(r[2])} → 이렇게 시작</b><span class="zh tap" lang="zh-CN" role="button" tabindex="0" data-say="${esc(r[3])}">${esc(r[3])}${SPKS}</span>${SIGKO[r[3]]?`<span class="ko">${esc(SIGKO[r[3]])}</span>`:""}</div></div>`).join("")}</div>
+   <div class="eyebrow">답변 ${total}초 배분</div>
+   <div class="alloc">${s.alloc.map((a,i)=>`<div class="seg s${i%2}" style="flex:${a[1]} 1 0"><b>${a[1]}초</b><span>${esc(a[0])}</span></div>`).join("")}</div>
+   <p class="tip"><b>요령</b> ${esc(s.how)}</p></div>`;
+}
+function renderTpl(){
+  const v=document.getElementById("v-tpl");
+  v.innerHTML=`<p class="lead">빈칸(<span style="color:var(--seal)">___</span>)만 바꿔 끼우는 틀. 스피커를 누르면 발음을 들려주고, '따라 말하기'는 한 줄씩 들려준 뒤 따라 할 시간을 준다. 한자를 하나 누르면 그 글자부터 획순 보고 손가락으로 써볼 수 있고, '문법'을 누르면 AI가 문장을 문법 분석해준다.</p><div class="note" id="voice-note" hidden>이 기기에 중국어 음성이 없어서 발음이 이상하게 들릴 수 있어. 폰 설정의 음성(텍스트 음성 변환)에서 중국어(보통화) 음성을 추가하면 돼.</div>`+
+  TPL.map((t,i)=>`<details class="part" ${i===0?"open":""}><summary><span class="pn">P${t.p}</span><span class="pt">${esc(t.t)}</span><span class="pm">${esc(t.m)}</span></summary><div class="pbody">${howtoHTML(t.p)}<p class="tip">${esc(t.tip)}</p><div class="shadowbar"><button class="reveal" type="button" data-shadow="${i}">따라 말하기</button><span class="st" id="sh-st-${i}"></span></div>${t.lines.map((l,j)=>lineHTML(l,j+1)).join("")}${t.extra?`<div class="eyebrow">${esc(t.extra.title)}</div>${t.extra.lines.map(l=>lineHTML(l)).join("")}`:""}</div></details>`).join("");
+  addRecButtons(v);
+}
+
+let qFilter=0, hideAll=true;
+function renderQs(){
+  const v=document.getElementById("v-qs");
+  const list=QS.filter(q=>!qFilter||q.p===qFilter);
+  v.innerHTML=`<p class="lead">자주 나오는 유형으로 만든 예상 문제. 먼저 답을 말해보고 '답 보기'로 확인.</p>
+  <div class="filters" role="group" aria-label="파트 필터">${[0,2,3,4,5,6,7].map(p=>`<button class="chip" data-p="${p}" aria-pressed="${qFilter===p}">${p?"P"+p:"전체"}</button>`).join("")}</div>
+  ${(!qFilter||qFilter===5)?`<div><div class="eyebrow" style="margin-bottom:6px">Part 5 빈출 주제</div><div class="topics">${TOPICS5.map(t=>`<span>${t}</span>`).join("")}</div></div>`:""}
+  ${list.map((q,i)=>`<article class="q"><div class="qh"><span class="tag green">P${q.p}</span></div>${picHTML(q)}${lineHTML(q.q)}<button class="reveal" data-i="${i}" aria-expanded="${!hideAll}">${hideAll?"답 보기":"답 숨기기"}</button><div class="ans" ${hideAll?"hidden":""}>${lineHTML(q.a)}</div></article>`).join("")}`;
+  v.querySelectorAll("[data-p]").forEach(b=>b.addEventListener("click",()=>{qFilter=+b.dataset.p;renderQs()}));
+  v.querySelectorAll(".reveal").forEach(b=>b.addEventListener("click",()=>{
+    const a=b.nextElementSibling; a.hidden=!a.hidden; b.textContent=a.hidden?"답 보기":"답 숨기기"; b.setAttribute("aria-expanded",String(!a.hidden));
+  }));
+}
+
+function renderWords(){
+  document.getElementById("v-words").innerHTML=quizHTML()+`<h2>단어장</h2><p class="lead">TSC 핵심 단어부터 외우고, HSK 1급 → 2급 → 3급 순서로 넓혀가. 보통 HSK 3급 정도 단어면 TSC 4급 답변에 충분해. 카드를 누르면 발음과 획순을 보면서 써볼 수 있어.</p><p class="g-note">단어 예문과 예문 음성(합성 음성)은 <a href="https://github.com/no7z/hsk-sentences-audio" target="_blank" rel="noopener" style="color:var(--accent)">hsk-sentences-audio</a> (CC BY-SA 4.0)에서 가져왔고, 한국어 해석은 따로 붙였어.</p>`+
+  `<div class="eyebrow">TSC 핵심 단어</div>`+WORDS.map(([g,ws])=>`<div class="wgroup"><h3>${g}</h3><div class="words">${ws.map(w=>`<div class="word" role="button" tabindex="0" aria-label="${esc(w.zh)} 써보기" data-word="${esc(w.zh)}|${esc(w.py)}|${esc(w.ko)}"><div class="zh" lang="zh-CN">${esc(w.zh)}</div><div class="py">${esc(w.py)}</div><div class="ko">${esc(w.ko)}</div></div>`).join("")}</div></div>`).join("")+
+  `<div class="eyebrow">HSK 급수별 단어 · 누르면 펼쳐져</div>`+["h1","h2","h3"].map(l=>`<details class="part lvl" data-lv="${l}"><summary><span class="pn">${LV_NAME[l].replace("HSK ","")}</span><span class="pt">${LV_NAME[l]}</span><span class="pm">${wordPool(l).length}개</span></summary><div class="pbody"><div class="words"></div></div></details>`).join("");
+  document.querySelectorAll("#v-words details.lvl").forEach(d=>d.addEventListener("toggle",()=>{const box=d.querySelector(".words");if(!d.open||box.childElementCount)return;
+    box.innerHTML=wordPool(d.dataset.lv).map(w=>`<div class="word" role="button" tabindex="0" aria-label="${esc(w.zh)} 써보기" data-word="${esc(w.zh)}|${esc(w.py)}|${esc(w.ko)}"><div class="zh" lang="zh-CN">${esc(w.zh)}</div><div class="py">${esc(w.py)}</div><div class="ko">${esc(w.ko)}</div></div>`).join("")}));
+}
+
+function renderDay(){
+  const on=store.get("tsc-checks",[]);
+  const v=document.getElementById("v-day");
+  v.innerHTML=`<p class="lead">목표는 하나. 26문항 전부 입을 열고, 답변 시간 끝까지 말하기.</p>
+  <h2>체크리스트</h2><div class="checks">${CHECKS.map((c,i)=>`<label class="check${on.includes(i)?" on":""}"><input type="checkbox" id="ck${i}" data-c="${i}" ${on.includes(i)?"checked":""}><span>${esc(c==="__REG__"?`W8(${fmt(addD(START,49))}~${fmt(addD(START,55))})에 YBM TSC 사이트에서 ${fmt(addD(START,84))}~${fmt(addD(START,90))} 주 회차 접수`:c)}</span></label>`).join("")}</div>
+  <h2>시험 중 원칙</h2><ul class="rules">
+   <li>질문을 못 알아들으면 들린 단어 하나로 <span class="zh" lang="zh-CN">我喜欢…</span> / <span class="zh" lang="zh-CN">我觉得…</span>를 시작한다</li>
+   <li>단어가 안 떠오르면 쉬운 말로 돌린다 (<span class="zh" lang="zh-CN">健身房</span> 대신 <span class="zh" lang="zh-CN">去运动</span>)</li>
+   <li>틀린 말을 고치려고 멈추지 말고 다음 문장으로 넘어간다</li>
+   <li>시간이 남으면 <span class="zh" lang="zh-CN">所以我觉得…</span> 한 문장을 더 붙인다</li>
+   <li>무응답은 0점. 침묵보다 틀린 문장이 낫다</li>
+  </ul>
+  <p class="foot">참고: <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000005075125" target="_blank" rel="noopener">TSC 대비 교재 목차(교보문고)</a> · <a href="https://apps.apple.com/us/app/id1283062713" target="_blank" rel="noopener">TSC 절대합격 3·4급 앱</a></p>`;
+  v.querySelectorAll("input[data-c]").forEach(cb=>cb.addEventListener("change",()=>{
+    const n=+cb.dataset.c; let d=store.get("tsc-checks",[]);
+    d=cb.checked?[...new Set([...d,n])]:d.filter(x=>x!==n); store.set("tsc-checks",d);
+    cb.closest(".check").classList.toggle("on",cb.checked);
+  }));
+}
+
+/* exam flow + simulator */
+function renderSimView(){
+  const v=document.getElementById("v-sim");
+  v.innerHTML=`<p class="lead">컴퓨터 앞에서 헤드셋 끼고 혼자 말하는 시험. 상대가 반응해주지 않고, 시간이 되면 화면이 알아서 넘어간다.</p>
+  <h2>시험 당일 흐름 (약 50분)</h2>
+  <ol class="steps">
+    <li><div class="dot">1</div><div class="st"><b>입실·신분 확인</b><span>신분증 확인 후 PC 자리에 앉는다. 자리마다 마이크 달린 헤드셋이 있다.</span></div></li>
+    <li><div class="dot">2</div><div class="st"><b>오리엔테이션 · 약 20분</b><span>화면 안내에 따라 수험 정보 확인, 헤드셋 소리·마이크 테스트, 진행 방법 안내. 이때 마이크 위치 꼭 맞추기.</span></div></li>
+    <li><div class="dot">3</div><div class="st"><b>본시험 · 약 30분</b><span>Part 1부터 7까지 26문항이 쉬지 않고 자동으로 이어진다. 감독관은 앞에 앉아만 있다.</span></div></li>
+    <li><div class="dot">4</div><div class="st"><b>종료</b><span>마지막 문항 답변 시간이 끝나면 끝. 녹음 파일을 나중에 원어민 평가자 여러 명이 듣고 채점한다.</span></div></li>
+  </ol>
+  <h2>한 문항이 돌아가는 방식</h2>
+  <div class="cycle">
+    <div class="cy"><span class="k">질문</span><p>화면에 문장·그림이 뜨고 헤드폰으로 중국어 질문이 나온다 (파트마다 다름)</p></div>
+    <div class="arrow">↓</div>
+    <div class="cy"><span class="k">준비</span><p>남은 준비 시간이 화면에 줄어든다. 이때 첫 문장을 정한다</p></div>
+    <div class="arrow">↓ 신호</div>
+    <div class="cy rec"><span class="k">답변</span><p>녹음 시작. 남은 시간이 표시되고, 그 안에 말한 것만 채점된다</p></div>
+    <div class="arrow">↓ 시간 끝</div>
+    <div class="cy"><span class="k">다음</span><p>말하던 중이어도 녹음이 끊기고 바로 다음 문항으로 넘어간다</p></div>
+  </div>
+  <div class="note"><b>컴퓨터는 아무 반응도 안 한다.</b>
+    <ul><li>맞았다·틀렸다, 점수, "다시 말해주세요" 같은 반응이 없다</li>
+    <li>못 알아들어도 다시 들려주지 않는다고 생각하고 들린 단어로 바로 대답한다</li>
+    <li>일찍 말을 끝내면 남은 시간이 그냥 흐른다. 마무리 문장으로 채우기</li>
+    <li>시간이 넘으면 잘리니까 결론 문장(所以我觉得…)을 시간 안에 넣는다</li></ul></div>
+  <h2>파트별 화면</h2>
+  <div class="scroll"><table class="parts"><thead><tr><th>파트</th><th>화면</th><th>헤드폰</th><th>준비/답변</th><th>요령</th></tr></thead><tbody>
+    <tr><td>1</td><td>질문 문장</td><td>질문</td><td>0/10초</td><td>듣자마자 외운 답</td></tr>
+    <tr><td>2</td><td>그림 1장</td><td>질문</td><td>3/6초</td><td>그림에서 숫자·위치 찾기</td></tr>
+    <tr><td>3</td><td>질문 글 없음</td><td>대화 첫마디</td><td>2/15초</td><td>들린 단어로 받아치기</td></tr>
+    <tr><td>4</td><td>질문 문장</td><td>질문</td><td>15/25초</td><td>4문장 공식</td></tr>
+    <tr><td>5</td><td>질문 문장</td><td>질문</td><td>30/50초</td><td>주장 + 이유 2개</td></tr>
+    <tr><td>6</td><td>상황 설명</td><td>상황</td><td>30/40초</td><td>상대에게 직접 말하듯</td></tr>
+    <tr><td>7</td><td>4컷 그림</td><td>지시</td><td>30/90초</td><td>컷마다 1~2문장</td></tr>
+  </tbody></table></div>
+  <p class="lead">시간은 <a href="https://speakable.co.kr/blog/chinese-tsc-exam-guide" target="_blank" rel="noopener" style="color:var(--accent)">TSC 시험 정리</a> 기준이고, Part 3은 듣기만, Part 4~6은 화면에 질문이 뜬다는 건 <a href="https://community.linkareer.com/jayuu/2324597" target="_blank" rel="noopener" style="color:var(--accent)">응시 후기</a> 기준. 세부 화면은 회차마다 조금 다를 수 있다.</p>
+  <h2>모의 시험 돌려보기</h2>
+  <p class="lead">실제처럼 질문 → 준비 → 신호 → 답변 순서로 시간이 흐른다. 폰을 앞에 두고 소리 내서 답하기. 녹음은 안 되니까 폰 녹음 앱을 같이 켜두면 좋다.</p>
+  <div class="filters" role="group" aria-label="모의시험 범위" id="simsel">${["mini",1,2,3,4,5,6,7].map(p=>`<button class="chip" data-s="${p}" aria-pressed="${p==="mini"}">${p==="mini"?"미니 (파트별 1문항)":"P"+p}</button>`).join("")}</div>
+  <div class="simctl">
+    <button class="chip" id="s-tts" aria-pressed="true">중국어 음성 읽기</button>
+    <button class="chip" id="s-sub" aria-pressed="false">P3 자막</button>
+  </div>
+  <div class="screen" id="screen">
+    <div class="scr-top"><span id="s-part"><b>TSC</b> 모의 시험</span><span id="s-count"></span></div>
+    <div class="scr-body" id="s-body"><p class="lead" style="margin:0">범위를 고르고 시작을 누르면 바로 첫 문항이 나온다.</p></div>
+    <div class="scr-foot"><div class="phase" id="s-phase"><span>대기</span><span class="sec">--</span></div><div class="tbar"><i id="s-bar"></i></div>
+    <div class="simctl"><button class="btn" id="s-start">시작</button><button class="btn ghost" id="s-stop" hidden>중단</button></div></div>
+  </div>
+  <div id="s-review" class="review" hidden></div>`;
+  wireSim();
+}
+
+let simSel="mini", simRun=null, tts=true, sub=false, actx=null;
+function buildQueue(){
+  const pick=p=>p===1?P1Q.map((q,i)=>({p:1,q,a:P1A[i]})):QS.filter(x=>x.p===p);
+  if(simSel==="mini"){return [1,2,3,4,5,6,7].map(p=>{const l=pick(p);return l[Math.floor(Math.random()*l.length)]})}
+  return pick(+simSel);
+}
+function beep(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=880;g.gain.value=.15;o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.25)}catch(e){}}
+function zhVoice(){try{const vs=speechSynthesis.getVoices();return vs.find(v=>/^zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))}catch(e){return null}}
+let slow=store.get("tsc-slow",false);
+let male=store.get("tsc-male",true);
+const rateNow=()=>slow?.6:.9;
+const AUDIO={};
+const player=new Audio(); player.preload="auto";
+let curFin=null;
+function fallbackTTS(t,fin){
+  if(!("speechSynthesis" in window)){return setTimeout(fin,1200)}
+  try{const u=new SpeechSynthesisUtterance(t);u.lang="zh-CN";u.rate=slow?.6:.9;const v=zhVoice();if(v)u.voice=v;u.onend=fin;u.onerror=fin;speechSynthesis.speak(u);setTimeout(fin,(2000+t.length*330)/rateNow())}catch(e){setTimeout(fin,1200)}
+}
+const WSPR={"妻子":["h2",34.23,0.641],"老婆":["core",1.341,0.558],"孩子":["h2",36.99,0.475],"爸爸":["h1",98.992,0.578],"妈妈":["pron",10.669,0.537],"朋友":["pron",13.665,0.585],"同事":["h3",68.092,0.668],"今天":["h1",19.744,0.67],"明天":["h1",80.741,0.639],"昨天":["h1",82.686,0.556],"周末":["h3",71.704,0.623],"晚上":["h2",67.946,0.629],"点":["h1",96.752,0.477],"分":["h3",41.74,0.358],"半":["h3",52.95,0.369],"公司":["h2",13.528,0.619],"家":["h1",66.25,0.389],"公园":["h3",30.193,0.649],"饭店":["h1",124.268,0.645],"医院":["h1",35.869,0.572],"健身房":["core",18.588,0.909],"超市":["h3",242.895,0.648],"上边":["core",20.845,0.643],"下边":["core",21.837,0.709],"旁边":["h2",63.414,0.657],"里边":["core",23.903,0.545],"前边":["core",24.798,0.716],"后边":["core",25.864,0.58],"跑步":["h2",106.945,0.627],"看书":["core",27.77,0.718],"做饭":["core",28.839,0.663],"买":["h1",14.564,0.472],"开车":["core",30.673,0.665],"加班":["core",31.689,0.627],"搬家":["core",32.666,0.618],"旅游":["h2",64.421,0.571],"贵":["h2",104.614,0.367],"便宜":["h2",11.043,0.738],"大":["h1",56.218,0.368],"小":["h1",68.102,0.545],"忙":["h2",50.072,0.425],"方便":["h3",134.619,0.589],"健康":["h3",26.759,0.742],"着急":["h3",185.972,0.602],"个":["h1",10.703,0.353],"本":["h1",86.568,0.407],"件":["h2",9.385,0.37],"杯":["core",43.91,0.349],"把":["h3",120.701,0.373],"只":["h3",64.062,0.407],"口":["h3",62.335,0.368],"因为":["core",46.808,0.541],"所以":["core",47.699,0.577],"而且":["core",48.626,0.615],"但是":["core",49.591,0.599],"比如说":["core",50.54,0.802],"突然":["h3",193.815,0.549],"最后":["h3",138.533,0.589],"这个嘛…":["core",53.529,0.728],"怎么说呢":["core",54.607,0.861],"我想想":["core",55.818,0.878],"一":["h1",0.35,0.276],"一点儿":["h1",0.976,0.583],"七":["h1",1.909,0.48],"三":["h1",2.739,0.341],"上":["h1",3.43,0.325],"上午":["h1",4.105,0.668],"下":["h1",5.123,0.326],"下午":["h1",5.8,0.668],"下雨":["h1",6.818,0.685],"不":["h1",7.853,0.36],"不客气":["h1",8.562,0.842],"东西":["h1",9.755,0.599],"中午":["h1",11.406,0.542],"中国":["pron",4.012,0.572],"九":["h1",13.22,0.289],"书":["h1",13.86,0.355],"了":["h1",15.386,0.409],"二":["h1",16.145,0.299],"五":["h1",16.794,0.309],"些":["h1",17.453,0.466],"人":["h1",18.269,0.26],"什么":["h1",18.879,0.515],"他":["h1",20.764,0.422],"会":["h1",21.536,0.375],"住":["h1",22.261,0.351],"你":["h1",22.962,0.24],"做":["h1",23.552,0.437],"儿子":["h1",24.339,0.555],"先生":["h1",25.244,0.753],"八":["h1",26.346,0.349],"六":["pron",5.94,0.244],"再见":["pron",6.534,0.51],"写":["h1",28.499,0.559],"冷":["h1",29.408,0.393],"几":["h1",30.151,0.459],"出租车":["h1",30.96,0.832],"分钟":["h1",32.142,0.543],"前面":["h1",33.035,0.688],"北京":["h1",34.073,0.518],"医生":["h1",34.941,0.577],"十":["h1",36.791,0.372],"去":["h1",37.513,0.32],"叫":["h1",38.183,0.459],"号":["h1",38.991,0.372],"吃":["pron",7.394,0.371],"同学":["h1",40.435,0.692],"名字":["h1",41.477,0.593],"后面":["h1",42.421,0.622],"吗":["h1",43.393,0.321],"听":["h1",44.064,0.365],"呢":["h1",44.779,0.295],"和":["h1",45.425,0.321],"哪":["h1",46.096,0.428],"哪儿":["h1",46.874,0.395],"商店":["h1",47.619,0.668],"喂":["h1",48.637,0.263],"喜欢":["h1",49.249,0.64],"喝":["h1",50.24,0.372],"四":["h1",50.961,0.339],"回":["h1",51.65,0.371],"在":["h1",52.371,0.358],"坐":["h1",53.079,0.347],"块":["h1",53.776,0.449],"多":["h1",54.575,0.323],"多少":["h1",55.248,0.62],"天气":["h1",56.936,0.722],"太":["h1",58.009,0.34],"女儿":["h1",58.699,0.676],"她":["h1",59.725,0.425],"好":["h1",60.5,0.372],"字":["h1",62.108,0.306],"学习":["h1",62.764,0.688],"学校":["h1",63.802,0.703],"学生":["h1",64.855,1.045],"对不起":["pron",11.556,0.762],"小姐":["h1",68.997,0.693],"少":["h1",70.04,0.342],"岁":["h1",70.732,0.419],"工作":["h1",71.501,0.576],"年":["h1",72.427,0.366],"开":["h1",73.143,0.416],"很":["h1",73.909,0.316],"怎么":["h1",74.575,0.378],"怎么样":["h1",75.304,0.645],"想":["h1",76.299,0.332],"我":["h1",76.98,0.41],"我们":["h1",77.741,0.454],"打电话":["h1",78.545,0.828],"时候":["h1",79.723,0.668],"星期":["h1",81.73,0.607],"是":["h1",83.592,0.329],"月":["h1",84.27,0.343],"有":["h1",84.963,0.319],"来":["h1",87.325,0.221],"杯子":["h1",87.896,0.587],"桌子":["h1",88.833,0.586],"椅子":["h1",89.768,0.545],"水":["h1",90.664,0.406],"水果":["h1",91.42,0.654],"汉语":["h1",92.424,0.693],"没关系":["h1",93.467,0.867],"没有":["h1",94.683,0.605],"漂亮":["h1",95.638,0.764],"热":["h1",97.579,0.335],"爱":["h1",98.264,0.378],"狗":["h1",99.92,0.39],"猫":["h1",100.66,0.27],"现在":["h1",101.28,0.635],"电影":["h1",102.264,0.588],"电脑":["h1",103.202,0.678],"电视":["h1",104.23,0.569],"的":["h1",105.149,0.329],"看":["h1",105.828,0.445],"看见":["h1",106.623,0.723],"睡觉":["h1",107.696,0.679],"米饭":["h1",108.725,0.611],"老师":["pron",16.635,0.544],"能":["h1",110.58,0.406],"苹果":["h1",111.336,0.652],"茶":["h1",112.338,0.339],"菜":["h1",113.027,0.516],"衣服":["h1",113.893,0.666],"认识":["h1",114.91,0.607],"说":["h1",115.866,0.529],"请":["h1",116.745,0.491],"读":["h1",117.586,0.391],"谁":["h1",118.327,0.374],"谢谢":["pron",18.492,0.589],"这":["h1",119.99,0.347],"那":["h1",120.687,0.298],"都":["h1",121.335,0.329],"里":["h1",122.014,0.266],"钱":["h1",122.63,0.307],"飞机":["pron",20.548,0.631],"高兴":["h1",125.263,0.642],"一下":["h2",0.35,0.609],"一起":["pron",1.225,0.57],"丈夫":["h2",2.229,0.629],"上班":["h2",3.207,0.663],"两":["h2",4.22,0.325],"为什么":["h2",4.895,0.736],"也":["h2",5.981,0.345],"事情":["h2",6.677,0.634],"介绍":["h2",7.66,0.613],"从":["h2",8.623,0.411],"休息":["h2",10.105,0.588],"公共汽车":["h2",12.132,1.047],"再":["h2",14.497,0.259],"准备":["h2",15.106,0.55],"出":["h2",16.006,0.373],"别":["h2",16.729,0.38],"到":["h2",17.459,0.325],"千":["h2",18.134,0.365],"卖":["h2",18.848,0.385],"去年":["h2",19.583,0.728],"可以":["h2",20.661,0.599],"可能":["h2",21.61,0.599],"右边":["h2",22.559,0.527],"吧":["h2",23.436,0.335],"告诉":["h2",24.121,0.589],"咖啡":["h2",25.06,0.702],"哥哥":["h2",26.112,0.575],"唱歌":["h2",27.037,0.678],"因为……所以……":["h2",28.065,1.247],"外":["h2",29.662,0.344],"大家":["h2",30.356,0.583],"女":["h2",31.289,0.509],"好吃":["h2",32.148,0.668],"妹妹":["h2",33.166,0.714],"姐姐":["h2",35.221,0.64],"姓":["h2",36.211,0.429],"它":["h2",37.815,0.429],"完":["h2",38.594,0.452],"宾馆":["h2",39.396,0.702],"对":["h2",40.447,0.327],"小时":["h2",41.124,0.683],"就":["h2",42.157,0.289],"左边":["h2",42.797,0.637],"已经":["h2",43.784,0.543],"希望":["h2",44.677,0.614],"帮助":["h2",45.641,0.623],"开始":["h2",46.614,0.66],"弟弟":["h2",47.624,0.573],"往":["h2",48.547,0.388],"得":["h2",49.286,0.437],"快":["h2",50.847,0.479],"快乐":["h2",51.676,0.579],"您":["h2",52.604,0.399],"意思":["h2",53.353,0.559],"慢":["h2",54.263,0.4],"懂":["h2",55.012,0.394],"房间":["h2",55.756,0.604],"手机":["h2",56.71,0.585],"手表":["h2",57.645,0.703],"打篮球":["h2",58.698,0.898],"找":["h2",59.946,0.424],"报纸":["h2",60.72,0.625],"教室":["h2",61.695,0.601],"新":["h2",62.646,0.418],"日":["h2",65.341,0.314],"早上":["h2",66.005,0.599],"时间":["h2",66.954,0.643],"晴":["h2",68.925,0.489],"最":["h2",69.764,0.452],"服务员":["h2",70.566,0.723],"机场":["h2",71.639,0.58],"次":["h2",72.568,0.386],"正在":["h2",73.304,0.526],"每":["h2",74.181,0.566],"比":["h2",75.097,0.423],"洗":["h2",75.87,0.381],"游泳":["h2",76.601,0.666],"火车站":["h2",77.618,0.804],"牛奶":["h2",78.771,0.686],"玩":["h2",79.807,0.451],"生日":["h2",80.608,0.652],"生病":["h2",81.61,0.638],"男":["h2",82.598,0.452],"白":["h2",83.399,0.389],"百":["h2",84.139,0.398],"真":["h2",84.887,0.396],"眼睛":["h2",85.632,0.564],"着":["h2",86.547,0.353],"知道":["h2",87.249,0.538],"票":["h2",88.138,0.449],"离":["h2",88.937,0.364],"穿":["h2",89.651,0.478],"笑":["h2",90.479,0.532],"第一":["h2",91.36,0.582],"等":["h2",92.293,0.352],"累":["h2",92.995,0.489],"红":["h2",93.834,0.348],"给":["h2",94.532,0.384],"羊肉":["h2",95.266,0.567],"考试":["h2",96.183,0.659],"药":["h2",97.192,0.337],"虽然……但是……":["h2",97.879,1.261],"西瓜":["h2",99.49,0.657],"要":["h2",100.498,0.338],"觉得":["h2",101.185,0.593],"让":["h2",102.128,0.339],"说话":["h2",102.817,0.672],"课":["h2",103.839,0.425],"走":["h2",105.331,0.262],"起床":["h2",105.943,0.652],"路":["h2",107.922,0.295],"跳舞":["h2",108.567,0.694],"踢足球":["h2",109.61,0.921],"身体":["h2",110.881,0.683],"过":["h2",111.915,0.384],"运动":["h2",112.648,0.644],"近":["h2",113.642,0.479],"还":["h2",114.471,0.285],"进":["h2",115.106,0.489],"远":["h2",115.945,0.419],"送":["h2",116.714,0.369],"铅笔":["h2",117.433,0.592],"错":["h2",118.375,0.314],"长":["h2",119.039,0.56],"门":["h2",119.949,0.338],"问":["h2",120.637,0.334],"问题":["h2",121.321,0.683],"阴":["h2",122.354,0.372],"雪":["h2",123.076,0.388],"零":["h2",123.814,0.344],"非常":["h2",124.507,0.645],"面条":["pron",19.431,0.767],"题":["h2",126.619,0.446],"颜色":["h2",127.415,0.661],"高":["h2",128.426,0.384],"鱼":["h2",129.16,0.355],"鸡蛋":["pron",23.964,0.698],"黑":["h2",130.914,0.424],"一会儿":["h3",0.35,0.607],"一共":["h3",1.307,0.576],"一定":["h3",2.233,0.502],"一样":["h3",3.084,0.545],"一直":["h3",3.979,0.607],"一般":["h3",4.937,0.539],"一边":["h3",5.825,0.559],"万":["h3",6.734,0.375],"上网":["h3",7.459,0.605],"不但……而且……":["h3",8.415,1.254],"世界":["h3",10.018,0.568],"东":["h3",10.937,0.362],"个子":["h3",11.648,0.577],"中文":["h3",12.575,0.603],"中间":["h3",13.528,0.607],"为":["h3",14.485,0.267],"为了":["h3",15.102,0.605],"主要":["h3",16.058,0.551],"久":["h3",16.958,0.288],"习惯":["h3",17.596,0.588],"了解":["h3",18.533,0.562],"以前":["h3",19.446,0.631],"会议":["h3",20.427,0.588],"伞":["h3",21.364,0.457],"位":["h3",22.171,0.27],"体育":["h3",22.791,0.572],"作业":["h3",23.712,0.563],"信用卡":["h3",24.625,1.0],"借":["h3",25.976,0.434],"像":["h3",27.852,0.339],"元":["h3",28.541,0.433],"先":["h3",29.325,0.519],"公斤":["h3",31.193,0.668],"关":["h3",32.21,0.385],"关于":["h3",32.946,0.849],"关心":["h3",34.144,0.626],"关系":["h3",35.12,0.608],"其他":["h3",36.079,0.633],"其实":["h3",37.062,0.69],"冬":["h3",38.101,0.365],"冰箱":["h3",38.816,0.626],"决定":["h3",39.793,0.639],"几乎":["h3",40.781,0.609],"刚才":["h3",42.448,0.71],"别人":["h3",43.508,0.57],"刮风":["h3",44.429,0.623],"刷牙":["h3",45.401,0.716],"刻":["h3",46.467,0.428],"办公室":["h3",47.245,0.818],"办法":["h3",48.413,0.674],"动物":["h3",49.436,0.562],"努力":["h3",50.348,0.56],"包":["h3",51.259,0.368],"北方":["h3",51.976,0.623],"南":["h3",53.669,0.441],"历史":["h3",54.46,0.597],"参加":["h3",55.407,0.657],"又":["h3",56.413,0.349],"双":["h3",57.112,0.317],"发":["h3",57.779,0.262],"发烧":["h3",58.391,0.607],"发现":["h3",59.347,0.619],"叔叔":["h3",60.316,0.673],"变化":["h3",61.339,0.646],"句子":["h3",63.054,0.659],"只有……才……":["h3",64.819,1.021],"可爱":["h3",66.19,0.596],"司机":["h3",67.136,0.606],"同意":["h3",69.11,0.549],"后来":["h3",70.01,0.659],"向":["h3",71.018,0.336],"哭":["h3",72.677,0.473],"啊":["h3",73.5,0.405],"啤酒":["h3",74.255,0.765],"嘴":["h3",75.37,0.365],"回答":["h3",76.085,0.557],"国家":["h3",76.992,0.567],"图书馆":["h3",77.909,0.902],"地":["h3",79.16,0.349],"地图":["h3",79.86,0.65],"地方":["h3",80.859,0.613],"地铁":["h3",81.822,0.661],"坏":["h3",82.833,0.349],"城市":["h3",83.533,0.559],"声音":["h3",84.441,0.688],"复习":["h3",85.48,0.626],"夏":["h3",86.456,0.33],"多么":["h3",87.136,0.534],"太阳":["h3",88.02,0.724],"头发":["h3",89.094,0.633],"奇怪":["h3",90.077,0.636],"奶奶":["h3",91.063,0.661],"如果":["h3",92.073,0.514],"季节":["h3",92.937,0.654],"安静":["h3",93.941,0.626],"完成":["h3",94.917,0.706],"客人":["h3",95.973,0.627],"害怕":["h3",96.95,0.593],"容易":["h3",97.893,0.553],"小心":["h3",98.796,0.725],"层":["h3",99.871,0.527],"差":["h3",100.748,0.412],"带":["h3",101.51,0.365],"帮忙":["h3",102.225,0.644],"帽子":["h3",103.219,0.623],"干净":["h3",104.192,0.652],"年级":["h3",105.193,0.839],"年轻":["h3",106.382,0.73],"应该":["h3",107.462,0.512],"张":["h3",108.324,0.346],"当然":["h3",109.02,0.621],"影响":["h3",109.991,0.692],"必须":["h3",111.033,0.582],"忘记":["h3",111.965,0.662],"总是":["h3",112.977,0.503],"感兴趣":["h3",113.83,0.847],"感冒":["h3",115.027,0.608],"愿意":["h3",115.985,0.534],"成绩":["h3",116.869,0.62],"或者":["h3",117.838,0.555],"打扫":["h3",118.744,0.629],"打算":["h3",119.722,0.629],"护照":["h3",121.424,0.529],"担心":["h3",122.303,0.643],"拿":["h3",123.296,0.429],"换":["h3",124.075,0.335],"接":["h3",124.761,0.301],"提高":["h3",125.412,0.629],"搬":["h3",126.391,0.379],"放":["h3",127.12,0.313],"放心":["h3",127.783,0.609],"故事":["h3",128.742,0.563],"教":["h3",129.655,0.469],"数学":["h3",130.474,0.691],"文化":["h3",131.515,0.649],"新闻":["h3",132.513,0.733],"新鲜":["h3",133.596,0.672],"旧":["h3",135.557,0.289],"明白":["h3",136.196,0.599],"春":["h3",137.145,0.384],"更":["h3",137.879,0.304],"最近":["h3",139.471,0.517],"月亮":["h3",140.338,0.662],"有名":["h3",141.35,0.551],"机会":["h3",142.251,0.708],"条":["h3",143.31,0.559],"极":["h3",144.218,0.431],"树":["h3",144.999,0.371],"校长":["h3",145.72,0.787],"根据":["h3",146.857,0.639],"检查":["h3",147.846,0.707],"楼":["h3",148.903,0.392],"欢迎":["h3",149.645,0.629],"段":["h3",150.624,0.361],"比赛":["h3",151.335,0.574],"比较":["h3",152.259,0.545],"水平":["h3",153.155,0.698],"注意":["h3",154.203,0.552],"洗手间":["h3",155.105,1.061],"洗澡":["h3",156.517,0.728],"清楚":["h3",157.594,0.634],"渴":["h3",158.578,0.427],"游戏":["h3",159.354,0.52],"满意":["h3",160.225,0.659],"灯":["h3",161.233,0.299],"热情":["h3",161.882,0.542],"然后":["h3",162.774,0.629],"照片":["h3",163.753,0.657],"照相机":["h3",164.76,0.851],"照顾":["h3",165.96,0.588],"熊猫":["h3",166.898,0.592],"爬山":["h3",167.84,0.678],"爱好":["h3",168.868,0.619],"爷爷":["h3",169.837,0.589],"特别":["h3",170.776,0.631],"环境":["h3",171.757,0.609],"班":["h3",172.716,0.369],"瓶子":["h3",173.435,0.748],"甜":["h3",174.534,0.528],"生气":["h3",175.411,0.734],"用":["h3",176.495,0.362],"电子邮件":["h3",177.207,0.989],"电梯":["h3",178.546,0.676],"画":["h3",179.571,0.358],"留学":["h3",180.279,0.57],"疼":["h3",181.199,0.43],"瘦":["h3",181.98,0.519],"皮鞋":["h3",182.849,0.736],"盘子":["h3",183.934,0.674],"相信":["h3",184.958,0.664],"短":["h3",186.923,0.43],"矮":["h3",187.703,0.519],"碗":["h3",188.572,0.497],"礼物":["h3",189.419,0.477],"离开":["h3",190.246,0.579],"秋":["h3",191.175,0.377],"种":["h3",191.902,0.519],"空调":["h3",192.771,0.694],"站":["h3",194.714,0.381],"笔记本":["h3",195.446,0.82],"筷子":["h3",196.616,0.638],"简单":["h3",197.603,0.612],"米":["h3",198.566,0.361],"练习":["h3",199.277,0.673],"终于":["h3",200.299,0.578],"经常":["h3",201.227,0.621],"经理":["h3",202.198,0.545],"经过":["h3",203.093,0.632],"结婚":["h3",204.075,0.616],"结束":["h3",205.041,0.609],"绿":["h3",206.0,0.365],"老":["h3",206.715,0.449],"耳朵":["h3",207.514,0.582],"聊天":["h3",208.447,0.592],"聪明":["h3",209.388,0.584],"胖":["h3",210.322,0.424],"脚":["h3",211.096,0.588],"脸":["h3",212.034,0.402],"腿":["h3",212.786,0.363],"自己":["h3",213.499,0.609],"自行车":["h3",214.458,0.948],"舒服":["h3",215.756,0.708],"船":["h3",216.814,0.431],"节日":["h3",217.595,0.708],"节目":["h3",218.654,0.635],"花":["h3",219.639,0.341],"草":["h3",220.33,0.445],"菜单":["pron",17.529,0.613],"蓝":["h3",222.087,0.402],"蛋糕":["h3",222.84,0.598],"行李箱":["h3",223.787,0.888],"街道":["h3",225.025,0.576],"衬衫":["h3",225.951,0.612],"被":["h3",226.913,0.298],"裙子":["h3",227.561,0.668],"裤子":["h3",228.579,0.629],"西":["h3",229.558,0.382],"要求":["h3",230.29,0.708],"见面":["h3",231.347,0.797],"角":["h3",232.494,0.6],"解决":["h3",233.444,0.645],"认为":["h3",234.439,0.728],"认真":["h3",235.517,0.584],"记得":["h3",236.451,0.574],"讲":["h3",237.375,0.281],"词典":["h3",238.006,0.727],"试":["h3",239.083,0.328],"请假":["h3",239.761,0.687],"起来":["h3",240.798,0.639],"起飞":["h3",241.786,0.758],"越":["h3",243.893,0.339],"跟":["h3",244.582,0.377],"辆":["h3",245.308,0.435],"过去":["h3",246.093,0.558],"还是":["h3",247.001,0.475],"迟到":["h3",247.826,0.557],"选择":["h3",248.733,0.655],"遇到":["h3",249.738,0.549],"邻居":["h3",250.637,0.643],"重要":["h3",251.63,0.575],"银行":["h3",252.555,0.67],"锻炼":["h3",253.574,0.66],"阿姨":["h3",254.584,0.606],"附近":["h3",255.54,0.617],"除了":["h3",256.506,0.556],"难":["h3",257.412,0.446],"难过":["h3",258.208,0.636],"需要":["h3",259.194,0.633],"面包":["h3",260.178,0.638],"音乐":["h3",261.166,0.581],"饮料":["h3",262.097,0.787],"饱":["h3",263.234,0.41],"饿":["h3",263.994,0.323],"香蕉":["h3",264.667,0.641],"马":["pron",22.426,0.457],"马上":["h3",266.465,0.608],"骑":["h3",267.422,0.402],"鸟":["h3",268.174,0.422],"黄河":["h3",268.947,0.756],"黑板":["h3",270.053,0.654],"鼻子":["h3",271.057,0.539],"一个":["pron",0.35,0.525],"不好":["pron",2.145,0.605],"不是":["pron",3.1,0.562],"你好":["pron",4.934,0.656],"吃饭":["pron",8.116,0.652],"四个":["pron",9.118,0.583],"妈":["pron",10.051,0.268],"日本":["pron",12.668,0.647],"汽车":["pron",14.6,0.64],"绿色":["pron",15.59,0.695],"饿了":["pron",21.529,0.548],"骂":["pron",23.233,0.381],"麻":["pron",25.013,0.259],"我叫黄俊善。":["sent",319.812,1.701],"我是一九九五年三月二十一号出生的。":["sent",204.257,3.836],"我家有两口人，我和我老婆。明年五月我们的宝宝就要出生了。":["sent",373.715,6.291],"我在三星电子上班，是做机械设计的。":["sent",123.726,3.88],"书在桌子上边。":["sent",371.558,1.857],"他在跑步。":["sent",97.118,1.366],"哥哥比弟弟高。":["sent",161.239,1.7],"这件衣服八十块钱。":["sent",141.923,2.268],"现在三点半。":["sent",278.3,1.81],"我一般___。你呢？":["sent",443.902,1.588],"我喜欢___，因为很有意思。":["sent",261.452,2.471],"我打算___。你也一起去吧！":["sent",405.472,2.427],"我___过___，挺好的。":["sent",133.466,1.947],"好啊，我们一起___吧！":["sent",256.891,2.316],"我平时___。":["sent",120.06,1.182],"因为___，而且___。":["sent",333.674,1.748],"比如说，___。":["sent",281.968,1.108],"所以我觉得___很重要。":["sent",396.058,2.408],"我觉得___。":["sent",276.966,1.034],"首先，___。":["sent",305.282,0.957],"还有，___。":["sent",208.393,0.896],"当然也有不好的地方，不过好处更多。":["sent",115.95,3.81],"所以我觉得___。":["sent",303.462,1.52],"能省时间":["sent",280.409,1.258],"对身体好":["sent",127.906,1.285],"能放松一下":["sent",192.62,1.554],"做事更快":["sent",8.566,1.33],"能学到很多东西":["sent",0.3,1.958],"太费钱了":["sent",180.726,1.216],"喂，你好！我想请你帮个忙。你能___吗？太谢谢你了，下次我请你吃饭。":["sent",88.064,7.493],"你好，我想订___。我们一共___个人，___点到。有___吗？":["sent",144.491,5.097],"真不好意思，我___有事儿，去不了了。下次再一起___吧！":["sent",78.525,5.576],"你好，我昨天在这儿买了___，但是有问题。能不能给我换一个？":["sent",325.037,5.802],"今天天气很好，___去了___。":["sent",440.968,2.634],"他在那儿___。":["sent",457.09,1.075],"突然，___。":["sent",95.858,0.961],"他特别着急。":["sent",75.162,1.655],"最后，___。":["sent",32.891,0.865],"这真是难忘的一天。":["sent",149.887,2.297],"桌子上有什么？":["sent",271.168,1.617],"桌子上有一本书。":["sent",350.967,2.07],"猫在哪儿？":["sent",380.306,1.185],"猫在椅子下边。":["sent",156.593,1.787],"他在做什么？":["sent",10.196,1.415],"他在看电视。":["sent",345.591,1.529],"哪个更贵？":["sent",283.376,1.265],"电脑比手机贵。":["sent",252.714,1.75],"一共有几个人？":["sent",369.596,1.662],"一共有三个人。":["sent",169.071,1.86],"现在几点？":["sent",13.531,1.347],"现在八点一刻。":["sent",388.545,1.904],"你周末一般做什么？":["sent",154.279,2.014],"我周末一般去健身房运动。你呢？":["sent",135.714,3.487],"你喜欢吃什么菜？":["sent",121.542,1.883],"我喜欢吃中国菜，特别好吃。":["sent",232.13,3.237],"这个周末一起去看电影，怎么样？":["sent",451.535,3.279],"好啊，我们一起去吧！几点见？":["sent",248.117,3.079],"你去过中国吗？":["sent",86.113,1.651],"我没去过中国，明年我想去北京旅游。":["sent",20.417,4.335],"你明天有空吗？":["sent",131.322,1.844],"明天我要加班，后天有空。":["sent",308.144,3.089],"你平时常做运动吗？":["sent",264.224,2.249],"我平时经常运动。因为上班压力挺大的，而且运动对身体好。比如说，我一个星期去三次健身房。所以我觉得运动挺重要的。":["sent",289.156,12.758],"你喜欢在家做饭还是去饭店吃饭？":["sent",445.79,3.476],"我喜欢在家做饭。因为在家做饭比较省钱，而且更健康。比如说，周末我经常给我老婆做饭。所以我觉得在家吃更好。":["sent",235.668,12.149],"你怎么去上班？":["sent",311.533,1.596],"我开车上班。因为开车很方便，而且我家离公司有点儿远。比如说，坐公交车要一个小时，开车只要三十分钟。所以我每天都开车上班。":["sent",98.784,14.317],"你有什么爱好？":["sent",398.766,1.622],"我平时喜欢看棒球比赛。因为特别有意思，而且能放松一下。比如说，周末我经常跟朋友一起去看比赛。所以我觉得有个爱好挺好的。":["sent",355.479,13.816],"你认为在家工作有什么好处？":["sent",26.598,3.032],"我觉得在家工作好处挺多的。首先，不用上下班，能省很多时间。还有，在家工作压力小，做事更快。当然也有不好的地方，不过好处更多。所以我觉得在家工作挺好的。":["sent",420.742,17.141],"你认为孩子从小学外语好吗？":["sent",2.558,3.328],"我觉得孩子从小学外语挺好的。首先，小时候学语言特别快。还有，能学到很多东西，以后找工作也有帮助。当然也有不好的地方，比如太费钱了，不过好处更多。所以我觉得应该从小学外语。":["sent",212.118,19.713],"这个星期六你要搬家，请给朋友打电话，请他来帮忙。":["sent",198.087,5.87],"喂，小王，你好！我想请你帮个忙。这个星期六我要搬家，你能来帮我吗？太谢谢你了，下次我请你吃饭。":["sent",40.172,11.089],"你想明天晚上和朋友去饭店吃饭，请给饭店打电话预订。":["sent",313.429,6.083],"你好，我想订明天晚上的位子。我们一共四个人，七点到。有包间吗？谢谢。":["sent",335.722,8.091],"朋友约你明天去看电影，可是你要加班。请你拒绝他。":["sent",408.199,5.958],"真不好意思，我明天得加班，看不了电影了。下次再一起去吧！":["sent",185.985,6.334],"你昨天买的衣服太小了，请你去商店要求换一件。":["sent",15.178,4.939],"你好，我昨天在这儿买了一件衣服，但是太小了。能不能给我换一件大的？":["sent",173.448,6.978],"请根据四幅图的内容讲述一个完整的故事。":["sent",400.688,4.484],"今天天气很好，小明去了公园。他坐在椅子上看书。突然，下雨了。他没带雨伞，很着急。最后，一个女孩儿给了他一把雨伞。这真是难忘的一天。":["sent",54.912,15.552],"请说出你的名字。":["sent",6.186,2.08],"请说出你的出生日期。":["sent",414.457,2.445],"你家有几口人？":["sent",34.056,1.759],"你在什么地方工作？":["sent",418.392,2.05],"出生日期":["sent",182.242,1.42],"几口人":["sent",73.697,1.165],"我家有两口人…":["sent",353.336,1.843],"什么地方工作":["sent",183.962,1.724],"我在三星电子上班…":["sent",139.501,2.122],"在哪儿？":["sent",251.496,0.918],"○○在○○上边/下边/旁边。":["sent",371.558,1.857],"在做什么？":["sent",25.053,1.245],"他/她在＋동사。":["sent",345.591,1.529],"哪个更…？":["sent",53.553,1.059],"A比B＋형용사。":["sent",161.239,1.7],"多少钱？":["sent",390.749,1.134],"○○块钱。":["sent",254.764,1.827],"几点？ / 几个？":["sent",38.276,1.596],"现在○点。/ 一共有○个。":["sent",266.772,2.888],"有什么？":["sent",302.214,0.948],"○○上有一本书。":["sent",350.967,2.07],"一般 / 平时…？":["sent",449.567,1.668],"我一般…。你呢？":["sent",386.524,1.721],"喜欢…吗？":["sent",344.113,1.178],"我特别喜欢…，因为…。":["sent",113.401,2.249],"…怎么样？":["sent",269.961,0.907],"好啊，我们一起…吧！":["sent",171.231,1.917],"…过…吗？":["sent",37.154,0.822],"我…过，挺好的。/ 我没…过。":["sent",286.293,2.563],"能 / 可以…吗？":["sent",347.42,1.5],"没问题！/ 不好意思，我…。":["sent",438.183,2.485],"明天 / 周末…？":["sent",51.56,1.693],"我打算…。":["sent",284.941,1.052],"常…吗？":["sent",417.201,0.89],"我平时常…。":["sent",349.22,1.446],"A还是B？":["sent",29.93,2.661],"我喜欢A。因为…":["sent",273.084,3.582],"怎么…？":["sent",36.115,0.739],"我开车/坐地铁…。因为…":["sent",321.812,2.925],"有什么…？":["sent",302.214,0.948],"我的…是…。":["sent",209.589,2.229],"…的时候做什么？":["sent",194.473,1.705],"…的时候，我常常…。":["sent",384.193,2.031],"有什么好处 / 坏处？":["sent",158.68,2.259],"我觉得…好处挺多的。":["sent",381.791,2.103],"你同意…吗？":["sent",306.539,1.305],"我挺同意…的。":["sent",129.491,1.532],"有什么影响？":["sent",394.225,1.533],"我觉得…影响挺大的。":["sent",331.14,2.234],"应该…吗？":["sent",77.117,1.108],"我觉得应该…。":["sent",84.4,1.413],"给…打电话":["sent",11.911,1.32],"喂，你好！我想…":["sent",163.239,2.095],"拒绝 / 道歉":["sent",455.113,1.677],"真不好意思，…":["sent",152.485,1.495],"要求 / 换":["sent",458.465,1.375],"你好，我昨天在这儿买了…":["sent",70.764,2.633],"劝 / 建议":["sent",196.478,1.308],"我觉得你应该…。":["sent",259.507,1.645],"讲述一个故事":["sent",392.183,1.742],"今天天气很好，小明去了…":["sent",165.634,3.137]};
+const EXS={"hsk1-0003":["谢谢你！不客气。","xiè xie nǐ bù kè qi","고마워! 천만에.","ex1",0.35,1.37],"hsk1-0004":["对不起。没关系。","duì bu qǐ méi guān xi","미안해. 괜찮아.","ex1",2.07,1.25],"hsk1-0005":["请问，你叫什么名字？","qǐng wèn nǐ jiào shén me míng zi","실례지만, 이름이 뭐예요?","ex1",3.67,1.41],"hsk1-0006":["请进，请坐。","qǐng jìn qǐng zuò","들어오세요, 앉으세요.","ex1",5.43,1.69],"hsk1-0007":["老师再见！","lǎo shī zài jiàn","선생님, 안녕히 계세요!","ex1",7.47,0.89],"hsk1-0008":["我来介绍一下我的朋友。","wǒ lái jiè shào yī xià wǒ de péng you","제 친구를 소개할게요.","ex1",8.71,1.65],"hsk1-0012":["我们是同学。","wǒ men shì tóng xué","우리는 반 친구예요.","ex1",10.71,1.05],"hsk1-0013":["她也是医生。","tā yě shì yī shēng","그녀도 의사예요.","ex1",12.11,1.41],"hsk1-0015":["我是中国人，你呢？","wǒ shì zhōng guó rén nǐ ne","저는 중국 사람이에요, 당신은요?","ex1",13.87,1.61],"hsk1-0016":["那个男生是我朋友。","nà ge nán shēng shì wǒ péng you","저 남학생은 제 친구예요.","ex1",15.83,1.41],"hsk1-0018":["先生，您找谁？","xiān sheng nín zhǎo shuí","선생님, 누구를 찾으세요?","ex1",17.59,1.29],"hsk1-0020":["我家有五口人。","wǒ jiā yǒu wǔ kǒu rén","우리 집은 다섯 식구예요.","ex1",19.23,1.29],"hsk1-0022":["我有一个哥哥和一个妹妹。","wǒ yǒu yī ge gē ge hé yī ge mèi mei","저는 형(오빠) 한 명과 여동생 한 명이 있어요.","ex1",20.87,1.89],"hsk1-0024":["爷爷和奶奶身体都很好。","yé ye hé nǎi nai shēn tǐ dōu hěn hǎo","할아버지, 할머니 모두 건강하세요.","ex1",23.11,1.81],"hsk1-0025":["这是我儿子，那是我女儿。","zhè shì wǒ ér zi nà shi wǒ nǚ ér","이쪽은 제 아들, 저쪽은 제 딸이에요.","ex1",25.27,2.93],"hsk1-0029":["我今年二十岁。","wǒ jīn nián èr shí suì","저는 올해 스무 살이에요.","ex1",28.55,1.33],"hsk1-0031":["一个星期有七天。","yī ge xīng qī yǒu qī tiān","일주일은 7일이에요.","ex1",30.23,1.81],"hsk1-0032":["他有两个孩子。","tā yǒu liǎng gè hái zi","그는 아이가 둘 있어요.","ex1",32.39,1.21],"hsk1-0033":["我买了三本书。","wǒ mǎi le sān běn shū","저는 책을 세 권 샀어요.","ex1",33.95,1.53],"hsk1-0035":["这是第二次。","zhè shì dì èr cì","이번이 두 번째예요.","ex1",35.83,1.13],"hsk1-0037":["这本书一百块钱。","zhè běn shū yì bǎi kuài qián","이 책은 100위안이에요.","ex1",37.31,1.61],"hsk1-0038":["弟弟六岁，妹妹三岁。","dì di liù suì mèi mei sān suì","남동생은 여섯 살, 여동생은 세 살이에요.","ex1",39.27,1.93],"hsk1-0039":["南边比北边热。","nán bian bǐ běi biān rè","남쪽이 북쪽보다 더워요.","ex1",41.55,1.37],"hsk1-0040":["现在几点？","xiàn zài jǐ diǎn","지금 몇 시예요?","ex1",43.27,0.97],"hsk1-0041":["现在是上午九点半。","xiàn zài shì shàng wǔ jiǔ diǎn bàn","지금은 오전 9시 반이에요.","ex1",44.59,1.69],"hsk1-0042":["今天是星期几？","jīn tiān shì xīng qī jǐ","오늘 무슨 요일이에요?","ex1",46.63,1.21],"hsk1-0044":["昨天是星期日。","zuó tiān shì xīng qī rì","어제는 일요일이었어요.","ex1",48.19,0.97],"hsk1-0047":["他晚上常常学习。","tā wǎn shang cháng cháng xué xí","그는 저녁에 자주 공부해요.","ex1",49.51,1.65],"hsk1-0049":["去年我在北京。","qù nián wǒ zài běi jīng","작년에 저는 베이징에 있었어요.","ex1",51.51,1.65],"hsk1-0052":["他后天回家。","tā hòu tiān huí jiā","그는 모레 집에 가요.","ex1",53.51,1.13],"hsk1-0054":["我早上七点起床。","wǒ zǎo shang qī diǎn qǐ chuáng","저는 아침 7시에 일어나요.","ex1",54.99,1.65],"hsk1-0057":["我想喝一杯茶。","wǒ xiǎng hē yī bēi chá","차 한 잔 마시고 싶어요.","ex1",56.99,1.41],"hsk1-0059":["他在看电视。","tā zài kàn diàn shì","그는 TV를 보고 있어요.","ex1",58.75,0.93],"hsk1-0061":["请说汉语。","qǐng shuō hàn yǔ","중국어로 말해 주세요.","ex1",60.03,0.81],"hsk1-0062":["你会说中文吗？","nǐ huì shuō zhōng wén ma","중국어 할 줄 알아요?","ex1",61.19,1.21],"hsk1-0063":["我会做菜。","wǒ huì zuò cài","저는 요리할 줄 알아요.","ex1",62.75,0.97],"hsk1-0065":["我给你打电话。","wǒ gěi nǐ dǎ diàn huà","내가 너한테 전화할게.","ex1",64.07,1.13],"hsk1-0073":["请坐下，休息一会儿。","qǐng zuò xia xiū xi yī huìr","앉아서 잠깐 쉬세요.","ex1",65.55,1.57],"hsk1-0074":["老师教我们汉字。","lǎo shī jiào wǒ men hàn zì","선생님이 우리에게 한자를 가르쳐요.","ex1",67.47,1.53],"hsk1-0075":["我忘记他的名字了。","wǒ wàng jì tā de míng zi le","그의 이름을 잊어버렸어요.","ex1",69.35,1.61],"hsk1-0078":["我明白了。","wǒ míng bai le","알겠어요.","ex1",71.31,0.81],"hsk1-0079":["请告诉我你的电话。","qǐng gào sù wǒ nǐ de diàn huà","전화번호 좀 알려 주세요.","ex1",72.47,1.73],"hsk1-0081":["他还没起来。","tā hái méi qǐ lai","그는 아직 안 일어났어요.","ex1",74.55,1.25],"hsk1-0084":["谢谢你帮忙。","xiè xie nǐ bāng máng","도와줘서 고마워.","ex1",76.15,1.21],"hsk1-0088":["他上班，我上学。","tā shàng bān wǒ shàng xué","그는 출근하고, 저는 학교에 가요.","ex1",77.71,1.33],"hsk1-0092":["这次考试很难。","zhè cì kǎo shì hěn nán","이번 시험은 어려워요.","ex1",79.39,1.33],"hsk1-0094":["我在学校工作。","wǒ zài xué xiào gōng zuò","저는 학교에서 일해요.","ex1",81.07,1.13],"hsk1-0095":["他常常上网。","tā cháng cháng shàng wǎng","그는 자주 인터넷을 해요.","ex1",82.55,1.13],"hsk1-0098":["书在桌子上。","shū zài zhuō zi shàng","책은 책상 위에 있어요.","ex1",84.03,1.29],"hsk1-0100":["商店在医院旁边。","shāng diàn zài yī yuàn páng biān","상점은 병원 옆에 있어요.","ex1",85.67,1.85],"hsk1-0101":["图书馆在学校里边。","tú shū guǎn zài xué xiào lǐ bian","도서관은 학교 안에 있어요.","ex1",87.87,1.53],"hsk1-0103":["医院在前边，饭店在后边。","yī yuàn zài qián bian fàn diàn zài hòu bian","병원은 앞쪽, 식당은 뒤쪽에 있어요.","ex1",89.75,2.45],"hsk1-0108":["东西在房间中间。","dōng xi zài fáng jiān zhōng jiān","물건이 방 가운데 있어요.","ex1",92.55,1.57],"hsk1-0112":["我要去火车站。","wǒ yào qù huǒ chē zhàn","저는 기차역에 가려고 해요.","ex1",94.47,1.13],"hsk1-0121":["他坐在车上看书。","tā zuò zài chē shàng kàn shū","그는 차에 앉아서 책을 읽어요.","ex1",95.95,1.61],"hsk1-0124":["这个太贵了。","zhè ge tài guì le","이건 너무 비싸요.","ex1",97.91,0.85],"hsk1-0127":["这个八块钱。","zhè ge bā kuài qián","이건 8위안이에요.","ex1",99.11,0.89],"hsk1-0132":["门票多少钱？","mén piào duō shǎo qián","입장권은 얼마예요?","ex1",100.35,1.09],"hsk1-0134":["早饭我吃面包，喝牛奶。","zǎo fàn wǒ chī miàn bāo hē niú nǎi","아침에 빵을 먹고 우유를 마셔요.","ex1",101.79,2.17],"hsk1-0135":["这个菜很好吃。","zhè ge cài hěn hǎo chī","이 요리 맛있어요.","ex1",104.31,1.05],"hsk1-0136":["我想吃鸡蛋和肉。","wǒ xiǎng chī jī dàn hé ròu","계란이랑 고기 먹고 싶어요.","ex1",105.71,1.49],"hsk1-0137":["我饿了，也渴了。","wǒ è le yě kě le","배고프고 목도 말라요.","ex1",107.55,1.49],"hsk1-0140":["我们晚饭吃面条儿和包子。","wǒ men wǎn fàn chī miàn tiáor hé bāo zi","우리는 저녁으로 국수와 만두를 먹어요.","ex1",109.39,2.57],"hsk1-0147":["房间很干净。","fáng jiān hěn gān jìng","방이 깨끗해요.","ex1",112.31,1.37],"hsk1-0151":["我能进来吗？","wǒ néng jìn lái ma","들어가도 될까요?","ex1",114.03,1.29],"hsk1-0152":["你会开车吗？","nǐ huì kāi chē ma","운전할 줄 알아요?","ex1",115.67,1.01],"hsk1-0153":["这是什么？","zhè shì shén me","이게 뭐예요?","ex1",117.03,0.69],"hsk1-0156":["你喜欢哪个？","nǐ xǐ huan nǎ ge","어느 게 좋아요?","ex1",118.07,0.93],"hsk1-0157":["他是不是学生？","tā shì bu shì xué sheng","그는 학생이에요, 아니에요?","ex1",119.35,1.17],"hsk1-0159":["这个字怎么写？","zhè ge zì zěn me xiě","이 글자는 어떻게 써요?","ex1",120.87,0.97],"hsk1-0160":["今天几月几号？","jīn tiān jǐ yuè jǐ hào","오늘 몇 월 며칠이에요?","ex1",122.19,1.41],"hsk1-0163":["这是我的手机。","zhè shì wǒ de shǒu jī","이건 제 휴대폰이에요.","ex1",123.95,1.29],"hsk1-0164":["我的电脑很新。","wǒ de diàn nǎo hěn xīn","제 컴퓨터는 새것이에요.","ex1",125.59,1.01],"hsk1-0167":["请给我地图。","qǐng gěi wǒ dì tú","지도 좀 주세요.","ex1",126.95,1.77],"hsk1-0170":["洗手间在哪里？","xǐ shǒu jiān zài nǎ lǐ","화장실이 어디예요?","ex1",129.07,1.13],"hsk1-0177":["他的爱好是唱歌和打球。","tā de ài hào shì chàng gē hé dǎ qiú","그의 취미는 노래하기와 공놀이예요.","ex1",130.55,2.01],"hsk1-0180":["我觉得这本书很好。","wǒ jué de zhè běn shū hěn hǎo","이 책 좋은 것 같아요.","ex1",132.91,1.85],"hsk1-0183":["他跟朋友一起去看电影。","tā gēn péng you yī qǐ qù kàn diàn yǐng","그는 친구랑 같이 영화 보러 가요.","ex1",135.11,2.33],"hsk1-0184":["我看见他了，他也看到我了。","wǒ kàn jiàn tā le tā yě kàn dào wǒ le","내가 그를 봤고, 그도 나를 봤어.","ex1",137.79,2.29],"hsk1-0187":["我要请假，去看病。","wǒ yào qǐng jià qù kàn bìng","휴가 내고 병원 가려고요.","ex1",140.43,2.01],"hsk1-0188":["最后一页有很多字。","zuì hòu yī yè yǒu hěn duō zì","마지막 페이지에 글자가 많아요.","ex1",142.79,1.45],"hsk1-0193":["他送我回家。","tā sòng wǒ huí jiā","그가 저를 집에 데려다줘요.","ex1",144.59,1.05],"hsk1-0198":["左边是门，右边是路。","zuǒ bian shì mén yòu bian shì lù","왼쪽은 문, 오른쪽은 길이에요.","ex1",145.99,1.89],"hsk1-0199":["楼上边有房间，下边有商店。","lóu shàng biān yǒu fáng jiān xià bian yǒu shāng diàn","건물 위층엔 방이, 아래층엔 상점이 있어요.","ex1",148.23,2.65],"hsk1-0201":["我姐姐是中学生。","wǒ jiě jie shì zhōng xué sheng","우리 누나(언니)는 중학생이에요.","ex1",151.23,1.41],"hsk1-0204":["请听我说话。","qǐng tīng wǒ shuō huà","제 말 좀 들어 보세요.","ex1",152.99,1.17],"hsk1-0207":["飞机在天上飞。","fēi jī zài tiān shàng fēi","비행기가 하늘을 날아요.","ex1",154.51,1.53],"hsk1-0210":["请你试一下这个。","qǐng nǐ shì yī xià zhè ge","이거 한번 입어(써) 보세요.","ex1",156.39,1.33],"hsk1-0216":["今天是几月几日？","jīn tiān shì jǐ yuè jǐ rì","오늘 몇 월 며칠이에요?","ex1",158.07,1.65],"hsk1-0219":["这个球最大。","zhè ge qiú zuì dà","이 공이 제일 커요.","ex1",160.07,1.21],"hsk1-0222":["这个和那个一样。","zhè ge hé nà ge yī yàng","이거랑 저거는 똑같아요.","ex1",161.63,1.77],"hsk1-0226":["请给我一点儿水。","qǐng gěi wǒ yī diǎnr shuǐ","물 조금만 주세요.","ex1",163.75,1.29],"hsk1-0230":["请给我一个杯子。","qǐng gěi wǒ yī ge bēi zi","컵 하나 주세요.","ex1",165.39,1.25],"hsk1-0235":["我的电脑坏了。","wǒ de diàn nǎo huài le","제 컴퓨터가 고장 났어요.","ex1",166.99,0.97],"hsk1-0236":["这个不对。","zhè ge bù duì","이건 틀렸어요.","ex1",168.31,0.85],"hsk1-0237":["他不大高。","tā bù dà gāo","그는 키가 별로 안 커요.","ex1",169.51,0.77],"hsk1-0238":["这个杯子是白的。","zhè ge bēi zi shì bái de","이 컵은 하얀색이에요.","ex1",170.63,1.17],"hsk1-0239":["一元有十毛。","yī yuán yǒu shí máo","1위안은 10마오예요.","ex1",172.15,1.33],"hsk1-0245":["明天见！","míng tiān jiàn","내일 봐!","ex1",173.83,0.65],"hsk1-0246":["请读这个字。","qǐng dú zhè ge zì","이 글자를 읽어 주세요.","ex1",174.83,1.05],"hsk1-0250":["请关门。","qǐng guān mén","문 좀 닫아 주세요.","ex1",176.23,0.77],"hsk1-0252":["我等了一个小时。","wǒ děng le yī ge xiǎo shí","한 시간 기다렸어요.","ex1",177.35,1.29],"hsk1-0256":["请给我票。","qǐng gěi wǒ piào","표 좀 주세요.","ex1",178.99,1.05],"hsk1-0257":["爷爷很老了。","yé ye hěn lǎo le","할아버지는 연세가 많으세요.","ex1",180.39,1.69],"hsk1-0259":["现在是零点。","xiàn zài shì líng diǎn","지금은 자정이에요.","ex1",182.43,1.21],"hsk1-0261":["这里人很少。","zhè lǐ rén hěn shǎo","여기는 사람이 적어요.","ex1",183.99,1.21],"hsk1-0266":["他一边走一边唱。","tā yī biān zǒu yī biān chàng","그는 걸으면서 노래해요.","ex1",185.55,1.33],"hsk1-0269":["小姐，请问现在几点？","xiǎo jie qǐng wèn xiàn zài jǐ diǎn","아가씨, 지금 몇 시예요?","ex2",0.35,1.81],"hsk1-0271":["这是我第一次来。","zhè shì wǒ dì yī cì lái","여기 처음 와 봐요.","ex2",2.51,1.37],"hsk1-0277":["东、南、西、北都有山。","dōng nán xī běi dōu yǒu shān","동서남북 모두 산이 있어요.","ex2",4.23,1.85],"hsk1-0279":["这个是女的，那个是男的。","zhè ge shì nǚ de nà ge shì nán de","이건 여자, 저건 남자예요.","ex2",6.43,2.01],"hsk1-0281":["差一点儿就好了。","chà yī diǎnr jiù hǎo le","거의 다 됐어요.","ex2",8.79,1.17],"hsk2-0004":["谢谢你的帮助。","xiè xie nǐ de bāng zhù","도와줘서 고마워요.","ex2",10.31,1.25],"hsk2-0009":["喂，你好，请问是哪位？","wèi nǐ hǎo qǐng wèn shì nǎ wèi","여보세요, 실례지만 누구세요?","ex2",11.91,2.37],"hsk2-0018":["那个司机开车很小心。","nà ge sī jī kāi chē hěn xiǎo xīn","저 기사님은 운전을 조심히 해요.","ex2",14.63,1.85],"hsk2-0020":["它是我家的猫，它们是我家的狗。","tā shì wǒ jiā de māo tā men shì wǒ jiā de gǒu","이건 우리 집 고양이고, 쟤네는 우리 집 개들이에요.","ex2",16.83,3.05],"hsk2-0022":["我从小在北方长大。","wǒ cóng xiǎo zài běi fāng zhǎng dà","저는 어릴 때부터 북쪽에서 자랐어요.","ex2",20.23,1.93],"hsk2-0035":["爷爷平时喜欢看报纸。","yé ye píng shí xǐ huan kàn bào zhǐ","할아버지는 평소에 신문 보는 걸 좋아하세요.","ex2",22.51,1.97],"hsk2-0037":["家庭对孩子的影响很大。","jiā tíng duì hái zi de yǐng xiǎng hěn dà","가정이 아이에게 주는 영향은 커요.","ex2",24.83,1.73],"hsk2-0040":["家里来客人了。","jiā lǐ lái kè rén le","집에 손님이 왔어요.","ex2",26.91,1.17],"hsk2-0043":["一千克就是一公斤。","yī qiān kè jiù shì yī gōng jīn","1000그램이 1킬로그램이에요.","ex2",28.43,1.37],"hsk2-0049":["这座楼有二十层。","zhè zuò lóu yǒu èr shí céng","이 건물은 20층이에요.","ex2",30.15,1.45],"hsk2-0054":["少数人不愿意去。","shǎo shù rén bù yuàn yì qù","몇몇 사람은 가기 싫어해요.","ex2",31.95,1.57],"hsk2-0061":["这本书五块四角。","zhè běn shū wǔ kuài sì jiǎo","이 책은 5위안 4마오예요.","ex2",33.87,2.21],"hsk2-0067":["周末你有空儿吗？","zhōu mò nǐ yǒu kòngr ma","주말에 시간 있어요?","ex2",36.43,1.49],"hsk2-0069":["下周开学，我要复习生词。","xià zhōu kāi xué wǒ yào fù xí shēng cí","다음 주에 개학이라 새 단어를 복습해야 해요.","ex2",38.27,2.41],"hsk2-0072":["夜里很安静。","yè li hěn ān jìng","밤에는 아주 조용해요.","ex2",41.03,0.89],"hsk2-0073":["刚才有人给你打电话。","gāng cái yǒu rén gěi nǐ dǎ diàn huà","방금 누가 너한테 전화했어.","ex2",42.27,1.45],"hsk2-0074":["最近我特别忙。","zuì jìn wǒ tè bié máng","요즘 저 특히 바빠요.","ex2",44.07,1.09],"hsk2-0075":["后来他去外地工作了。","hòu lái tā qù wài dì gōng zuò le","나중에 그는 다른 지역으로 일하러 갔어요.","ex2",45.51,1.93],"hsk2-0076":["当时我还是小学生。","dāng shí wǒ hái shi xiǎo xué sheng","그때 저는 아직 초등학생이었어요.","ex2",47.79,1.45],"hsk2-0087":["现在是三点一刻。","xiàn zài shì sān diǎn yī kè","지금은 3시 15분이에요.","ex2",49.59,1.97],"hsk2-0088":["我先洗澡，然后睡觉。","wǒ xiān xǐ zǎo rán hòu shuì jiào","먼저 샤워하고 나서 잘게요.","ex2",51.91,1.81],"hsk2-0093":["他拿出笔记本记生词。","tā ná chū bǐ jì běn jì shēng cí","그는 노트를 꺼내서 새 단어를 적었어요.","ex2",54.07,2.13],"hsk2-0094":["用筷子吃面很方便。","yòng kuài zi chī miàn hěn fāng biàn","젓가락으로 국수를 먹으면 편해요.","ex2",56.55,1.57],"hsk2-0095":["他喊我过去帮忙。","tā hǎn wǒ guò qù bāng máng","그가 도와달라고 나를 불렀어요.","ex2",58.47,1.65],"hsk2-0099":["别靠墙站着。","bié kào qiáng zhàn zhe","벽에 기대서 있지 마.","ex2",60.47,1.17],"hsk2-0105":["请举手回答问题。","qǐng jǔ shǒu huí dá wèn tí","손을 들고 질문에 대답하세요.","ex2",61.99,1.73],"hsk2-0114":["饭吃完了，碗我来洗。","fàn chī wán le wǎn wǒ lái xǐ","밥 다 먹었으니 설거지는 내가 할게.","ex2",64.07,2.05],"hsk2-0121":["我爱交朋友。","wǒ ài jiāo péng you","저는 친구 사귀는 걸 좋아해요.","ex2",66.47,1.33],"hsk2-0123":["你算一下一共多少钱。","nǐ suàn yī xià yī gòng duō shǎo qián","모두 얼마인지 계산해 봐.","ex2",68.15,2.33],"hsk2-0124":["这件事我来办。","zhè jiàn shì wǒ lái bàn","이 일은 제가 처리할게요.","ex2",70.83,1.33],"hsk2-0126":["我在读高中二年级。","wǒ zài dú gāo zhōng èr nián jí","저는 고등학교 2학년이에요.","ex2",72.51,1.81],"hsk2-0127":["老师在黑板上写生词。","lǎo shī zài hēi bǎn shàng xiě shēng cí","선생님이 칠판에 새 단어를 써요.","ex2",74.67,2.05],"hsk2-0129":["不懂的词语可以查词典。","bù dǒng de cí yǔ kě yǐ chá cí diǎn","모르는 단어는 사전에서 찾아보면 돼요.","ex2",77.07,2.45],"hsk2-0138":["校长在晚会上讲话。","xiào zhǎng zài wǎn huì shàng jiǎng huà","교장 선생님이 파티에서 연설했어요.","ex2",79.87,1.73],"hsk2-0149":["经理在办公室等你。","jīng lǐ zài bàn gōng shì děng nǐ","매니저가 사무실에서 기다리고 있어요.","ex2",81.95,1.61],"hsk2-0150":["公司的同事都很热情。","gōng sī de tóng shì dōu hěn rè qíng","회사 동료들이 다 친절해요.","ex2",83.91,2.01],"hsk2-0155":["单位离我家很近。","dān wèi lí wǒ jiā hěn jìn","직장이 집에서 가까워요.","ex2",86.27,1.45],"hsk2-0157":["我打算明年出国。","wǒ dǎ suàn míng nián chū guó","저는 내년에 외국에 갈 계획이에요.","ex2",88.07,1.29],"hsk2-0160":["爸爸下周休假。","bà ba xià zhōu xiū jià","아빠는 다음 주에 휴가예요.","ex2",89.71,1.33],"hsk2-0165":["出口在那边，请往前走。","chū kǒu zài nà bian qǐng wǎng qián zǒu","출구는 저쪽이에요, 앞으로 가세요.","ex2",91.39,2.45],"hsk2-0181":["你可以坐公共汽车去。","nǐ kě yǐ zuò gōng gòng qì chē qù","버스 타고 가면 돼요.","ex2",94.19,1.81],"hsk2-0183":["出租车比地铁贵。","chū zū chē bǐ dì tiě guì","택시가 지하철보다 비싸요.","ex2",96.35,1.69],"hsk2-0184":["我会骑自行车。","wǒ huì qí zì xíng chē","저는 자전거를 탈 줄 알아요.","ex2",98.39,1.37],"hsk2-0187":["飞机就要起飞了。","fēi jī jiù yào qǐ fēi le","비행기가 곧 이륙해요.","ex2",100.11,1.25],"hsk2-0188":["出国要带护照。","chū guó yào dài hù zhào","외국에 가려면 여권을 챙겨야 해요.","ex2",101.71,1.13],"hsk2-0196":["我们从学校出发。","wǒ men cóng xué xiào chū fā","우리는 학교에서 출발해요.","ex2",103.19,1.57],"hsk2-0198":["经过公园，就到我家了。","jīng guò gōng yuán jiù dào wǒ jiā le","공원을 지나면 바로 우리 집이에요.","ex2",105.11,2.21],"hsk2-0199":["走过这条街就是超市。","zǒu guò zhè tiáo jiē jiù shì chāo shì","이 길을 건너면 바로 마트예요.","ex2",107.67,1.93],"hsk2-0201":["超市的东西比店里便宜。","chāo shì de dōng xi bǐ diàn lǐ biàn yí","마트 물건이 가게보다 싸요.","ex2",109.95,2.45],"hsk2-0205":["可以用信用卡吗？","kě yǐ yòng xìn yòng kǎ ma","신용카드 돼요?","ex2",112.75,1.49],"hsk2-0207":["你可以去银行换钱。","nǐ kě yǐ qù yín háng huàn qián","은행에 가서 환전하면 돼요.","ex2",114.59,1.57],"hsk2-0208":["这家店卖的东西很普通。","zhè jiā diàn mài de dōng xi hěn pǔ tōng","이 가게는 평범한 물건을 팔아요.","ex2",116.51,1.81],"hsk2-0214":["车上人满了，等下一辆吧。","chē shàng rén mǎn le děng xià yī liàng ba","차에 사람이 꽉 찼으니 다음 차 기다리자.","ex2",118.67,2.57],"hsk2-0220":["鱼要做熟了再吃。","yú yào zuò shú le zài chī","생선은 푹 익혀서 먹어야 해요.","ex2",121.59,1.37],"hsk2-0225":["面条儿很好吃，我吃饱了。","miàn tiáor hěn hǎo chī wǒ chī bǎo le","국수 맛있었어요, 배불러요.","ex2",123.31,2.01],"hsk2-0235":["天阴了，可能要下雨。","tiān yīn le kě néng yào xià yǔ","날이 흐려졌어요, 비가 올 것 같아요.","ex2",125.67,1.49],"hsk2-0243":["他的腿和脚都疼。","tā de tuǐ hé jiǎo dōu téng","그는 다리랑 발이 다 아파요.","ex2",127.51,2.09],"hsk2-0244":["我的眼睛有点儿难受。","wǒ de yǎn jing yǒu diǎnr nán shòu","눈이 좀 불편해요.","ex2",129.95,1.41],"hsk2-0245":["她的头发又黑又长。","tā de tóu fa yòu hēi yòu zhǎng","그녀는 머리카락이 까맣고 길어요.","ex2",131.71,1.85],"hsk2-0247":["你的脸怎么这么红？","nǐ de liǎn zěn me zhè me hóng","얼굴이 왜 이렇게 빨개?","ex2",133.91,1.81],"hsk2-0248":["医生看了看我的嘴。","yī shēng kàn le kàn wǒ de zuǐ","의사가 제 입안을 봤어요.","ex2",136.07,1.33],"hsk2-0249":["医生给我检查了身体。","yī shēng gěi wǒ jiǎn chá le shēn tǐ","의사가 제 몸을 검사했어요.","ex2",137.75,1.89],"hsk2-0253":["他生病住院了。","tā shēng bìng zhù yuàn le","그는 병이 나서 입원했어요.","ex2",139.99,1.29],"hsk2-0260":["我喜欢打篮球和网球。","wǒ xǐ huan dǎ lán qiú hé wǎng qiú","저는 농구랑 테니스를 좋아해요.","ex2",141.63,2.25],"hsk2-0264":["周末我常去爬山。","zhōu mò wǒ cháng qù pá shān","주말에 자주 등산 가요.","ex2",144.23,1.69],"hsk2-0268":["这个节目很有意思。","zhè ge jié mù hěn yǒu yì si","이 프로그램 재밌어요.","ex2",146.27,1.25],"hsk2-0269":["昨天的新闻你看了吗？","zuó tiān de xīn wén nǐ kàn le ma","어제 뉴스 봤어요?","ex2",147.87,1.65],"hsk2-0281":["感谢大家的关心。","gǎn xiè dà jiā de guān xīn","모두의 관심에 감사드려요.","ex2",149.87,1.25],"hsk2-0285":["我认为他说得对。","wǒ rèn wéi tā shuō dé duì","저는 그의 말이 맞다고 생각해요.","ex2",151.47,1.61],"hsk2-0290":["如果你有时间的话，来我家玩儿吧。","rú guǒ nǐ yǒu shí jiān de huà lái wǒ jiā wánr ba","시간 있으면 우리 집에 놀러 와.","ex2",153.43,3.21],"hsk2-0291":["因为下雨，所以活动停了。","yīn wèi xià yǔ suǒ yǐ huó dòng tíng le","비가 와서 행사가 중단됐어요.","ex2",156.99,1.65],"hsk2-0293":["你可以坐地铁，或者坐公交车。","nǐ kě yǐ zuò dì tiě huò zhě zuò gōng jiāo chē","지하철이나 버스를 타면 돼요.","ex2",158.99,3.33],"hsk2-0296":["原来是你啊！","yuán lái shì nǐ a","알고 보니 너였구나!","ex2",162.67,1.09],"hsk2-0297":["这个故事让人难过。","zhè ge gù shì ràng rén nán guò","이 이야기는 사람을 슬프게 해요.","ex2",164.11,1.61],"hsk2-0306":["这是一个好机会。","zhè shì yī ge hǎo jī huì","이건 좋은 기회예요.","ex2",166.07,1.45],"hsk2-0308":["多么可爱的孩子啊！","duō me kě ài de hái zi a","아이가 얼마나 귀여운지!","ex2",167.87,1.65],"hsk2-0314":["湖边的草绿了。","hú biān de cǎo lǜ le","호숫가의 풀이 파래졌어요.","ex2",169.87,1.41],"hsk2-0315":["这条河很长，向东流。","zhè tiáo hé hěn zhǎng xiàng dōng liú","이 강은 길고 동쪽으로 흘러요.","ex2",171.63,1.89],"hsk2-0316":["鸟在树上唱歌。","niǎo zài shù shàng chàng gē","새가 나무 위에서 노래해요.","ex2",173.87,1.33],"hsk2-0321":["我家的猫很可爱。","wǒ jiā de māo hěn kě ài","우리 집 고양이는 정말 귀여워요.","ex2",175.55,1.13],"hsk2-0336":["这个句子是什么意思？","zhè ge jù zi shì shén me yì si","이 문장은 무슨 뜻이에요?","ex2",177.03,1.73],"hsk2-0338":["比如说，这个词有两个读音。","bǐ rú shuō zhè ge cí yǒu liǎng gè dú yīn","예를 들어 이 단어는 읽는 법이 두 가지예요.","ex2",179.11,2.33],"hsk2-0339":["数字八的读音像发。","shù zì bā de dú yīn xiàng fā","숫자 8은 '발(發)'처럼 들려요.","ex2",181.79,2.89],"hsk2-0349":["事情正在进行。","shì qing zhèng zài jìn xíng","일이 진행되고 있어요.","ex2",185.03,1.37],"hsk2-0352":["他十点才睡觉。","tā shí diǎn cái shuì jiào","그는 10시가 되어서야 자요.","ex2",186.75,1.45],"hsk2-0353":["这个电影挺好看的。","zhè ge diàn yǐng tǐng hǎo kàn de","이 영화 꽤 재밌어요.","ex2",188.55,1.29],"hsk2-0354":["我实在太累了。","wǒ shí zài tài lèi le","저 정말 너무 피곤해요.","ex2",190.19,1.21],"hsk2-0356":["他又来晚了。","tā yòu lái wǎn le","그는 또 늦게 왔어요.","ex2",191.75,1.41],"hsk2-0363":["我借了一本小说。","wǒ jiè le yī běn xiǎo shuō","소설책 한 권을 빌렸어요.","ex2",193.51,2.09],"hsk2-0366":["天气变冷了。","tiān qì biàn lěng le","날씨가 추워졌어요.","ex2",195.95,1.37],"hsk2-0371":["我选了中级班。","wǒ xuǎn le zhōng jí bān","저는 중급반을 골랐어요.","ex2",197.67,1.45],"hsk2-0378":["这个包很轻。","zhè ge bāo hěn qīng","이 가방은 가벼워요.","ex2",199.47,1.25],"hsk2-0386":["我的水平很一般。","wǒ de shuǐ píng hěn yī bān","제 실력은 보통이에요.","ex2",201.07,1.69],"hsk2-0388":["这个歌真难听。","zhè ge gē zhēn nán tīng","이 노래 정말 듣기 싫다.","ex2",203.11,1.49],"hsk2-0396":["我发现了一个问题。","wǒ fā xiàn le yī ge wèn tí","문제를 하나 발견했어요.","ex2",204.95,1.37],"hsk2-0404":["我经常坐地铁。","wǒ jīng cháng zuò dì tiě","저는 자주 지하철을 타요.","ex2",206.67,1.21],"hsk2-0405":["天就要黑了。","tiān jiù yào hēi le","곧 날이 어두워져요.","ex2",208.23,1.05],"hsk2-0409":["我只想休息。","wǒ zhǐ xiǎng xiū xi","그냥 쉬고 싶어요.","ex2",209.63,1.25],"hsk2-0414":["其他人都走了。","qí tā rén dōu zǒu le","다른 사람들은 다 갔어요.","ex2",211.23,0.97],"hsk2-0417":["他不一定来。","tā bù yī dìng lái","그가 꼭 오는 건 아니에요.","ex2",212.55,1.33],"hsk2-0420":["请读这一段。","qǐng dú zhè yī duàn","이 단락을 읽어 주세요.","ex2",214.23,0.97],"hsk2-0423":["我的表慢了五分钟。","wǒ de biǎo màn le wǔ fēn zhōng","제 시계가 5분 느려요.","ex2",215.55,1.61],"hsk2-0428":["我不懂你的做法。","wǒ bù dǒng nǐ de zuò fǎ","네가 하는 방식을 이해 못 하겠어.","ex3",0.35,1.17],"hsk2-0430":["我们马上行动。","wǒ men mǎ shàng xíng dòng","우리 바로 움직여요.","ex3",1.87,1.33],"hsk2-0446":["教室里的桌子和椅子都很新。","jiào shì lǐ de zhuō zi hé yǐ zi dōu hěn xīn","교실의 책상과 의자가 다 새것이에요.","ex3",3.55,2.45],"hsk2-0448":["米饭是用米做的。","mǐ fàn shì yòng mǐ zuò de","밥은 쌀로 만들어요.","ex3",6.35,1.49],"hsk2-0450":["头发太长了，我想弄短一点儿。","tóu fa tài zhǎng le wǒ xiǎng nòng duǎn yī diǎnr","머리가 너무 길어서 좀 짧게 자르고 싶어요.","ex3",8.19,2.17],"hsk2-0451":["别碰这个瓶子！","bié pèng zhè ge píng zi","이 병 만지지 마!","ex3",10.71,1.13],"hsk2-0462":["请问您姓什么？","qǐng wèn nín xìng shén me","성이 어떻게 되세요?","ex3",12.19,1.53],"hsk2-0466":["求你别生气了。","qiú nǐ bié shēng qì le","제발 화 좀 풀어.","ex3",14.07,1.37],"hsk2-0467":["妈妈在家做饭。","mā ma zài jiā zuò fàn","엄마가 집에서 밥을 해요.","ex3",15.79,1.05],"hsk2-0468":["我们去交作业吧。","wǒ men qù jiāo zuò yè ba","우리 숙제 내러 가자.","ex3",17.19,1.65],"hsk2-0472":["你的声音真好听。","nǐ de shēng yīn zhēn hǎo tīng","목소리가 정말 듣기 좋아요.","ex3",19.19,1.45],"hsk2-0475":["你最近怎么样？","nǐ zuì jìn zěn me yàng","요즘 어떻게 지내요?","ex3",20.99,1.17],"hsk2-0476":["你为什么不早说？","nǐ wèi shén me bù zǎo shuō","왜 진작 말 안 했어?","ex3",22.51,1.09],"hsk2-0477":["你放心，我会小心的。","nǐ fàng xīn wǒ huì xiǎo xīn de","안심해, 조심할게.","ex3",23.95,1.41],"hsk2-0482":["体育课上我们打球。","tǐ yù kè shàng wǒ men dǎ qiú","체육 시간에 우리는 공놀이를 해요.","ex3",25.71,1.61],"hsk2-0483":["教育是国家的大事。","jiào yù shì guó jiā de dà shì","교육은 나라의 큰일이에요.","ex3",27.67,1.69],"hsk2-0485":["我喜欢旅游，也喜欢照相。","wǒ xǐ huan lǚ yóu yě xǐ huan zhào xiàng","저는 여행도 좋아하고 사진 찍는 것도 좋아해요.","ex3",29.71,2.29],"hsk2-0487":["他爱讲笑话儿。","tā ài jiǎng xiào hua r","그는 농담하는 걸 좋아해요.","ex3",32.35,1.25],"hsk2-0495":["一千块钱不少了。","yī qiān kuài qián bù shǎo le","천 위안이면 적지 않아요.","ex3",33.95,1.09],"hsk2-0505":["天越黑，星星越亮。","tiān yuè hēi xīng xing yuè liàng","하늘이 어두울수록 별이 더 밝아요.","ex3",35.39,1.57],"hsk2-0506":["冬天的夜很长。","dōng tiān de yè hěn zhǎng","겨울밤은 길어요.","ex3",37.31,1.53],"hsk2-0526":["但他没有来。","dàn tā méi yǒu lái","하지만 그는 오지 않았어요.","ex3",39.19,0.93],"hsk2-0529":["主要的问题是时间不够。","zhǔ yào de wèn tí shì shí jiān bù gòu","주된 문제는 시간이 부족하다는 거예요.","ex3",40.47,1.85],"hsk3-0008":["大夫让我多休息。","dà fū ràng wǒ duō xiū xi","의사가 많이 쉬라고 했어요.","ex3",42.67,1.37],"hsk3-0009":["服务员给我们拿来了菜单。","fú wù yuán gěi wǒ men ná lái le cài dān","종업원이 메뉴판을 가져다줬어요.","ex3",44.39,2.29],"hsk3-0012":["员工们对工资很满意。","yuán gōng men duì gōng zī hěn mǎn yì","직원들은 월급에 만족해요.","ex3",47.03,2.41],"hsk3-0032":["她还没有结婚的对象。","tā hái méi yǒu jié hūn de duì xiàng","그녀는 아직 결혼할 상대가 없어요.","ex3",49.79,1.69],"hsk3-0033":["子女应该照顾父母。","zǐ nǚ yīng gāi zhào gu fù mǔ","자녀는 부모를 돌봐야 해요.","ex3",51.83,1.73],"hsk3-0041":["搬家的时候，家具都要搬走。","bān jiā de shí hou jiā jù dōu yào bān zǒu","이사할 때 가구를 다 옮겨야 해요.","ex3",53.91,1.77],"hsk3-0045":["她有一双漂亮的鞋。","tā yǒu yī shuāng piào liang de xié","그녀는 예쁜 신발이 한 켤레 있어요.","ex3",56.03,1.49],"hsk3-0046":["这种水果很甜。","zhè zhǒng shuǐ guǒ hěn tián","이 과일은 달아요.","ex3",57.87,1.69],"hsk3-0051":["他送了我一束花。","tā sòng le wǒ yī shù huā","그가 저에게 꽃 한 다발을 줬어요.","ex3",59.91,1.61],"hsk3-0071":["后年我打算去留学。","hòu nián wǒ dǎ suàn qù liú xué","내후년에 유학 갈 계획이에요.","ex3",61.87,2.33],"hsk3-0072":["近期天气变化很大。","jìn qī tiān qì biàn huà hěn dà","요즘 날씨 변화가 커요.","ex3",64.55,1.93],"hsk3-0102":["把电子邮件发到我的邮箱。","bǎ diàn zǐ yóu jiàn fā dào wǒ de yóu xiāng","이메일을 제 메일함으로 보내 주세요.","ex3",66.83,2.21],"hsk3-0151":["这件衬衫的价格很合理。","zhè jiàn chèn shān de jià gé hěn hé lǐ","이 셔츠 가격은 적당해요.","ex3",69.39,2.01],"hsk3-0152":["她买了一条裙子和一条短裤。","tā mǎi le yī tiáo qún zi hé yī tiáo duǎn kù","그녀는 치마 하나와 반바지 하나를 샀어요.","ex3",71.75,2.33],"hsk3-0162":["我早上喝咖啡，晚上喝绿茶。","wǒ zǎo shang hē kā fēi wǎn shang hē lǜ chá","아침엔 커피, 저녁엔 녹차를 마셔요.","ex3",74.43,2.57],"hsk3-0166":["少吃糖对身体好。","shǎo chī táng duì shēn tǐ hǎo","설탕을 적게 먹으면 몸에 좋아요.","ex3",77.35,1.49],"hsk3-0167":["他喝了一杯啤酒和一杯红酒。","tā hē le yī bēi pí jiǔ hé yī bēi hóng jiǔ","그는 맥주 한 잔과 레드 와인 한 잔을 마셨어요.","ex3",79.19,1.81],"hsk3-0174":["这里的气候比较暖和。","zhè lǐ de qì hòu bǐ jiào nuǎn huo","여기 기후는 비교적 따뜻해요.","ex3",81.35,2.53],"hsk3-0175":["突然下起了大雨。","tū rán xià qǐ le dà yǔ","갑자기 큰비가 내리기 시작했어요.","ex3",84.23,1.37],"hsk3-0176":["天气预报说明天晴。","tiān qì yù bào shuō míng tiān qíng","일기 예보에서 내일 맑대요.","ex3",85.95,1.85],"hsk3-0178":["我感冒了，头很痛。","wǒ gǎn mào le tóu hěn tòng","감기에 걸려서 머리가 아파요.","ex3",88.15,1.53],"hsk3-0195":["我周末去游泳，你去跳舞吗？","wǒ zhōu mò qù yóu yǒng nǐ qù tiào wǔ ma","주말에 수영하러 가는데, 너는 춤추러 가?","ex3",90.03,2.37],"hsk3-0211":["我希望你能成功。","wǒ xī wàng nǐ néng chéng gōng","당신이 성공하길 바라요.","ex3",92.75,1.77],"hsk3-0213":["她伤心得哭了。","tā shāng xīn dé kū le","그녀는 너무 슬퍼서 울었어요.","ex3",94.87,1.25],"hsk3-0220":["这个故事很动人。","zhè ge gù shì hěn dòng rén","이 이야기는 감동적이에요.","ex3",96.47,1.57],"hsk3-0222":["我支持他的决定。","wǒ zhī chí tā de jué dìng","저는 그의 결정을 지지해요.","ex3",98.39,1.05],"hsk3-0244":["他的行为很奇怪。","tā de xíng wéi hěn qí guài","그의 행동이 이상해요.","ex3",99.79,1.93],"hsk3-0247":["为了理想，他不断努力。","wèi le lǐ xiǎng tā bù duàn nǔ lì","꿈을 위해 그는 계속 노력해요.","ex3",102.07,1.81],"hsk3-0274":["声明已经公布了。","shēng míng yǐ jīng gōng bù le","성명이 이미 발표됐어요.","ex3",104.23,1.53],"hsk3-0276":["互联网改变了世界。","hù lián wǎng gǎi biàn le shì jiè","인터넷이 세상을 바꿨어요.","ex3",106.11,1.61],"hsk3-0279":["游戏的规定很简单。","yóu xì de guī dìng hěn jiǎn dān","게임 규칙은 간단해요.","ex3",108.07,1.57],"hsk3-0283":["各位，请注意！","gè wèi qǐng zhù yì","여러분, 주목해 주세요!","ex3",109.99,1.17],"hsk3-0290":["你不必害怕。","nǐ bù bì hài pà","무서워할 필요 없어요.","ex3",111.51,0.97],"hsk3-0291":["我不得不同意。","wǒ bù dé bù tóng yì","동의할 수밖에 없었어요.","ex3",112.83,1.25],"hsk3-0293":["当然可以！","dāng rán kě yǐ","당연히 되지!","ex3",114.43,1.09],"hsk3-0303":["简直不敢相信！","jiǎn zhí bù gǎn xiāng xìn","정말 믿을 수가 없어!","ex3",115.87,1.61],"hsk3-0305":["我仅仅是问问。","wǒ jǐn jǐn shì wèn wèn","그냥 물어본 거예요.","ex3",117.83,1.37],"hsk3-0313":["难道你不知道吗？","nán dào nǐ bù zhī dào ma","설마 몰랐어?","ex3",119.55,1.29],"hsk3-0314":["其实我早就知道了。","qí shí wǒ zǎo jiù zhī dào le","사실 나 진작 알고 있었어.","ex3",121.19,1.33],"hsk3-0322":["他已到达机场。","tā yǐ dào dá jī chǎng","그는 이미 공항에 도착했어요.","ex3",122.87,1.29],"hsk3-0328":["他终于成功了。","tā zhōng yú chéng gōng le","그는 마침내 성공했어요.","ex3",124.51,1.37],"hsk3-0331":["他总是第一个到。","tā zǒng shì dì yī ge dào","그는 항상 제일 먼저 도착해요.","ex3",126.23,1.77],"hsk3-0332":["城市在快速发展。","chéng shì zài kuài sù fā zhǎn","도시가 빠르게 발전하고 있어요.","ex3",128.35,1.77],"hsk3-0333":["请按要求做。","qǐng àn yāo qiú zuò","요구대로 해 주세요.","ex3",130.47,1.33],"hsk3-0336":["除了他，大家都来了。","chú le tā dà jiā dōu lái le","그 사람 빼고 다 왔어요.","ex3",132.15,1.73],"hsk3-0337":["他朝我笑了笑。","tā cháo wǒ xiào le xiào","그가 저를 보고 웃었어요.","ex3",134.23,1.25],"hsk3-0342":["他不仅会唱歌，而且会跳舞。","tā bù jǐn huì chàng gē ér qiě huì tiào wǔ","그는 노래뿐만 아니라 춤도 잘 춰요.","ex3",135.83,2.69],"hsk3-0360":["我们等了很久。","wǒ men děng le hěn jiǔ","우리는 오래 기다렸어요.","ex3",138.87,1.29],"hsk3-0368":["请到前面交费。","qǐng dào qián miàn jiāo fèi","앞쪽에서 계산해 주세요.","ex3",140.51,1.45],"hsk3-0387":["文化在民间传播。","wén huà zài mín jiān chuán bō","문화는 민간에서 퍼져요.","ex3",142.31,2.41],"hsk3-0393":["我保证完成任务。","wǒ bǎo zhèng wán chéng rèn wu","임무를 꼭 끝내겠습니다.","ex3",145.07,1.69],"hsk3-0401":["这块手表值一万块钱。","zhè kuài shǒu biǎo zhí yī wàn kuài qián","이 손목시계는 만 위안짜리예요.","ex3",147.11,1.81],"hsk3-0411":["一周内必须完成。","yī zhōu nèi bì xū wán chéng","일주일 안에 꼭 끝내야 해요.","ex3",149.27,1.25],"hsk3-0440":["天暖和了，雪化了。","tiān nuǎn huo le xuě huà le","날이 따뜻해져서 눈이 녹았어요.","ex3",150.87,1.49],"hsk3-0442":["太阳升起来了。","tài yang shēng qǐ lai le","해가 떴어요.","ex3",152.71,1.25],"hsk3-0447":["生词要反复练习。","shēng cí yào fǎn fù liàn xí","새 단어는 반복해서 연습해야 해요.","ex3",154.31,2.05],"hsk3-0460":["请把书合上。","qǐng bǎ shū hé shàng","책을 덮어 주세요.","ex3",156.71,1.57],"hsk3-0478":["他头脑很清楚。","tā tóu nǎo hěn qīng chu","그는 머리가 맑아요.","ex3",158.63,1.85],"hsk3-0485":["新办法明年实行。","xīn bàn fǎ míng nián shí xíng","새 방법은 내년부터 시행돼요.","ex3",160.83,1.61],"hsk3-0491":["这个题目很容易。","zhè ge tí mù hěn róng yì","이 문제는 쉬워요.","ex3",162.79,1.45],"hsk3-0492":["他家很富。","tā jiā hěn fù","그의 집은 부자예요.","ex3",164.59,0.85],"hsk3-0500":["他带动大家一起跑步。","tā dài dòng dà jiā yī qǐ pǎo bù","그가 모두를 이끌고 같이 달렸어요.","ex3",165.79,2.13],"hsk3-0510":["新饭店明天开业。","xīn fàn diàn míng tiān kāi yè","새 식당이 내일 개업해요.","ex3",168.27,1.45],"hsk3-0513":["中午的阳光很强烈。","zhōng wǔ de yáng guāng hěn qiáng liè","한낮의 햇볕이 강해요.","ex3",170.07,1.65],"hsk3-0519":["云的形状像马。","yún de xíng zhuàng xiàng mǎ","구름 모양이 말 같아요.","ex3",172.07,1.73],"hsk3-0531":["音乐能表达情感。","yīn yuè néng biǎo dá qíng gǎn","음악은 감정을 표현할 수 있어요.","ex3",174.15,1.69],"hsk3-0534":["他比以前成熟多了。","tā bǐ yǐ qián chéng shú duō le","그는 예전보다 훨씬 성숙해졌어요.","ex3",176.19,1.61],"hsk3-0542":["爷爷每天看报。","yé ye měi tiān kàn bào","할아버지는 매일 신문을 보세요.","ex3",178.15,1.57],"hsk3-0554":["两位领导见面时握手。","liǎng wèi lǐng dǎo jiàn miàn shí wò shǒu","두 지도자가 만나서 악수했어요.","ex3",180.07,1.97],"hsk3-0558":["方法需要改进。","fāng fǎ xū yào gǎi jìn","방법을 개선해야 해요.","ex3",182.39,1.53],"hsk3-0565":["中国文字很美。","zhōng guó wén zì hěn měi","중국 글자는 아름다워요.","ex3",184.27,1.21],"hsk3-0566":["线断了，我来接。","xiàn duàn le wǒ lái jiē","줄이 끊어졌네, 내가 이을게.","ex3",185.83,1.37],"hsk3-0569":["这件衣服太旧了。","zhè jiàn yī fu tài jiù le","이 옷은 너무 낡았어요.","ex3",187.55,1.45],"hsk3-0571":["他显得很年轻。","tā xiǎn de hěn nián qīng","그는 젊어 보여요.","ex3",189.35,1.29],"hsk3-0572":["显然，他错了。","xiǎn rán tā cuò le","분명히 그가 틀렸어요.","ex3",190.99,1.37],"hsk3-0581":["会议正式开始。","huì yì zhèng shì kāi shǐ","회의가 정식으로 시작됐어요.","ex3",192.71,1.33],"hsk3-0602":["我下午去理发。","wǒ xià wǔ qù lǐ fà","오후에 머리 자르러 가요.","ex3",194.39,1.25],"hsk3-0603":["香蕉皮要放好。","xiāng jiāo pí yào fàng hǎo","바나나 껍질은 잘 버려야 해요.","ex3",195.99,1.25],"hsk3-0614":["裤子破了，要补一补。","kù zi pò le yào bǔ yī bǔ","바지가 찢어져서 꿰매야 해요.","ex3",197.59,1.53],"hsk3-0615":["不要破坏环境。","bù yào pò huài huán jìng","환경을 파괴하지 마세요.","ex3",199.47,1.21],"hsk3-0619":["祝你生日快乐！","zhù nǐ shēng rì kuài lè","생일 축하해!","ex3",201.03,1.37],"hsk3-0645":["请和我们联系。","qǐng hé wǒ men lián xì","저희에게 연락 주세요.","ex3",202.75,1.57],"hsk3-0646":["他最近胖了。","tā zuì jìn pàng le","그는 요즘 살이 쪘어요.","ex3",204.67,0.89],"hsk3-0692":["狗在追猫。","gǒu zài zhuī māo","개가 고양이를 쫓고 있어요.","ex3",205.91,0.97],"hsk3-0693":["我想退这张票。","wǒ xiǎng tuì zhè zhāng piào","이 표를 환불하고 싶어요.","ex4",0.35,1.53],"hsk3-0713":["我们队领先两分。","wǒ men duì lǐng xiān liǎng fēn","우리 팀이 2점 앞서고 있어요.","ex4",2.23,1.29],"hsk3-0721":["车站后面有一家小店。","chē zhàn hòu mian yǒu yī jiā xiǎo diàn","역 뒤에 작은 가게가 하나 있어요.","ex4",3.87,1.93],"hsk4-0001":["阿姨和叔叔都来参加婚礼了。","ā yí hé shū shu dōu lái cān jiā hūn lǐ le","이모와 삼촌 모두 결혼식에 왔어요.","ex4",6.15,2.33],"hsk4-0006":["他的妻子是一名护士。","tā de qī zǐ shì yī míng hù shi","그의 아내는 간호사예요.","ex4",8.83,1.65],"hsk4-0007":["我丈夫是一位律师。","wǒ zhàng fu shì yī wèi lǜ shī","제 남편은 변호사예요.","ex4",10.83,1.81],"hsk4-0008":["老公，帮我拿一下伞。","lǎo gōng bāng wǒ ná yī xià sǎn","여보, 우산 좀 집어 줘.","ex4",12.99,1.61],"hsk4-0009":["他老婆是公司的会计。","tā lǎo pó shì gōng sī de kuài jì","그의 와이프는 회사 회계 담당이에요.","ex4",14.95,1.69],"hsk4-0034":["他个子矮，但是很勇敢。","tā gè zi ǎi dàn shì hěn yǒng gǎn","그는 키는 작지만 용감해요.","ex4",16.99,2.25],"hsk4-0039":["冰箱里有酸奶和矿泉水。","bīng xiāng lǐ yǒu suān nǎi hé kuàng quán shuǐ","냉장고에 요구르트와 생수가 있어요.","ex4",19.59,2.29],"hsk4-0045":["大楼里有电梯，也有楼梯。","dà lóu lǐ yǒu diàn tī yě yǒu lóu tī","건물에 엘리베이터도 있고 계단도 있어요.","ex4",22.23,2.25],"hsk4-0048":["每天早上刷牙要用牙刷。","měi tiān zǎo shang shuā yá yào yòng yá shuā","매일 아침 칫솔로 이를 닦아요.","ex4",24.83,2.61],"hsk4-0050":["周末我在家打扫房间、做家务。","zhōu mò wǒ zài jiā dǎ sǎo fáng jiān zuò jiā wù","주말에는 집에서 방 청소하고 집안일을 해요.","ex4",27.79,2.41],"hsk4-0080":["未来会更美好。","wèi lái huì gèng měi hǎo","미래는 더 좋아질 거예요.","ex4",30.55,1.57],"hsk4-0087":["这期间他一直在加班。","zhè qī jiān tā yī zhí zài jiā bān","그동안 그는 계속 야근했어요.","ex4",32.47,1.77],"hsk4-0088":["近代的历史很重要。","jìn dài de lì shǐ hěn zhòng yào","근대 역사는 중요해요.","ex4",34.59,1.69],"hsk4-0098":["这个季节最适合登山。","zhè ge jì jié zuì shì hé dēng shān","이 계절이 등산하기에 제일 좋아요.","ex4",36.63,1.61],"hsk4-0099":["他今天上班迟到了。","tā jīn tiān shàng bān chí dào liǎo","그는 오늘 회사에 지각했어요.","ex4",38.59,1.61],"hsk4-0106":["戴上帽子和手套再出门。","dài shang mào zi hé shǒu tào zài chū mén","모자 쓰고 장갑 끼고 나가.","ex4",40.55,2.05],"hsk4-0169":["工作效率提高了。","gōng zuò xiào lǜ tí gāo le","업무 효율이 올라갔어요.","ex4",42.95,1.41],"hsk4-0181":["邮局就在附近。","yóu jú jiù zài fù jìn","우체국이 바로 근처에 있어요.","ex4",44.71,1.81],"hsk4-0182":["市区的街道很热闹。","shì qū de jiē dào hěn rè nao","시내 거리는 북적여요.","ex4",46.87,1.57],"hsk4-0233":["夏天吃西瓜最痛快。","xià tiān chī xī guā zuì tòng kuài","여름엔 수박 먹는 게 최고예요.","ex4",48.79,1.93],"hsk4-0237":["这个药很苦。","zhè ge yào hěn kǔ","이 약은 써요.","ex4",51.07,0.85],"hsk4-0252":["他发烧了，要去打针。","tā fā shāo le yào qù dǎ zhēn","그는 열이 나서 주사를 맞아야 해요.","ex4",52.27,1.69],"hsk4-0260":["要经常锻炼身体。","yào jīng cháng duàn liàn shēn tǐ","운동을 자주 해야 해요.","ex4",54.31,1.85],"hsk4-0265":["呼吸新鲜空气对身体好。","hū xī xīn xiān kōng qì duì shēn tǐ hǎo","신선한 공기를 마시면 몸에 좋아요.","ex4",56.51,2.17],"hsk4-0281":["问题很严重。","wèn tí hěn yán zhòng","문제가 심각해요.","ex4",59.03,1.01],"hsk4-0289":["我很了解他。","wǒ hěn liǎo jiě tā","저는 그를 잘 알아요.","ex4",60.39,1.25],"hsk4-0295":["他参加过亚运会。","tā cān jiā guò yà yùn huì","그는 아시안게임에 나간 적이 있어요.","ex4",61.99,1.61],"hsk4-0296":["多吃些水果吧。","duō chī xiē shuǐ guǒ ba","과일 좀 더 먹어.","ex4",63.95,1.21],"hsk4-0304":["他成绩优秀。","tā chéng jì yōu xiù","그는 성적이 우수해요.","ex4",65.51,1.21],"hsk4-0308":["春节是传统节日。","chūn jié shì chuán tǒng jié rì","춘절은 전통 명절이에요.","ex4",67.07,1.65],"hsk4-0309":["别伤害小动物。","bié shāng hài xiǎo dòng wù","작은 동물을 해치지 마세요.","ex4",69.07,1.17],"hsk4-0310":["他似乎不高兴。","tā sì hū bù gāo xìng","그는 기분이 안 좋은 것 같아요.","ex4",70.59,1.41],"hsk4-0316":["他依然记得那天。","tā yī rán jì de nà tiān","그는 아직도 그날을 기억해요.","ex4",72.35,2.13],"hsk4-0319":["运动促进健康。","yùn dòng cù jìn jiàn kāng","운동은 건강을 좋게 해요.","ex4",74.83,1.37],"hsk4-0325":["准备得很充分。","zhǔn bèi de hěn chōng fèn","준비를 충분히 했어요.","ex4",76.55,1.53],"hsk4-0326":["欢迎光临！","huān yíng guāng lín","어서 오세요!","ex4",78.43,0.89],"hsk4-0328":["全书共十课。","quán shū gòng shí kè","책은 모두 10과예요.","ex4",79.67,1.53],"hsk4-0329":["关于这个问题，我们再谈。","guān yú zhè ge wèn tí wǒ men zài tán","이 문제에 관해서는 나중에 다시 얘기해요.","ex4",81.55,1.69],"hsk4-0332":["我对京剧很感兴趣。","wǒ duì jīng jù hěn gǎn xìng qù","저는 경극에 관심이 있어요.","ex4",83.59,2.13],"hsk4-0334":["他当过兵。","tā dāng guò bīng","그는 군대에 다녀왔어요.","ex4",86.07,1.05],"hsk4-0343":["我几乎忘了这件事。","wǒ jī hū wàng le zhè jiàn shì","이 일을 거의 잊을 뻔했어요.","ex4",87.47,1.77],"hsk4-0350":["把西瓜切开。","bǎ xī guā qiè kāi","수박을 잘라.","ex4",89.59,1.29],"hsk4-0352":["请列出名单。","qǐng liè chū míng dān","명단을 적어 주세요.","ex4",91.23,1.09],"hsk4-0374":["衣服穿反了。","yī fu chuān fǎn le","옷을 뒤집어 입었어.","ex4",92.67,1.45],"hsk4-0380":["秋天叶子黄了。","qiū tiān yè zi huáng le","가을에는 잎이 노래져요.","ex4",94.47,1.09],"hsk4-0392":["快来呀！","kuài lái ya","빨리 와!","ex4",95.91,0.89],"hsk4-0401":["十五的月亮很圆。","shí wǔ de yuè liang hěn yuán","보름달이 둥글어요.","ex4",97.15,1.73],"hsk4-0402":["会议圆满结束。","huì yì yuán mǎn jié shù","회의가 잘 끝났어요.","ex4",99.23,1.29],"hsk4-0408":["从小培养好习惯。","cóng xiǎo péi yǎng hǎo xí guàn","어릴 때부터 좋은 습관을 길러요.","ex4",100.87,1.81],"hsk4-0410":["门被堵住了。","mén bèi dǔ zhù le","문이 막혔어요.","ex4",103.03,1.17],"hsk4-0412":["请做填空题。","qǐng zuò tián kòng tí","빈칸 채우기 문제를 푸세요.","ex4",104.55,1.29],"hsk4-0420":["为理想奋斗。","wèi lǐ xiǎng fèn dòu","꿈을 위해 노력해요.","ex4",106.19,1.13],"hsk4-0423":["一年有四季。","yī nián yǒu sì jì","1년에는 사계절이 있어요.","ex4",107.67,1.17],"hsk4-0425":["门上安了一个新灯。","mén shàng ān le yī ge xīn dēng","문 위에 새 등을 달았어요.","ex4",109.19,2.33],"hsk4-0435":["两国关系密切。","liǎng guó guān xi mì qiè","두 나라 관계가 가까워요.","ex4",111.87,1.29],"hsk4-0441":["用尺子画线。","yòng chǐ zi huà xiàn","자로 선을 그어요.","ex4",113.51,1.29],"hsk4-0465":["要彻底解决问题。","yào chè dǐ jiě jué wèn tí","문제를 확실히 해결해야 해요.","ex4",115.15,1.65],"hsk4-0476":["我有点儿恶心，不舒服。","wǒ yǒu diǎnr ě xīn bù shū fu","속이 좀 메스껍고 불편해요.","ex4",117.15,1.73],"hsk4-0507":["妈妈担心我的健康。","mā ma dān xīn wǒ de jiàn kāng","엄마는 제 건강을 걱정하세요.","ex4",119.23,1.61],"hsk4-0509":["我们在公园拍照。","wǒ men zài gōng yuán pāi zhào","우리는 공원에서 사진을 찍어요.","ex4",121.19,1.65],"hsk4-0513":["他挑选了一件礼物。","tā tiāo xuǎn le yī jiàn lǐ wù","그는 선물을 하나 골랐어요.","ex4",123.19,2.05],"hsk4-0530":["这块地方很平。","zhè kuài dì fāng hěn píng","이곳은 평평해요.","ex4",125.59,1.49],"hsk4-0545":["这个游戏很有趣。","zhè ge yóu xì hěn yǒu qù","이 게임은 재밌어요.","ex4",127.43,1.45],"hsk4-0553":["他极其认真。","tā jí qí rèn zhēn","그는 매우 성실해요.","ex4",129.23,1.73],"hsk4-0559":["根据天气决定去不去。","gēn jù tiān qì jué dìng qù bù qù","날씨 보고 갈지 말지 정해요.","ex4",131.31,1.97],"hsk4-0565":["此人我不认识。","cǐ rén wǒ bù rèn shi","이 사람은 몰라요.","ex4",133.63,1.93],"hsk4-0569":["这条江很长。","zhè tiáo jiāng hěn zhǎng","이 강은 길어요.","ex4",135.91,1.45],"hsk4-0570":["船慢慢沉了。","chuán màn màn chén le","배가 천천히 가라앉았어요.","ex4",137.71,1.37],"hsk4-0576":["他去医院治疗。","tā qù yī yuàn zhì liáo","그는 병원에 치료받으러 가요.","ex4",139.43,1.17],"hsk4-0585":["海水又深又蓝。","hǎi shuǐ yòu shēn yòu lán","바닷물이 깊고 파래요.","ex4",140.95,1.37],"hsk4-0593":["比赛非常激烈。","bǐ sài fēi cháng jī liè","경기가 아주 치열했어요.","ex4",142.67,1.33],"hsk4-0596":["水烧开了。","shuǐ shāo kāi le","물이 끓었어요.","ex4",144.35,1.09],"hsk4-0619":["请先登记姓名。","qǐng xiān dēng jì xìng míng","먼저 이름을 등록해 주세요.","ex4",145.79,1.65],"hsk4-0624":["不能看不起别人。","bù néng kàn bu qǐ bié ren","다른 사람을 무시하면 안 돼요.","ex4",147.79,1.09],"hsk4-0627":["时间到了，他很着急。","shí jiān dào liǎo tā hěn zháo jí","시간이 다 돼서 그는 초조해요.","ex4",149.23,1.73],"hsk4-0643":["他究竟去哪儿了？","tā jiū jìng qù nǎr le","그는 도대체 어디 간 거야?","ex4",151.31,1.13],"hsk4-0652":["这棵树很粗。","zhè kē shù hěn cū","이 나무는 굵어요.","ex4",152.79,1.09],"hsk4-0678":["照片的背景是大海。","zhào piàn de bèi jǐng shì dà hǎi","사진 배경은 바다예요.","ex4",154.23,1.53],"hsk4-0688":["这是有名的著作。","zhè shì yǒu míng de zhù zuò","이건 유명한 저서예요.","ex4",156.11,1.25],"hsk4-0694":["他被迫离开了。","tā bèi pò lí kāi le","그는 어쩔 수 없이 떠났어요.","ex4",157.71,1.29],"hsk4-0718":["两地的距离很远。","liǎng dì de jù lí hěn yuǎn","두 곳의 거리는 멀어요.","ex4",159.35,1.41],"hsk4-0759":["开空调降温。","kāi kōng tiáo jiàng wēn","에어컨을 켜서 온도를 낮춰요.","ex4",161.11,1.21],"hsk4-0764":["青春是美好的。","qīng chūn shì měi hǎo de","청춘은 아름다워요.","ex4",162.67,1.57],"hsk4-0765":["他面临一个选择。","tā miàn lín yī ge xuǎn zé","그는 선택의 기로에 서 있어요.","ex4",164.59,1.45],"hsk4-0785":["盘子里有一个苹果。","pán zi lǐ yǒu yī ge píng guǒ","접시에 사과가 하나 있어요.","ex4",166.39,1.57],"hsk4-0790":["路上遇到了大雨。","lù shang yù dào liǎo dà yǔ","오는 길에 큰비를 만났어요.","ex4",168.31,1.37],"hsk4-0796":["这块布的颜色很好看。","zhè kuài bù de yán sè hěn hǎo kàn","이 천은 색이 예뻐요.","ex4",170.03,1.89],"hsk4-0797":["他自己做的决定。","tā zì jǐ zuò de jué dìng","그가 스스로 내린 결정이에요.","ex4",172.27,1.37],"hsk4-0801":["他极爱运动。","tā jí ài yùn dòng","그는 운동을 아주 좋아해요.","ex4",173.99,0.93],"hsk5-0035":["隔壁的邻居很客气。","gé bì de lín jū hěn kè qi","옆집 이웃은 아주 예의 발라요.","ex4",175.27,1.61],"hsk5-0043":["这个宾馆的房间很干净。","zhè ge bīn guǎn de fáng jiān hěn gān jìng","이 호텔 방은 깨끗해요.","ex4",177.23,1.81],"hsk5-0049":["他点了一份盒饭和一瓶饮料。","tā diǎn le yī fèn hé fàn hé yī píng yǐn liào","그는 도시락 하나와 음료 한 병을 시켰어요.","ex4",179.39,2.69],"hsk5-0060":["把蛋糕切成八块。","bǎ dàn gāo qiē chéng bā kuài","케이크를 여덟 조각으로 잘라.","ex4",182.43,1.93],"hsk5-0152":["大熊猫是国家的宝贝。","dà xióng māo shì guó jiā de bǎo bèi","판다는 나라의 보물이에요.","ex4",184.71,1.73],"hsk5-0728":["他最近瘦了。","tā zuì jìn shòu le","그는 요즘 살이 빠졌어요.","ex4",186.79,0.93],"hsk5-0730":["他穿着一双皮鞋。","tā chuān zhuó yī shuāng pí xié","그는 구두를 신고 있어요.","ex4",188.07,2.29],"hsk5-0782":["他用手挡住耳朵。","tā yòng shǒu dǎng zhù ěr duo","그는 손으로 귀를 막아요.","ex4",190.71,1.41],"hsk5-0796":["他脑子很聪明。","tā nǎo zi hěn cōng ming","그는 머리가 좋아요.","ex4",192.47,1.25],"hsk5-0915":["他的鼻子很高。","tā de bí zi hěn gāo","그는 코가 높아요.","ex4",194.07,1.37],"hsk6-0419":["他站在门外头。","tā zhàn zài mén wài tou","그는 문밖에 서 있어요.","ex4",195.79,1.89],"hsk6-0687":["孩子玩游戏机。","hái zi wán yóu xì jī","아이가 게임기를 해요.","ex4",198.03,1.45],"hsk6-0847":["我们聊天儿聊了很久。","wǒ men liáo tiānr liáo le hěn jiǔ","우리는 오래 수다를 떨었어요.","ex4",199.83,1.93],"hsk6-0974":["他用铅笔写字。","tā yòng qiān bǐ xiě zì","그는 연필로 글씨를 써요.","ex4",202.11,1.53],"hsk1-0211":["他住在学校里。","tā zhù zài xué xiào lǐ","그는 학교 안에서 살아요.","ex5",0.35,1.73],"hsk2-0063":["春天来了，花都开了。","chūn tiān lái le huā dū kāi le","봄이 와서 꽃이 다 피었어요.","ex5",2.43,1.69],"hsk5-0509":["他悄悄地走了。","tā qiāo qiāo dì zǒu le","그는 조용히 떠났어요.","ex5",4.47,1.29],"hsk2-0051":["他给我发了一条短信。","tā gěi wǒ fā le yī tiáo duǎn xìn","그가 나한테 문자를 하나 보냈어요.","ex5",6.11,1.57],"hsk2-0298":["他故意不接我的电话。","tā gù yì bù jiē wǒ de diàn huà","그는 일부러 내 전화를 안 받아요.","ex5",8.03,1.89],"hsk1-0069":["我们出去玩儿吧。","wǒ men chū qù wánr ba","우리 나가서 놀자.","ex5",10.27,0.97]};
+const WEX={"妻子":"hsk4-0006","老婆":"hsk4-0009","孩子":"hsk1-0032","爸爸":"hsk2-0160","妈妈":"hsk2-0467","朋友":"hsk1-0016","同事":"hsk2-0150","今天":"hsk1-0042","明天":"hsk1-0245","昨天":"hsk1-0044","周末":"hsk2-0067","晚上":"hsk1-0047","点":"hsk1-0040","分":"hsk3-0713","半":"hsk1-0041","公司":"hsk2-0150","家":"hsk3-0492","公园":"hsk4-0509","饭店":"hsk3-0510","医院":"hsk4-0576","超市":"hsk2-0199","上边":"hsk1-0199","下边":"hsk1-0199","旁边":"hsk1-0100","里边":"hsk1-0101","前边":"hsk1-0103","后边":"hsk1-0103","跑步":"hsk3-0500","看书":"hsk1-0121","做饭":"hsk2-0467","买":"hsk1-0033","开车":"hsk1-0152","加班":"hsk4-0087","搬家":"hsk3-0041","旅游":"hsk2-0485","贵":"hsk1-0124","便宜":"hsk2-0201","大":"hsk1-0219","小":"hsk4-0309","忙":"hsk2-0074","方便":"hsk2-0094","健康":"hsk4-0319","着急":"hsk4-0627","个":"hsk1-0124","本":"hsk1-0033","件":"hsk2-0124","杯":"hsk1-0057","把":"hsk3-0460","只":"hsk2-0409","口":"hsk1-0020","因为":"hsk2-0291","所以":"hsk2-0291","而且":"hsk3-0342","但是":"hsk4-0034","比如说":"hsk2-0338","突然":"hsk3-0175","最后":"hsk1-0188","一":"hsk1-0057","一点儿":"hsk1-0226","七":"hsk1-0031","三":"hsk1-0033","上":"hsk1-0098","上午":"hsk1-0041","下":"hsk3-0175","下午":"hsk3-0602","下雨":"hsk2-0291","不":"hsk1-0237","不客气":"hsk1-0003","东西":"hsk2-0201","中午":"hsk3-0513","中国":"hsk3-0565","九":"hsk1-0041","书":"hsk3-0460","了":"hsk1-0124","二":"hsk1-0029","五":"hsk1-0020","些":"hsk4-0296","人":"hsk1-0020","什么":"hsk1-0153","他":"hsk1-0237","会":"hsk1-0152","住":"hsk1-0211","你":"hsk1-0152","做":"hsk1-0063","儿子":"hsk1-0025","先生":"hsk1-0018","八":"hsk1-0127","六":"hsk1-0038","再见":"hsk1-0007","写":"hsk1-0159","冷":"hsk2-0366","几":"hsk1-0040","出租车":"hsk2-0183","分钟":"hsk2-0423","前面":"hsk3-0368","北京":"hsk1-0049","医生":"hsk1-0013","十":"hsk1-0029","去":"hsk3-0602","叫":"hsk1-0005","号":"hsk1-0160","吃":"hsk4-0296","同学":"hsk1-0012","名字":"hsk1-0005","后面":"hsk3-0721","吗":"hsk1-0152","听":"hsk1-0204","呢":"hsk1-0015","和":"hsk3-0645","哪":"hsk1-0156","哪儿":"hsk4-0643","商店":"hsk1-0100","喂":"hsk2-0009","喜欢":"hsk1-0156","喝":"hsk1-0057","四":"hsk2-0061","回":"hsk1-0052","在":"hsk1-0049","坐":"hsk1-0121","块":"hsk1-0127","多":"hsk4-0296","多少":"hsk1-0132","天气":"hsk2-0366","太":"hsk1-0124","女儿":"hsk1-0025","她":"hsk1-0013","好":"hsk2-0009","字":"hsk1-0159","学习":"hsk1-0047","学校":"hsk1-0101","学生":"hsk1-0157","对不起":"hsk1-0004","小姐":"hsk1-0269","少":"hsk1-0261","岁":"hsk1-0029","工作":"hsk1-0094","年":"hsk4-0423","开":"hsk1-0152","很":"hsk3-0492","怎么":"hsk1-0159","怎么样":"hsk2-0475","想":"hsk2-0409","我":"hsk1-0063","我们":"hsk1-0012","打电话":"hsk1-0065","时候":"hsk3-0041","星期":"hsk1-0042","是":"hsk1-0153","月":"hsk1-0160","有":"hsk4-0423","来":"hsk2-0124","杯子":"hsk1-0230","桌子":"hsk1-0098","椅子":"hsk2-0446","水":"hsk4-0596","水果":"hsk4-0296","汉语":"hsk1-0061","没关系":"hsk1-0004","没有":"hsk2-0526","漂亮":"hsk3-0045","热":"hsk1-0039","爱":"hsk2-0121","狗":"hsk3-0692","猫":"hsk3-0692","现在":"hsk1-0040","电影":"hsk2-0353","电脑":"hsk1-0164","电视":"hsk1-0059","的":"hsk1-0164","看":"hsk1-0059","看见":"hsk1-0184","睡觉":"hsk2-0352","米饭":"hsk2-0448","老师":"hsk1-0007","能":"hsk1-0151","苹果":"hsk4-0785","茶":"hsk1-0057","菜":"hsk1-0063","衣服":"hsk4-0374","认识":"hsk4-0565","说":"hsk1-0061","请":"hsk1-0061","读":"hsk1-0246","谁":"hsk1-0018","谢谢":"hsk1-0003","这":"hsk1-0153","那":"hsk1-0016","都":"hsk2-0150","里":"hsk4-0785","钱":"hsk1-0127","飞机":"hsk1-0207","高兴":"hsk4-0310","一下":"hsk1-0210","一起":"hsk3-0500","丈夫":"hsk4-0007","上班":"hsk1-0088","两":"hsk1-0032","为什么":"hsk2-0476","也":"hsk1-0013","事情":"hsk2-0349","介绍":"hsk1-0008","从":"hsk2-0196","休息":"hsk2-0409","公共汽车":"hsk2-0181","再":"hsk2-0220","准备":"hsk4-0325","出":"hsk1-0069","别":"hsk4-0309","到":"hsk3-0368","千":"hsk2-0495","卖":"hsk2-0208","去年":"hsk1-0049","可以":"hsk2-0181","可能":"hsk2-0235","右边":"hsk1-0198","吧":"hsk4-0296","告诉":"hsk1-0079","咖啡":"hsk3-0162","哥哥":"hsk1-0022","唱歌":"hsk3-0342","外":"hsk6-0419","大家":"hsk3-0500","女":"hsk1-0279","好吃":"hsk1-0135","妹妹":"hsk1-0038","姐姐":"hsk1-0201","姓":"hsk2-0462","它":"hsk2-0020","完":"hsk2-0114","宾馆":"hsk5-0043","对":"hsk1-0236","小时":"hsk1-0252","就":"hsk4-0181","左边":"hsk1-0198","已经":"hsk3-0274","希望":"hsk3-0211","帮助":"hsk2-0004","开始":"hsk3-0581","弟弟":"hsk1-0038","往":"hsk2-0165","得":"hsk4-0325","快":"hsk4-0392","快乐":"hsk3-0619","您":"hsk1-0018","意思":"hsk2-0336","慢":"hsk2-0423","懂":"hsk2-0428","房间":"hsk1-0199","手机":"hsk1-0163","手表":"hsk3-0401","打篮球":"hsk2-0260","找":"hsk1-0018","报纸":"hsk2-0035","教室":"hsk2-0446","新":"hsk1-0164","日":"hsk1-0216","早上":"hsk3-0162","时间":"hsk4-0627","晴":"hsk3-0176","最":"hsk1-0219","服务员":"hsk3-0009","机场":"hsk3-0322","次":"hsk1-0035","正在":"hsk2-0349","每":"hsk3-0542","比":"hsk1-0039","洗":"hsk2-0114","游泳":"hsk3-0195","火车站":"hsk1-0112","牛奶":"hsk1-0134","玩":"hsk6-0687","生日":"hsk3-0619","生病":"hsk2-0253","男":"hsk1-0279","白":"hsk1-0238","百":"hsk1-0037","真":"hsk2-0388","眼睛":"hsk2-0244","着":"hsk2-0099","知道":"hsk3-0313","票":"hsk1-0256","离":"hsk2-0155","穿":"hsk4-0374","笑":"hsk3-0337","第一":"hsk1-0271","等":"hsk1-0252","累":"hsk2-0354","红":"hsk2-0247","给":"hsk1-0256","考试":"hsk1-0092","药":"hsk4-0237","西瓜":"hsk4-0350","要":"hsk1-0112","觉得":"hsk1-0180","让":"hsk3-0008","说话":"hsk1-0204","课":"hsk4-0328","走":"hsk2-0165","起床":"hsk1-0054","路":"hsk1-0198","跳舞":"hsk3-0195","身体":"hsk3-0166","过":"hsk4-0334","运动":"hsk4-0319","近":"hsk2-0155","还":"hsk1-0081","进":"hsk1-0006","远":"hsk4-0718","送":"hsk1-0193","铅笔":"hsk6-0974","错":"hsk3-0572","长":"hsk4-0569","门":"hsk4-0410","问":"hsk3-0305","问题":"hsk4-0281","阴":"hsk2-0235","雪":"hsk3-0440","零":"hsk1-0259","非常":"hsk4-0593","面条":"hsk1-0140","题":"hsk4-0412","颜色":"hsk4-0796","高":"hsk1-0237","鱼":"hsk2-0220","鸡蛋":"hsk1-0136","黑":"hsk2-0405","一会儿":"hsk1-0073","一共":"hsk2-0123","一定":"hsk2-0417","一样":"hsk1-0222","一直":"hsk4-0087","一般":"hsk2-0386","一边":"hsk1-0266","万":"hsk3-0401","上网":"hsk1-0095","世界":"hsk3-0276","东":"hsk2-0315","个子":"hsk4-0034","中文":"hsk1-0062","中间":"hsk1-0108","为":"hsk4-0420","为了":"hsk3-0247","主要":"hsk2-0529","久":"hsk3-0360","习惯":"hsk4-0408","了解":"hsk4-0289","以前":"hsk3-0534","会议":"hsk3-0581","伞":"hsk4-0008","位":"hsk4-0007","体育":"hsk2-0482","作业":"hsk2-0468","信用卡":"hsk2-0205","借":"hsk2-0363","像":"hsk3-0519","元":"hsk1-0239","先":"hsk4-0619","公斤":"hsk2-0043","关":"hsk1-0250","关于":"hsk4-0329","关心":"hsk2-0281","关系":"hsk4-0435","其他":"hsk2-0414","其实":"hsk3-0314","冬":"hsk2-0506","冰箱":"hsk4-0039","决定":"hsk3-0222","几乎":"hsk4-0343","刚才":"hsk2-0073","别人":"hsk4-0624","刷牙":"hsk4-0048","刻":"hsk2-0087","办公室":"hsk2-0149","办法":"hsk3-0485","动物":"hsk4-0309","努力":"hsk3-0247","包":"hsk2-0378","北方":"hsk2-0022","南":"hsk1-0277","历史":"hsk4-0088","参加":"hsk4-0295","又":"hsk2-0356","双":"hsk3-0045","发":"hsk2-0051","发烧":"hsk4-0252","发现":"hsk2-0396","叔叔":"hsk4-0001","变化":"hsk3-0072","句子":"hsk2-0336","可爱":"hsk2-0321","司机":"hsk2-0018","同意":"hsk3-0291","后来":"hsk2-0075","向":"hsk2-0315","哭":"hsk3-0213","啊":"hsk2-0296","啤酒":"hsk3-0167","嘴":"hsk2-0248","回答":"hsk2-0105","国家":"hsk2-0483","图书馆":"hsk1-0101","地":"hsk5-0509","地图":"hsk1-0167","地方":"hsk4-0530","地铁":"hsk2-0183","坏":"hsk1-0235","城市":"hsk3-0332","声音":"hsk2-0472","复习":"hsk2-0069","夏":"hsk4-0233","多么":"hsk2-0308","太阳":"hsk3-0442","头发":"hsk2-0245","奇怪":"hsk3-0244","奶奶":"hsk1-0024","如果":"hsk2-0290","季节":"hsk4-0098","安静":"hsk2-0072","完成":"hsk3-0393","客人":"hsk2-0040","害怕":"hsk3-0290","容易":"hsk3-0491","小心":"hsk2-0018","层":"hsk2-0049","差":"hsk1-0281","带":"hsk2-0188","帮忙":"hsk1-0084","帽子":"hsk4-0106","干净":"hsk1-0147","年级":"hsk2-0126","年轻":"hsk3-0571","应该":"hsk3-0033","张":"hsk3-0693","当然":"hsk3-0293","影响":"hsk2-0037","必须":"hsk3-0411","忘记":"hsk1-0075","总是":"hsk3-0331","感兴趣":"hsk4-0332","感冒":"hsk3-0178","愿意":"hsk2-0054","成绩":"hsk4-0304","或者":"hsk2-0293","打扫":"hsk4-0050","打算":"hsk2-0157","护照":"hsk2-0188","担心":"hsk4-0507","拿":"hsk4-0008","换":"hsk2-0207","接":"hsk2-0298","提高":"hsk4-0169","搬":"hsk3-0041","放":"hsk3-0603","放心":"hsk2-0477","故事":"hsk3-0220","教":"hsk1-0074","文化":"hsk3-0387","新闻":"hsk2-0269","新鲜":"hsk4-0265","旧":"hsk3-0569","明白":"hsk1-0078","春":"hsk2-0063","更":"hsk4-0080","最近":"hsk2-0074","月亮":"hsk4-0401","有名":"hsk4-0688","机会":"hsk2-0306","条":"hsk4-0569","极":"hsk4-0801","树":"hsk4-0652","校长":"hsk2-0138","根据":"hsk4-0559","检查":"hsk2-0249","楼":"hsk2-0049","欢迎":"hsk4-0326","段":"hsk2-0420","比赛":"hsk4-0593","比较":"hsk3-0174","水平":"hsk2-0386","注意":"hsk3-0283","洗手间":"hsk1-0170","洗澡":"hsk2-0088","清楚":"hsk3-0478","渴":"hsk1-0137","游戏":"hsk4-0545","满意":"hsk3-0012","灯":"hsk4-0425","热情":"hsk2-0150","然后":"hsk2-0088","照片":"hsk4-0678","照顾":"hsk3-0033","熊猫":"hsk5-0152","爬山":"hsk2-0264","爱好":"hsk1-0177","爷爷":"hsk3-0542","特别":"hsk2-0074","环境":"hsk3-0615","班":"hsk2-0371","瓶子":"hsk2-0451","甜":"hsk3-0046","生气":"hsk2-0466","用":"hsk2-0205","电子邮件":"hsk3-0102","电梯":"hsk4-0045","画":"hsk4-0441","留学":"hsk3-0071","疼":"hsk2-0243","瘦":"hsk5-0728","皮鞋":"hsk5-0730","盘子":"hsk4-0785","相信":"hsk3-0303","短":"hsk2-0450","矮":"hsk4-0034","碗":"hsk2-0114","礼物":"hsk4-0513","离开":"hsk4-0694","秋":"hsk4-0380","种":"hsk3-0046","空调":"hsk4-0759","站":"hsk2-0099","笔记本":"hsk2-0093","筷子":"hsk2-0094","简单":"hsk3-0279","米":"hsk2-0448","练习":"hsk3-0447","终于":"hsk3-0328","经常":"hsk2-0404","经理":"hsk2-0149","经过":"hsk2-0198","结婚":"hsk3-0032","结束":"hsk4-0402","绿":"hsk2-0314","老":"hsk1-0257","耳朵":"hsk5-0782","聊天":"hsk6-0847","聪明":"hsk5-0796","胖":"hsk3-0646","脚":"hsk2-0243","脸":"hsk2-0247","腿":"hsk2-0243","自己":"hsk4-0797","自行车":"hsk2-0184","舒服":"hsk4-0476","船":"hsk4-0570","节日":"hsk4-0308","节目":"hsk2-0268","花":"hsk3-0051","草":"hsk2-0314","菜单":"hsk3-0009","蓝":"hsk4-0585","蛋糕":"hsk5-0060","街道":"hsk4-0182","衬衫":"hsk3-0151","被":"hsk4-0410","裙子":"hsk3-0152","裤子":"hsk3-0614","西":"hsk1-0277","要求":"hsk3-0333","见面":"hsk3-0554","角":"hsk2-0061","解决":"hsk4-0465","认为":"hsk2-0285","认真":"hsk4-0553","记得":"hsk4-0316","讲":"hsk2-0487","词典":"hsk2-0129","试":"hsk1-0210","请假":"hsk1-0187","起来":"hsk1-0081","起飞":"hsk2-0187","越":"hsk2-0505","跟":"hsk1-0183","辆":"hsk2-0214","过去":"hsk2-0095","还是":"hsk2-0076","迟到":"hsk4-0099","选择":"hsk4-0765","遇到":"hsk4-0790","邻居":"hsk5-0035","重要":"hsk4-0088","银行":"hsk2-0207","锻炼":"hsk4-0260","阿姨":"hsk4-0001","附近":"hsk4-0181","除了":"hsk3-0336","难":"hsk1-0092","难过":"hsk2-0297","需要":"hsk3-0558","面包":"hsk1-0134","音乐":"hsk3-0531","饮料":"hsk5-0049","饱":"hsk2-0225","饿":"hsk1-0137","香蕉":"hsk3-0603","马":"hsk3-0519","马上":"hsk2-0430","骑":"hsk2-0184","鸟":"hsk2-0316","黑板":"hsk2-0127","鼻子":"hsk5-0915"};
+Object.values(EXS).forEach(e=>{if(!WSPR[e[0]])WSPR[e[0]]=[e[3],e[4],e[5]]});
+function exHTML(zh){const id=WEX[zh];const e=id&&EXS[id];if(!e)return"";return `<div class="ex tap" role="button" tabindex="0" data-say="${esc(e[0])}"><span class="eyebrow">예문</span><span class="zh" lang="zh-CN">${esc(e[0])}${SPKS}</span><span class="py">${esc(e[1])}</span><span class="ko">${esc(e[2])}</span></div>`}
+let spTimer=null;
+function playSprite(sp,fin){
+  const [g,st,du]=sp, url=`${(male&&!g.startsWith("ex"))?"m":"f"}-${g}.mp3`, r=(g.startsWith("ex")||g==="sent")?(slow?0.75:1):(slow?0.65:0.85);
+  clearTimeout(spTimer); player.onended=fin; player.onerror=()=>fin(); player.defaultPlaybackRate=r;
+  const go=()=>{try{player.currentTime=Math.max(0,st-0.02)}catch(e){} player.muted=false; player.playbackRate=r; const pr=player.play(); if(pr&&pr.catch)pr.catch(()=>fin()); spTimer=setTimeout(()=>{try{player.pause()}catch(e){} fin()},(du+0.1)/r*1000);};
+  if(player.dataset.src!==url){player.dataset.src=url; player.src=url; player.muted=true; const pr=player.play(); if(pr&&pr.catch)pr.catch(()=>{});
+    const ready=()=>{try{player.pause()}catch(e){} go()}; if(player.readyState>=1) ready(); else player.addEventListener("loadedmetadata",ready,{once:true});}
+  else go();
+}
+function stopAudio(){clearTimeout(spTimer);try{player.pause()}catch(e){} try{speechSynthesis.cancel()}catch(e){} if(curFin){const f=curFin;curFin=null;f()}}
+function ttsSpeak(text){
+  stopAudio();
+  return new Promise(res=>{
+  let done=false;const fin=()=>{if(!done){done=true;if(curFin===fin)curFin=null;player.onended=player.onerror=null;res()}};
+  curFin=fin;
+  const t=String(text).replace(/_{2,}/g,"，").replace(/[○]/g,"");
+  const sp=WSPR[text]; if(sp){playSprite(sp,fin);return}
+  const f=AUDIO[text];
+  if(!f){fallbackTTS(t,fin);return}
+  try{
+    player.dataset.src=""; player.muted=false;
+    player.src=(male?"vm/":"vf/")+f+".mp3";
+    const r=slow?.75:1; player.defaultPlaybackRate=r; player.playbackRate=r;
+    player.onended=fin; player.onerror=()=>{if(!done)fallbackTTS(t,fin)};
+    const pr=player.play(); if(pr&&pr.catch) pr.catch(()=>{if(!done)fallbackTTS(t,fin)});
+    setTimeout(fin,30000);
+  }catch(e){fallbackTTS(t,fin)}
+})}
+function speak(text){ if(!tts) return new Promise(r=>setTimeout(r,1500)); return ttsSpeak(text); }
+function showQ(item,listening){
+  const c=SIMCFG[item.p], b=document.getElementById("s-body");
+  let h="";
+    h+=picHTML(item);
+  const showText = c.mode!=="audio" || sub || !tts;
+  if(c.mode==="text"||c.mode==="pics"||(c.mode==="audio"&&showText)) h+=lineHTML(item.q);
+  if(listening) h+=`<div class="listen"><span class="wave"><i></i><i></i><i></i><i></i></span>질문 듣는 중</div>`;
+  b.innerHTML=h||`<div class="listen"><span class="wave"><i></i><i></i><i></i><i></i></span>질문 듣는 중</div>`;
+}
+function setPhase(label,sec,frac,rec){
+  const ph=document.getElementById("s-phase");
+  ph.className="phase"+(rec?" rec":"");
+  ph.innerHTML=`<span>${rec?'<span class="recdot"></span>':""}${label}</span><span class="sec">${sec==null?"--":sec+"초"}</span>`;
+  document.getElementById("s-bar").style.width=(frac*100)+"%";
+}
+function countdown(total,label,rec,token){return new Promise(res=>{
+  if(total<=0) return res();
+  const t0=performance.now();
+  const tick=()=>{ if(simRun!==token) return res();
+    const el=(performance.now()-t0)/1000, left=Math.max(0,total-el);
+    setPhase(label,Math.ceil(left),left/total,rec);
+    if(left<=0) return res(); requestAnimationFrame(tick)};
+  tick();
+})}
+async function runSim(){
+  const token={}; simRun=token;
+  const queue=buildQueue();
+  document.getElementById("s-start").hidden=true; document.getElementById("s-stop").hidden=false;
+  document.getElementById("s-review").hidden=true;
+  for(let i=0;i<queue.length;i++){
+    if(simRun!==token) break;
+    const it=queue[i], c=SIMCFG[it.p];
+    document.getElementById("s-part").innerHTML=`<b>Part ${it.p}</b> ${c.name}`;
+    document.getElementById("s-count").textContent=`${i+1} / ${queue.length}`;
+    showQ(it,true); setPhase("질문",null,1,false);
+    await speak(it.q.zh); if(simRun!==token) break;
+    showQ(it,false);
+    await countdown(c.prep,"준비 시간",false,token); if(simRun!==token) break;
+    beep();
+    await countdown(c.ans,"답변 · 녹음 중",true,token);
+  }
+  if(simRun!==null && simRun!==token) return;
+  const finished = simRun===token;
+  simRun=null; stopAudio();
+  document.getElementById("s-start").hidden=false; document.getElementById("s-stop").hidden=true;
+  document.getElementById("s-start").textContent="다시 시작";
+  setPhase(finished?"종료":"중단됨",null,0,false);
+  document.getElementById("s-body").innerHTML=`<p class="lead" style="margin:0">${finished?"끝. 시험장에서도 이렇게 아무 반응 없이 끝난다. 아래에서 모범 답안과 비교해보기.":"중단했어. 다시 시작하면 처음부터."}</p>`;
+  if(finished){const r=document.getElementById("s-review");r.hidden=false;
+    r.innerHTML=`<h2>모범 답안 확인</h2>`+queue.map(it=>`<article class="q"><div class="qh"><span class="tag green">P${it.p}</span></div>${lineHTML(it.q)}<div class="ans">${lineHTML(it.a)}</div></article>`).join("");}
+}
+function wireSim(){
+  document.querySelectorAll("#simsel [data-s]").forEach(b=>b.addEventListener("click",()=>{
+    if(simRun) return; simSel=b.dataset.s;
+    document.querySelectorAll("#simsel [data-s]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  }));
+  const tb=document.getElementById("s-tts"), sb=document.getElementById("s-sub");
+  tb.addEventListener("click",()=>{tts=!tts;tb.setAttribute("aria-pressed",String(tts))});
+  sb.addEventListener("click",()=>{sub=!sub;sb.setAttribute("aria-pressed",String(sub))});
+  document.getElementById("s-start").addEventListener("click",()=>{
+    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume()}catch(e){}
+    runSim();
+  });
+  document.getElementById("s-stop").addEventListener("click",()=>{simRun=null;stopAudio()});
+  try{speechSynthesis.getVoices()}catch(e){}
+}
+
+/* illustrations */
+const IL=(vb,body,label)=>`<svg class="ill" viewBox="${vb}" role="img" aria-label="${label||"그림"}">${body}</svg>`;
+const person=(x,y)=>`<circle class="s f2" cx="${x}" cy="${y}" r="8"/><path class="s" d="M${x} ${y+8}v24M${x-11} ${y+20}l11-6l11 6M${x} ${y+32}l-9 16M${x} ${y+32}l9 16"/>`;
+const walker=(x,y)=>`<circle class="s f2" cx="${x}" cy="${y}" r="8"/><path class="s" d="M${x} ${y+8}v24M${x-10} ${y+24}l10-10l10 4M${x} ${y+32}l-12 14M${x} ${y+32}l10 16"/>`;
+const sitter=(x,y)=>`<circle class="s f2" cx="${x}" cy="${y}" r="8"/><path class="s" d="M${x} ${y+8}v22h16v18M${x} ${y+16}l14 6"/>`;
+const bust=(x,y)=>`<circle class="s f2" cx="${x}" cy="${y}" r="10"/><path class="s f1" d="M${x-17} ${y+38}q0-22 17-22q17 0 17 22z"/>`;
+const tick=i=>{const a=i*Math.PI/6,r1=50,r2=i%3?46:42;return `M${(120+r1*Math.sin(a)).toFixed(1)} ${(75-r1*Math.cos(a)).toFixed(1)}L${(120+r2*Math.sin(a)).toFixed(1)} ${(75-r2*Math.cos(a)).toFixed(1)}`};
+const PICSVG={
+ "책상 위에 책 한 권":IL("0 0 240 150",`<path class="s" d="M10 140h220"/><rect class="s f1" x="40" y="80" width="160" height="10" rx="2"/><path class="s" d="M55 90v50M185 90v50"/><rect class="s ac" x="95" y="60" width="50" height="20" rx="2"/><path class="s" d="M101 66h38"/>`,"책상 위 책"),
+ "의자 아래에 고양이":IL("0 0 240 150",`<path class="s" d="M10 140h220"/><path class="s" d="M70 30v54"/><rect class="s f1" x="66" y="82" width="76" height="8" rx="2"/><path class="s" d="M72 90v50M136 90v50"/><ellipse class="s f1" cx="100" cy="129" rx="24" ry="10"/><circle class="s f1" cx="126" cy="119" r="9"/><path class="s" d="M120 112l1-8l6 5M129 111l4-7l2 8M76 127q-14-2-10-18"/>`,"의자와 고양이"),
+ "소파에서 TV 보는 남자":IL("0 0 240 150",`<path class="s" d="M10 140h220"/><rect class="s f1" x="15" y="74" width="100" height="26" rx="6"/><rect class="s f1" x="15" y="98" width="100" height="22" rx="4"/><path class="s" d="M22 120v16M108 120v16"/>${sitter(52,56)}<path class="s" stroke-dasharray="4 5" d="M66 56L158 60"/><rect class="s f2" x="160" y="38" width="66" height="46" rx="3"/><rect class="ac" x="166" y="44" width="54" height="34"/><path class="s" d="M193 84v14M178 98h30M178 98v42M208 98v42"/>`,"소파와 TV"),
+ "컴퓨터 5000元 · 휴대폰 3000元":IL("0 0 240 150",`<rect class="s f2" x="25" y="24" width="90" height="60" rx="4"/><rect class="f1" x="31" y="30" width="78" height="48"/><path class="s f1" d="M13 94h114l-8-10h-98z"/><rect class="s f2" x="162" y="26" width="38" height="68" rx="6"/><rect class="f1" x="167" y="34" width="28" height="50"/><rect class="sl" x="40" y="108" width="60" height="26" rx="5"/><text class="tw" x="70" y="126" text-anchor="middle">5000元</text><rect class="sl" x="151" y="108" width="60" height="26" rx="5"/><text class="tw" x="181" y="126" text-anchor="middle">3000元</text>`,"컴퓨터와 휴대폰 가격표"),
+ "식탁에 앉은 사람 세 명":IL("0 0 240 150",`<path class="s" d="M10 140h220"/>${bust(70,48)}${bust(120,42)}${bust(170,48)}<rect class="s f2" x="28" y="86" width="184" height="12" rx="3"/><path class="s" d="M44 98v42M196 98v42"/><circle class="s ac" cx="95" cy="82" r="5"/><circle class="s ac" cx="145" cy="82" r="5"/>`,"식탁과 사람들"),
+ "벽시계 8:15":IL("0 0 240 150",`<circle class="s f2" cx="120" cy="75" r="58"/><path class="s" d="${Array.from({length:12},(_,i)=>tick(i)).join("")}"/><path class="s" style="stroke-width:5" d="M120 75L92.3 86.5"/><path class="s" style="stroke-width:3" d="M120 75L165 75"/><circle class="ac" cx="120" cy="75" r="4"/>`,"벽시계")
+};
+const P7SVG=[
+ IL("0 0 120 100",`<path class="s" d="M5 92h110M25 92v-26"/><circle class="s f1" cx="25" cy="52" r="16"/><circle class="sl" cx="100" cy="18" r="9"/>${walker(68,40)}`,"공원에 가는 남자"),
+ IL("0 0 120 100",`<path class="s" d="M5 92h110M28 56h64M28 70h64M34 70v22M86 70v22"/>${sitter(48,32)}<rect class="s ac" x="60" y="42" width="13" height="11"/>`,"벤치에서 책 읽기"),
+ IL("0 0 120 100",`<circle class="mu" cx="40" cy="22" r="12"/><circle class="mu" cx="58" cy="17" r="15"/><circle class="mu" cx="77" cy="23" r="11"/><path class="s dr" d="M30 42l-3 8M48 40l-3 8M66 42l-3 8M84 40l-3 8M38 58l-3 8M78 58l-3 8"/><path class="s" d="M5 95h110"/><circle class="s f2" cx="58" cy="58" r="7"/><path class="s" d="M58 65v16M58 70l-9-12M58 70l9-12M58 81l-7 13M58 81l7 13"/>`,"갑자기 비"),
+ IL("0 0 120 100",`<path class="s" d="M5 95h110"/>${person(36,44)}<circle class="s f2" cx="82" cy="52" r="7"/><path class="s f1" d="M82 59l-8 20h16z"/><path class="s" d="M76 79l-2 15M88 79l2 15M82 64l-12-4"/><path class="sl" d="M46 36q24-26 48 0z"/><path class="s" d="M70 36v26"/>`,"우산을 주는 여자아이")
+];
+function picHTML(q){ if(q.p===2&&PICSVG[q.pic]) return `<div class="pic">${PICSVG[q.pic]}</div>`;
+  if(q.p===7&&Array.isArray(q.pic)) return `<div class="pics">${P7SVG.map((s,i)=>`<div class="pic"><small>${i+1}</small>${s}</div>`).join("")}</div>`; return ""; }
+
+/* handwriting */
+let STROKES=null, hwLoading=null, writer=null, wsWord=null, wsIdx=0;
+function loadHW(){ if(hwLoading) return hwLoading;
+  hwLoading=Promise.all([
+    new Promise((res,rej)=>{ if(window.HanziWriter) return res(); const s=document.createElement("script"); s.src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js"; s.onload=res; s.onerror=rej; document.head.appendChild(s)}),
+    fetch("strokes.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{STROKES=d})
+  ]).catch(e=>{hwLoading=null;throw e}); return hwLoading; }
+const wsMsg=t=>{document.getElementById("ws-msg").textContent=t};
+function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#333"}
+function openWriter(w,start,quiet){
+  wsWord=w; wsIdx=start||0; wsBlind=false; document.getElementById("ws-blind").setAttribute("aria-pressed","false"); document.getElementById("ws-quiz").removeAttribute("aria-pressed");
+  const sh=document.getElementById("wsheet"); sh.hidden=false;
+  document.getElementById("ws-title").textContent=w.zh;
+  document.getElementById("ws-py").textContent=w.py;
+  document.getElementById("ws-ko").textContent=w.ko;
+  const wx=document.getElementById("ws-ex"); if(wx) wx.innerHTML=exHTML(w.zh);
+  document.getElementById("ws-say").dataset.say=w.zh;
+  if(!quiet) ttsSpeak(w.zh);
+  const isLong=chars().length>4;
+  document.getElementById("ws-title").classList.toggle("long",isLong);
+  document.querySelector(".sheet-in").classList.toggle("long",isLong);
+  renderChips(); fitPad(); wsMsg("불러오는 중…");
+  loadHW().then(()=>showChar()).catch(()=>{wsMsg("획순 데이터를 못 불러와서 연한 글자 위에 따라 쓰기만 돼. '따라 쓰기'를 누르면 지워져."); fallbackPad()});
+}
+function fitPad(){
+  const sh=document.querySelector(".sheet-in"), pad=document.querySelector(".ws-pad");
+  const info=document.getElementById("ws-info"); if(info) info.style.display="none";
+  pad.style.width=""; const base=pad.getBoundingClientRect().width;
+  const over=sh.scrollHeight-sh.clientHeight;
+  if(over>0) pad.style.width=Math.max(160,Math.floor(base-over-4))+"px";
+  if(info) info.style.display="";
+  const cur=document.querySelector('#ws-chars [aria-pressed="true"]'); cur&&cur.scrollIntoView({block:"nearest",inline:"center"});
+}
+window.addEventListener("resize",()=>{ if(!document.getElementById("wsheet").hidden && wsWord){ fitPad(); if(writer) showChar(); }});
+function chars(){return [...wsWord.zh].filter(c=>/[一-鿿]/.test(c))}
+function renderChips(){
+  const cs=chars(), el=document.getElementById("ws-chars");
+  el.innerHTML=cs.length>1?cs.map((c,i)=>`<button class="chip" data-wc="${i}" aria-pressed="${i===wsIdx}"><span lang="zh-CN" style="font-family:var(--f-zh)">${c}</span></button>`).join(""):"";
+}
+function showChar(){
+  const t=document.getElementById("ws-target"); t.innerHTML="";
+  const c=chars()[wsIdx]; if(!c) return;
+  const size=Math.floor(t.getBoundingClientRect().width)||260;
+  writer=HanziWriter.create(t,c,{width:size,height:size,padding:14,showOutline:!wsBlind,showCharacter:!wsBlind,
+    strokeColor:tok("--fg"),outlineColor:tok("--line"),drawingColor:tok("--accent"),highlightColor:tok("--seal"),
+    drawingWidth:Math.max(14,size/16),strokeAnimationSpeed:1,delayBetweenStrokes:250,
+    charDataLoader:(ch,onLoad,onErr)=>{STROKES&&STROKES[ch]?onLoad(STROKES[ch]):onErr()}});
+  renderCI();
+  wsMsg("'획순 보기'로 순서 보고, '따라 쓰기'로 손가락으로 써봐.");
+  renderChips(); const cur=document.querySelector('#ws-chars [aria-pressed="true"]'); cur&&cur.scrollIntoView({block:"nearest",inline:"center"});
+}
+let wsBlind=false;
+function startQuiz(){
+  if(!writer) return;
+  if(wsBlind){try{writer.hideOutline();writer.hideCharacter()}catch(e){}}
+  writer.quiz({showHintAfterMisses:wsBlind?3:2,highlightOnComplete:true,
+    onMistake:s=>wsMsg(`${s.strokeNum+1}번째 획 다시. ${wsBlind?3:2}번 틀리면 힌트가 떠.`),
+    onCorrectStroke:s=>wsMsg(`${s.strokeNum+1} / ${s.strokeNum+1+s.strokesRemaining}획 좋아`),
+    onComplete:s=>{const cs=chars();wsMsg(`완성! 틀린 횟수 ${s.totalMistakes}번`+(wsIdx<cs.length-1?" · 다음 글자로 넘어갈게":""));
+      if(wsIdx<cs.length-1) setTimeout(()=>{wsIdx++;showChar();startQuiz()},1300);}});
+  wsMsg(wsBlind?"윤곽 없이 기억만으로 써봐. 막히면 '획순 보기'.":"회색 윤곽 위에 획순대로 손가락으로 그어봐.");
+  document.getElementById("ws-blind").setAttribute("aria-pressed",String(wsBlind));
+  document.getElementById("ws-quiz").setAttribute("aria-pressed",String(!wsBlind));
+}
+function fallbackPad(){
+  renderCI();
+  const t=document.getElementById("ws-target"); t.innerHTML=`<div class="ghost" lang="zh-CN">${esc(chars()[wsIdx]||"")}</div><canvas></canvas>`;
+  const cv=t.querySelector("canvas"), r=t.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+  t.querySelector(".ghost").style.fontSize=Math.floor(r.width*0.78)+"px";
+  cv.width=r.width*dpr; cv.height=r.height*dpr; const g=cv.getContext("2d"); g.scale(dpr,dpr);
+  g.lineWidth=10; g.lineCap="round"; g.lineJoin="round"; g.strokeStyle=tok("--accent");
+  let down=false; const pt=e=>{const b=cv.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]};
+  cv.addEventListener("pointerdown",e=>{down=true;cv.setPointerCapture(e.pointerId);const [x,y]=pt(e);g.beginPath();g.moveTo(x,y)});
+  cv.addEventListener("pointermove",e=>{if(!down)return;const [x,y]=pt(e);g.lineTo(x,y);g.stroke()});
+  cv.addEventListener("pointerup",()=>{down=false});
+  writer=null;
+}
+function closeWriter(){ciCtl&&ciCtl.abort();document.getElementById("wsheet").hidden=true;document.getElementById("ws-target").innerHTML="";writer=null;stopAudio()}
+function wireWriter(){
+  const sh=document.getElementById("wsheet");
+  sh.addEventListener("click",e=>{ if(e.target===sh) closeWriter();
+    const c=e.target.closest("[data-wc]"); if(c){wsIdx=+c.dataset.wc; STROKES&&window.HanziWriter?showChar():fallbackPad()} });
+  document.getElementById("ws-close").addEventListener("click",closeWriter);
+  document.getElementById("ws-anim").addEventListener("click",()=>{ if(writer){writer.cancelQuiz&&writer.cancelQuiz();writer.showCharacter();writer.animateCharacter({onComplete:()=>wsMsg("이제 '따라 쓰기' 눌러서 직접 써봐.")});wsMsg("획순 보는 중…")} });
+  document.getElementById("ws-quiz").addEventListener("click",()=>{ wsBlind=false; if(writer){writer.cancelQuiz&&writer.cancelQuiz();showChar();startQuiz()} else fallbackPad() });
+  document.getElementById("ws-blind").addEventListener("click",()=>{ wsBlind=true; if(writer){writer.cancelQuiz&&writer.cancelQuiz();showChar();startQuiz()} else {fallbackPad();const g=document.querySelector("#ws-target .ghost");if(g)g.style.visibility="hidden";wsMsg("윤곽 없이 기억만으로 써봐.")} });
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sh.hidden)closeWriter()});
+}
+
+/* my recording vs model */
+const MIC='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const mine=new Audio(); let recTarget=null;
+function addRecButtons(root){
+  root.querySelectorAll(".line .zhrow").forEach(r=>{ if(r.querySelector(".rec")) return;
+    r.insertAdjacentHTML("beforeend",`<button class="say rec" type="button" aria-label="내 발음 녹음해서 비교">${MIC}</button>`)});
+}
+function playMine(url){return new Promise(res=>{try{stopAudio();mine.src=url;mine.onended=res;mine.onerror=res;const p=mine.play();p&&p.catch&&p.catch(res)}catch(e){res()}})}
+function wireRec(){
+  const inp=document.getElementById("recfile");
+  document.addEventListener("click",e=>{
+    const b=e.target.closest(".rec"); if(b){e.preventDefault();recTarget=b.closest(".line");inp.value="";inp.click();return}
+    const m=e.target.closest("[data-mine]"); if(m){e.preventDefault();playMine(m.closest(".line").dataset.rec);return}
+    const ab=e.target.closest("[data-ab]"); if(ab){e.preventDefault();const ln=ab.closest(".line");
+      ttsSpeak(ln.querySelector("[data-say]").dataset.say).then(()=>new Promise(r=>setTimeout(r,400))).then(()=>playMine(ln.dataset.rec))}
+  });
+  inp.addEventListener("change",()=>{ const f=inp.files&&inp.files[0]; if(!f||!recTarget) return;
+    if(recTarget.dataset.rec) URL.revokeObjectURL(recTarget.dataset.rec);
+    recTarget.dataset.rec=URL.createObjectURL(f);
+    let box=recTarget.querySelector(".mine"); if(!box){recTarget.querySelector(".c").insertAdjacentHTML("beforeend",`<div class="mine"><button class="reveal" type="button" data-mine>내 목소리</button><button class="reveal" type="button" data-ab>원어민 → 나 비교</button></div>`)}
+  });
+}
+
+
+/* AI grammar analysis */
+let SAMPLE=null, gCtl=null, gLine=null;
+(async()=>{try{ if(window.claude&&typeof claude.use==="function"){ SAMPLE=await claude.use("sample"); if(SAMPLE) document.body.classList.add("ai-on"); } }catch(e){}})();
+function mdLite(t){
+  const out=[];let ul=false;
+  const inline=x=>esc(x).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  t.split(/\n/).forEach(raw=>{const l=raw.trim();
+    if(/^#{1,4}\s/.test(l)){if(ul){out.push("</ul>");ul=false}out.push(`<h4>${inline(l.replace(/^#+\s*/,""))}</h4>`)}
+    else if(/^[-*•]\s/.test(l)){if(!ul){out.push("<ul>");ul=true}out.push(`<li>${inline(l.replace(/^[-*•]\s*/,""))}</li>`)}
+    else if(l){if(ul){out.push("</ul>");ul=false}out.push(`<p>${inline(l)}</p>`)}});
+  if(ul)out.push("</ul>"); return out.join("");
+}
+const G_ERR={not_granted:"AI 사용을 허용해야 분석할 수 있어. 다시 누르면 허용 창이 떠.",rate_limited:"요청이 몰렸어. 잠깐 뒤에 '다시 분석'을 눌러줘.",queue_overflow:"요청이 몰렸어. 잠깐 뒤에 '다시 분석'을 눌러줘.",sampling_disabled:"이 계정에서는 AI 분석을 쓸 수 없어.",capability_disabled:"이 계정에서는 AI 분석을 쓸 수 없어.",session_expired:"로그인이 만료됐어. 페이지를 새로 열어줘."};
+function gPrompt(zh,py,ko){return `너는 중국어 TSC 4급을 준비하는 한국인 초급 학습자를 가르치는 중국어 선생님이야. 아래 중국어 문장을 한국어로 문법 분석해줘.
+
+문장: ${zh}
+병음: ${py}
+뜻: ${ko}
+
+아래 형식의 마크다운으로, 이 순서대로 간결하게 써줘. 다른 말은 붙이지 마.
+## 문장 구조
+문장 성분을 "我(주어) + 叫(술어) + 黄俊善(목적어)" 같은 한 줄로.
+## 단어별 풀이
+- 한자 (병음): 품사 · 뜻  ← 단어마다 한 줄
+## 핵심 문법
+- 문법 이름: 쓰임과 주의점 1~2문장 ← 2~3개
+## 바꿔 말하기
+- 같은 문형으로 TSC 답변에 쓸 만한 예문 2개. 각각 "중국어 / 병음 / 뜻" 한 줄
+## 시험 팁
+이 문장을 TSC 어느 파트에서 어떻게 응용하면 좋은지 한 줄.
+문장에 빈칸(___)이 있으면 들어갈 수 있는 말 예시도 핵심 문법에 넣어줘.`}
+async function runGram(force){
+  if(!gLine||!SAMPLE) return;
+  const {zh,py,ko}=gLine, key="tsc-gram:"+zh, out=document.getElementById("gs-out");
+  const stop=document.getElementById("gs-stop"), again=document.getElementById("gs-again");
+  if(!force){const c=store.get(key,null); if(c){out.innerHTML=mdLite(c);again.hidden=false;stop.hidden=true;return}}
+  gCtl&&gCtl.abort(); gCtl=new AbortController();
+  out.innerHTML='<p class="wait">분석하는 중…</p>'; stop.hidden=false; again.hidden=true;
+  try{
+    const {text}=await SAMPLE(gPrompt(zh,py,ko),{modelTier:"quick",signal:gCtl.signal,cache:!force,onText:({text})=>{out.innerHTML=mdLite(text)}});
+    out.innerHTML=mdLite(text); store.set(key,text);
+  }catch(e){
+    const keep=e&&e.text?mdLite(e.text):"";
+    if(e&&e.code==="cancelled") out.innerHTML=keep||'<p class="wait">멈췄어.</p>';
+    else out.innerHTML=keep+`<p class="wait">${esc((e&&G_ERR[e.code])||"분석을 못 받아왔어. '다시 분석'을 눌러줘.")}</p>`;
+  }finally{stop.hidden=true;again.hidden=false}
+}
+function openGram(ln){
+  const zh=ln.querySelector("[data-say]").dataset.say;
+  const py=(ln.querySelector(".c > .py")||{}).textContent||"", ko=(ln.querySelector(".c > .ko")||{}).textContent||"";
+  gLine={zh,py,ko};
+  document.getElementById("gs-title").textContent=zh;
+  document.getElementById("gs-py").textContent=py;
+  document.getElementById("gs-ko").textContent=ko;
+  document.getElementById("gsheet").hidden=false;
+  runGram(false);
+}
+function closeGram(){gCtl&&gCtl.abort();document.getElementById("gsheet").hidden=true}
+(function(){
+  const sh=document.getElementById("gsheet");
+  sh.addEventListener("click",e=>{if(e.target===sh)closeGram()});
+  document.getElementById("gs-close").addEventListener("click",closeGram);
+  document.getElementById("gs-stop").addEventListener("click",()=>gCtl&&gCtl.abort());
+  document.getElementById("gs-again").addEventListener("click",()=>runGram(true));
+  document.addEventListener("click",e=>{const g=e.target.closest("[data-gram]");if(!g)return;e.preventDefault();const ln=g.closest(".line");if(ln)openGram(ln)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sh.hidden)closeGram()});
+})();
+
+/* vocabulary quiz */
+const WQ={mode:"card",group:"core",items:[],i:0,score:0,wrong:[],answered:false,writer:null,mist:0,ci:0};
+const HSK=[[1,"一","yī","하나, 1"],[1,"一点儿","yìdiǎnr","조금"],[1,"七","qī","일곱, 7"],[1,"三","sān","셋, 3"],[1,"上","shàng","위; 오르다"],[1,"上午","shàngwǔ","오전"],[1,"下","xià","아래; 내리다"],[1,"下午","xiàwǔ","오후"],[1,"下雨","xiàyǔ","비가 오다"],[1,"不","bù","아니다, 안"],[1,"不客气","bú kèqi","천만에요"],[1,"东西","dōngxi","물건"],[1,"个","gè","개 (양사)"],[1,"中午","zhōngwǔ","점심때, 정오"],[1,"中国","zhōngguó","중국"],[1,"九","jiǔ","아홉, 9"],[1,"书","shū","책"],[1,"买","mǎi","사다"],[1,"了","le","~했다 (완료)"],[1,"二","èr","둘, 2"],[1,"五","wǔ","다섯, 5"],[1,"些","xiē","약간, 몇몇"],[1,"人","rén","사람"],[1,"什么","shénme","무엇"],[1,"今天","jīntiān","오늘"],[1,"他","tā","그 (남자)"],[1,"会","huì","~할 줄 알다"],[1,"住","zhù","살다, 묵다"],[1,"你","nǐ","너"],[1,"做","zuò","하다, 만들다"],[1,"儿子","érzi","아들"],[1,"先生","xiānsheng","선생님, ~씨 (남성)"],[1,"八","bā","여덟, 8"],[1,"六","liù","여섯, 6"],[1,"再见","zàijiàn","안녕히 가세요"],[1,"写","xiě","쓰다"],[1,"冷","lěng","춥다"],[1,"几","jǐ","몇"],[1,"出租车","chūzūchē","택시"],[1,"分钟","fēnzhōng","분 (시간)"],[1,"前面","qiánmiàn","앞"],[1,"北京","běijīng","베이징"],[1,"医生","yīshēng","의사"],[1,"医院","yīyuàn","병원"],[1,"十","shí","열, 10"],[1,"去","qù","가다"],[1,"叫","jiào","부르다, ~라고 하다"],[1,"号","hào","일 (날짜), 번호"],[1,"吃","chī","먹다"],[1,"同学","tóngxué","학우, 반 친구"],[1,"名字","míngzi","이름"],[1,"后面","hòumiàn","뒤"],[1,"吗","ma","~까? (의문)"],[1,"听","tīng","듣다"],[1,"呢","ne","~는? (의문)"],[1,"和","hé","~와, ~하고"],[1,"哪","nǎ","어느"],[1,"哪儿","nǎr","어디"],[1,"商店","shāngdiàn","상점, 가게"],[1,"喂","wèi","여보세요"],[1,"喜欢","xǐhuan","좋아하다"],[1,"喝","hē","마시다"],[1,"四","sì","넷, 4"],[1,"回","huí","돌아가다"],[1,"在","zài","~에 있다; ~에서"],[1,"坐","zuò","앉다, 타다"],[1,"块","kuài","위안 (돈, 구어)"],[1,"多","duō","많다"],[1,"多少","duōshǎo","얼마, 몇"],[1,"大","dà","크다"],[1,"天气","tiānqì","날씨"],[1,"太","tài","너무"],[1,"女儿","nǚ'ér","딸"],[1,"她","tā","그녀"],[1,"好","hǎo","좋다"],[1,"妈妈","māma","엄마"],[1,"字","zì","글자"],[1,"学习","xuéxí","공부하다"],[1,"学校","xuéxiào","학교"],[1,"学生","xuésheng","학생"],[1,"家","jiā","집"],[1,"对不起","duìbuqǐ","미안합니다"],[1,"小","xiǎo","작다"],[1,"小姐","xiǎojiě","아가씨"],[1,"少","shǎo","적다"],[1,"岁","suì","살 (나이)"],[1,"工作","gōngzuò","일하다; 일"],[1,"年","nián","년, 해"],[1,"开","kāi","열다, 운전하다"],[1,"很","hěn","매우"],[1,"怎么","zěnme","어떻게"],[1,"怎么样","zěnmeyàng","어때"],[1,"想","xiǎng","생각하다, ~하고 싶다"],[1,"我","wǒ","나"],[1,"我们","wǒmen","우리"],[1,"打电话","dǎdiànhuà","전화하다"],[1,"时候","shíhou","때"],[1,"明天","míngtiān","내일"],[1,"星期","xīngqī","주, 요일"],[1,"昨天","zuótiān","어제"],[1,"是","shì","~이다"],[1,"月","yuè","월, 달"],[1,"有","yǒu","있다"],[1,"朋友","péngyou","친구"],[1,"本","běn","권 (양사)"],[1,"来","lái","오다"],[1,"杯子","bēizi","컵"],[1,"桌子","zhuōzi","책상, 탁자"],[1,"椅子","yǐzi","의자"],[1,"水","shuǐ","물"],[1,"水果","shuǐguǒ","과일"],[1,"汉语","hànyǔ","중국어"],[1,"没关系","méi guānxi","괜찮아요"],[1,"没有","méiyǒu","없다"],[1,"漂亮","piàoliang","예쁘다"],[1,"点","diǎn","시 (시간)"],[1,"热","rè","덥다"],[1,"爱","ài","사랑하다"],[1,"爸爸","bàba","아빠"],[1,"狗","gǒu","개"],[1,"猫","māo","고양이"],[1,"现在","xiànzài","지금"],[1,"电影","diànyǐng","영화"],[1,"电脑","diànnǎo","컴퓨터"],[1,"电视","diànshì","텔레비전"],[1,"的","de","~의"],[1,"看","kàn","보다"],[1,"看见","kànjiàn","보이다, 보다"],[1,"睡觉","shuìjiào","자다"],[1,"米饭","mǐfàn","쌀밥"],[1,"老师","lǎoshī","선생님"],[1,"能","néng","~할 수 있다"],[1,"苹果","píngguǒ","사과"],[1,"茶","chá","차"],[1,"菜","cài","요리, 채소"],[1,"衣服","yīfu","옷"],[1,"认识","rènshi","알다 (사람)"],[1,"说","shuō","말하다"],[1,"请","qǐng","~해 주세요; 초대하다"],[1,"读","dú","읽다"],[1,"谁","shuí","누구"],[1,"谢谢","xièxie","감사합니다"],[1,"这","zhè","이, 이것"],[1,"那","nà","저, 그것"],[1,"都","dōu","모두"],[1,"里","lǐ","안, 속"],[1,"钱","qián","돈"],[1,"飞机","fēijī","비행기"],[1,"饭店","fàndiàn","식당, 호텔"],[1,"高兴","gāoxìng","기쁘다"],[2,"一下","yíxià","좀 ~하다"],[2,"一起","yìqǐ","같이"],[2,"丈夫","zhàngfu","남편"],[2,"上班","shàngbān","출근하다"],[2,"两","liǎng","둘 (수량)"],[2,"为什么","wèishénme","왜"],[2,"也","yě","~도"],[2,"事情","shìqing","일, 사건"],[2,"介绍","jièshào","소개하다"],[2,"从","cóng","~부터"],[2,"件","jiàn","벌, 건 (양사)"],[2,"休息","xiūxi","쉬다"],[2,"便宜","piányi","싸다"],[2,"公共汽车","gōnggòngqìchē","버스"],[2,"公司","gōngsī","회사"],[2,"再","zài","다시"],[2,"准备","zhǔnbèi","준비하다"],[2,"出","chū","나가다, 나오다"],[2,"别","bié","~하지 마"],[2,"到","dào","도착하다; ~까지"],[2,"千","qiān","천, 1000"],[2,"卖","mài","팔다"],[2,"去年","qùnián","작년"],[2,"可以","kěyǐ","~해도 된다"],[2,"可能","kěnéng","아마; 가능하다"],[2,"右边","yòubiān","오른쪽"],[2,"吧","ba","~하자, ~지?"],[2,"告诉","gàosu","알려주다"],[2,"咖啡","kāfēi","커피"],[2,"哥哥","gēge","형, 오빠"],[2,"唱歌","chànggē","노래하다"],[2,"因为……所以……","yīnwèi……suǒyǐ……","~때문에 그래서 ~"],[2,"外","wài","밖"],[2,"大家","dàjiā","모두, 여러분"],[2,"女","nǚ","여자"],[2,"好吃","hǎochī","맛있다"],[2,"妹妹","mèimei","여동생"],[2,"妻子","qīzi","아내"],[2,"姐姐","jiějie","누나, 언니"],[2,"姓","xìng","성이 ~이다"],[2,"孩子","háizi","아이"],[2,"它","tā","그것 (사물, 동물)"],[2,"完","wán","끝나다"],[2,"宾馆","bīnguǎn","호텔"],[2,"对","duì","맞다; ~에 대해"],[2,"小时","xiǎoshí","시간 (60분)"],[2,"就","jiù","바로, 곧"],[2,"左边","zuǒbiān","왼쪽"],[2,"已经","yǐjīng","이미"],[2,"希望","xīwàng","희망하다"],[2,"帮助","bāngzhù","돕다"],[2,"开始","kāishǐ","시작하다"],[2,"弟弟","dìdi","남동생"],[2,"往","wǎng","~쪽으로"],[2,"得","de","~하는 정도가 (보어)"],[2,"忙","máng","바쁘다"],[2,"快","kuài","빠르다"],[2,"快乐","kuàilè","즐겁다"],[2,"您","nín","당신 (존칭)"],[2,"意思","yìsi","의미, 재미"],[2,"慢","màn","느리다"],[2,"懂","dǒng","이해하다"],[2,"房间","fángjiān","방"],[2,"手机","shǒujī","휴대폰"],[2,"手表","shǒubiǎo","손목시계"],[2,"打篮球","dǎlánqiú","농구하다"],[2,"找","zhǎo","찾다"],[2,"报纸","bàozhǐ","신문"],[2,"教室","jiàoshì","교실"],[2,"新","xīn","새롭다"],[2,"旁边","pángbiān","옆"],[2,"旅游","lǚyóu","여행하다"],[2,"日","rì","일, 날"],[2,"早上","zǎoshàng","아침"],[2,"时间","shíjiān","시간"],[2,"晚上","wǎnshàng","저녁, 밤"],[2,"晴","qíng","맑다"],[2,"最","zuì","가장"],[2,"服务员","fúwùyuán","종업원"],[2,"机场","jīchǎng","공항"],[2,"次","cì","번, 회"],[2,"正在","zhèngzài","~하는 중이다"],[2,"每","měi","매, ~마다"],[2,"比","bǐ","~보다"],[2,"洗","xǐ","씻다"],[2,"游泳","yóuyǒng","수영하다"],[2,"火车站","huǒchēzhàn","기차역"],[2,"牛奶","niúnǎi","우유"],[2,"玩","wán","놀다"],[2,"生日","shēngrì","생일"],[2,"生病","shēngbìng","병나다"],[2,"男","nán","남자"],[2,"白","bái","하얗다"],[2,"百","bǎi","백, 100"],[2,"真","zhēn","정말"],[2,"眼睛","yǎnjing","눈"],[2,"着","zhe","~한 채로 (지속)"],[2,"知道","zhīdào","알다"],[2,"票","piào","표, 티켓"],[2,"离","lí","~에서 (거리)"],[2,"穿","chuān","입다"],[2,"笑","xiào","웃다"],[2,"第一","dìyī","첫째"],[2,"等","děng","기다리다"],[2,"累","lèi","피곤하다"],[2,"红","hóng","빨갛다"],[2,"给","gěi","주다; ~에게"],[2,"羊肉","yángròu","양고기"],[2,"考试","kǎoshì","시험"],[2,"药","yào","약"],[2,"虽然……但是……","suīrán……dànshì……","비록 ~지만 ~"],[2,"西瓜","xīguā","수박"],[2,"要","yào","원하다; ~해야 한다"],[2,"觉得","juéde","~라고 생각하다"],[2,"让","ràng","~하게 하다"],[2,"说话","shuōhuà","말하다"],[2,"课","kè","수업"],[2,"贵","guì","비싸다"],[2,"走","zǒu","걷다, 가다"],[2,"起床","qǐchuáng","일어나다"],[2,"跑步","pǎobù","달리다, 조깅"],[2,"路","lù","길"],[2,"跳舞","tiàowǔ","춤추다"],[2,"踢足球","tīzúqiú","축구하다"],[2,"身体","shēntǐ","몸, 건강"],[2,"过","guò","~한 적 있다 (경험)"],[2,"运动","yùndòng","운동하다"],[2,"近","jìn","가깝다"],[2,"还","hái","아직, 또"],[2,"进","jìn","들어가다"],[2,"远","yuǎn","멀다"],[2,"送","sòng","보내다, 선물하다"],[2,"铅笔","qiānbǐ","연필"],[2,"错","cuò","틀리다"],[2,"长","cháng","길다"],[2,"门","mén","문"],[2,"问","wèn","묻다"],[2,"问题","wèntí","문제, 질문"],[2,"阴","yīn","흐리다"],[2,"雪","xuě","눈 (날씨)"],[2,"零","líng","영, 0"],[2,"非常","fēicháng","매우"],[2,"面条","miàntiáo","국수"],[2,"题","tí","문제"],[2,"颜色","yánsè","색깔"],[2,"高","gāo","높다, 키가 크다"],[2,"鱼","yú","물고기, 생선"],[2,"鸡蛋","jīdàn","계란"],[2,"黑","hēi","검다"],[3,"一会儿","yíhuìr","잠시"],[3,"一共","yígòng","모두, 합계"],[3,"一定","yídìng","반드시"],[3,"一样","yíyàng","같다"],[3,"一直","yìzhí","줄곧"],[3,"一般","yìbān","보통"],[3,"一边","yìbiān","~하면서"],[3,"万","wàn","만, 10000"],[3,"上网","shàngwǎng","인터넷하다"],[3,"不但……而且……","búdàn……érqiě……","~뿐만 아니라 ~도"],[3,"世界","shìjiè","세계"],[3,"东","dōng","동쪽"],[3,"个子","gèzi","키"],[3,"中文","zhōngwén","중국어"],[3,"中间","zhōngjiān","중간"],[3,"为","wèi","~를 위해"],[3,"为了","wèile","~하기 위해"],[3,"主要","zhǔyào","주요하다"],[3,"久","jiǔ","오래다"],[3,"习惯","xíguàn","습관; 익숙하다"],[3,"了解","liǎojiě","이해하다, 알다"],[3,"以前","yǐqián","이전"],[3,"会议","huìyì","회의"],[3,"伞","sǎn","우산"],[3,"位","wèi","분 (사람 양사)"],[3,"体育","tǐyù","체육"],[3,"作业","zuòyè","숙제"],[3,"信用卡","xìnyòngkǎ","신용카드"],[3,"借","jiè","빌리다"],[3,"健康","jiànkāng","건강하다"],[3,"像","xiàng","닮다, ~같다"],[3,"元","yuán","위안 (화폐)"],[3,"先","xiān","먼저"],[3,"公园","gōngyuán","공원"],[3,"公斤","gōngjīn","킬로그램"],[3,"关","guān","닫다, 끄다"],[3,"关于","guānyú","~에 관해"],[3,"关心","guānxīn","관심을 갖다"],[3,"关系","guānxi","관계"],[3,"其他","qítā","기타, 다른"],[3,"其实","qíshí","사실은"],[3,"冬","dōng","겨울"],[3,"冰箱","bīngxiāng","냉장고"],[3,"决定","juédìng","결정하다"],[3,"几乎","jīhū","거의"],[3,"分","fēn","분; 나누다"],[3,"刚才","gāngcái","방금"],[3,"别人","biérén","다른 사람"],[3,"刮风","guāfēng","바람이 불다"],[3,"刷牙","shuāyá","이를 닦다"],[3,"刻","kè","15분"],[3,"办公室","bàngōngshì","사무실"],[3,"办法","bànfǎ","방법"],[3,"动物","dòngwù","동물"],[3,"努力","nǔlì","노력하다"],[3,"包","bāo","가방; 싸다"],[3,"北方","běifāng","북방"],[3,"半","bàn","반, 절반"],[3,"南","nán","남쪽"],[3,"历史","lìshǐ","역사"],[3,"参加","cānjiā","참가하다"],[3,"又","yòu","또"],[3,"双","shuāng","켤레, 쌍"],[3,"发","fā","보내다, 발송하다"],[3,"发烧","fāshāo","열이 나다"],[3,"发现","fāxiàn","발견하다"],[3,"叔叔","shūshu","삼촌, 아저씨"],[3,"变化","biànhuà","변화"],[3,"口","kǒu","입; 식구 (양사)"],[3,"句子","jùzi","문장"],[3,"只","zhǐ","단지, 오직"],[3,"只有……才……","zhǐyǒu……cái……","~해야만 ~하다"],[3,"可爱","kěài","귀엽다"],[3,"司机","sījī","운전기사"],[3,"同事","tóngshì","동료"],[3,"同意","tóngyì","동의하다"],[3,"后来","hòulái","그 후"],[3,"向","xiàng","~를 향해"],[3,"周末","zhōumò","주말"],[3,"哭","kū","울다"],[3,"啊","a","아! (감탄)"],[3,"啤酒","píjiǔ","맥주"],[3,"嘴","zuǐ","입"],[3,"回答","huídá","대답하다"],[3,"国家","guójiā","국가"],[3,"图书馆","túshūguǎn","도서관"],[3,"地","de","~하게 (부사어)"],[3,"地图","dìtú","지도"],[3,"地方","dìfang","곳, 장소"],[3,"地铁","dìtiě","지하철"],[3,"坏","huài","나쁘다, 고장나다"],[3,"城市","chéngshì","도시"],[3,"声音","shēngyīn","소리"],[3,"复习","fùxí","복습하다"],[3,"夏","xià","여름"],[3,"多么","duōme","얼마나"],[3,"太阳","tàiyáng","태양"],[3,"头发","tóufa","머리카락"],[3,"奇怪","qíguài","이상하다"],[3,"奶奶","nǎinai","할머니"],[3,"如果","rúguǒ","만약"],[3,"季节","jìjié","계절"],[3,"安静","ānjìng","조용하다"],[3,"完成","wánchéng","완성하다"],[3,"客人","kèrén","손님"],[3,"害怕","hàipà","무서워하다"],[3,"容易","róngyì","쉽다"],[3,"小心","xiǎoxīn","조심하다"],[3,"层","céng","층"],[3,"差","chà","부족하다, 나쁘다"],[3,"带","dài","가지다, 데리고 가다"],[3,"帮忙","bāngmáng","돕다"],[3,"帽子","màozi","모자"],[3,"干净","gānjìng","깨끗하다"],[3,"年级","niánjí","학년"],[3,"年轻","niánqīng","젊다"],[3,"应该","yīnggāi","마땅히 ~해야 한다"],[3,"张","zhāng","장 (종이 양사)"],[3,"当然","dāngrán","당연히"],[3,"影响","yǐngxiǎng","영향"],[3,"必须","bìxū","반드시 ~해야 한다"],[3,"忘记","wàngjì","잊다"],[3,"总是","zǒngshì","늘, 항상"],[3,"感兴趣","gǎnxìngqù","관심이 있다"],[3,"感冒","gǎnmào","감기"],[3,"愿意","yuànyì","원하다"],[3,"成绩","chéngjì","성적"],[3,"或者","huòzhě","또는"],[3,"打扫","dǎsǎo","청소하다"],[3,"打算","dǎsuan","~할 계획이다"],[3,"把","bǎ","~을 (처치)"],[3,"护照","hùzhào","여권"],[3,"担心","dānxīn","걱정하다"],[3,"拿","ná","들다, 가지다"],[3,"换","huàn","바꾸다"],[3,"接","jiē","받다, 마중하다"],[3,"提高","tígāo","향상시키다"],[3,"搬","bān","옮기다, 이사하다"],[3,"放","fàng","놓다"],[3,"放心","fàngxīn","안심하다"],[3,"故事","gùshì","이야기"],[3,"教","jiāo","가르치다"],[3,"数学","shùxué","수학"],[3,"文化","wénhuà","문화"],[3,"新闻","xīnwén","뉴스"],[3,"新鲜","xīnxiān","신선하다"],[3,"方便","fāngbiàn","편리하다"],[3,"旧","jiù","낡다, 오래되다"],[3,"明白","míngbai","이해하다, 분명하다"],[3,"春","chūn","봄"],[3,"更","gèng","더"],[3,"最后","zuìhòu","마지막에"],[3,"最近","zuìjìn","최근"],[3,"月亮","yuèliang","달"],[3,"有名","yǒumíng","유명하다"],[3,"机会","jīhuì","기회"],[3,"条","tiáo","개, 마리 (긴 것 양사)"],[3,"极","jí","극히"],[3,"树","shù","나무"],[3,"校长","xiàozhǎng","교장"],[3,"根据","gēnjù","~에 따라"],[3,"检查","jiǎnchá","검사하다"],[3,"楼","lóu","건물, 층"],[3,"欢迎","huānyíng","환영하다"],[3,"段","duàn","단락, 구간"],[3,"比赛","bǐsài","시합, 경기"],[3,"比较","bǐjiào","비교적"],[3,"水平","shuǐpíng","수준"],[3,"注意","zhùyì","주의하다"],[3,"洗手间","xǐshǒujiān","화장실"],[3,"洗澡","xǐzǎo","샤워하다"],[3,"清楚","qīngchu","분명하다"],[3,"渴","kě","목마르다"],[3,"游戏","yóuxì","게임"],[3,"满意","mǎnyì","만족하다"],[3,"灯","dēng","등, 불"],[3,"热情","rèqíng","친절하다, 열정적이다"],[3,"然后","ránhòu","그런 다음"],[3,"照片","zhàopiān","사진"],[3,"照相机","zhàoxiàngjī","카메라"],[3,"照顾","zhàogù","돌보다"],[3,"熊猫","xióngmāo","판다"],[3,"爬山","páshān","등산하다"],[3,"爱好","àihào","취미"],[3,"爷爷","yéye","할아버지"],[3,"特别","tèbié","특히, 특별하다"],[3,"环境","huánjìng","환경"],[3,"班","bān","반, 학급"],[3,"瓶子","píngzi","병"],[3,"甜","tián","달다"],[3,"生气","shēngqì","화내다"],[3,"用","yòng","사용하다"],[3,"电子邮件","diànziyóujiàn","이메일"],[3,"电梯","diàntī","엘리베이터"],[3,"画","huà","그림; 그리다"],[3,"留学","liúxué","유학하다"],[3,"疼","téng","아프다"],[3,"瘦","shòu","마르다"],[3,"皮鞋","píxié","구두"],[3,"盘子","pánzi","접시"],[3,"相信","xiāngxìn","믿다"],[3,"着急","zháojí","조급해하다"],[3,"短","duǎn","짧다"],[3,"矮","ǎi","키가 작다"],[3,"碗","wǎn","그릇"],[3,"礼物","lǐwù","선물"],[3,"离开","líkāi","떠나다"],[3,"秋","qiū","가을"],[3,"种","zhǒng","종류"],[3,"空调","kōngtiáo","에어컨"],[3,"突然","tūrán","갑자기"],[3,"站","zhàn","서다; 역"],[3,"笔记本","bǐjìběn","노트, 노트북"],[3,"筷子","kuàizi","젓가락"],[3,"简单","jiǎndān","간단하다"],[3,"米","mǐ","미터; 쌀"],[3,"练习","liànxí","연습하다"],[3,"终于","zhōngyú","마침내"],[3,"经常","jīngcháng","자주"],[3,"经理","jīnglǐ","매니저, 사장"],[3,"经过","jīngguò","지나다, 거치다"],[3,"结婚","jiéhūn","결혼하다"],[3,"结束","jiéshù","끝나다"],[3,"绿","lǜ","초록색"],[3,"老","lǎo","늙다, 오래되다"],[3,"耳朵","ěrduo","귀"],[3,"聊天","liáotiān","수다 떨다"],[3,"聪明","cōngming","똑똑하다"],[3,"胖","pàng","뚱뚱하다"],[3,"脚","jiǎo","발"],[3,"脸","liǎn","얼굴"],[3,"腿","tuǐ","다리"],[3,"自己","zìjǐ","자기, 스스로"],[3,"自行车","zìxíngchē","자전거"],[3,"舒服","shūfu","편안하다"],[3,"船","chuán","배"],[3,"节日","jiérì","명절, 기념일"],[3,"节目","jiémù","프로그램"],[3,"花","huā","꽃; 쓰다 (돈)"],[3,"草","cǎo","풀"],[3,"菜单","càidān","메뉴"],[3,"蓝","lán","파랗다"],[3,"蛋糕","dàngāo","케이크"],[3,"行李箱","xínglixiāng","캐리어"],[3,"街道","jiēdào","거리"],[3,"衬衫","chènshān","셔츠"],[3,"被","bèi","~에게 ~당하다"],[3,"裙子","qúnzi","치마"],[3,"裤子","kùzi","바지"],[3,"西","xī","서쪽"],[3,"要求","yāoqiú","요구하다"],[3,"见面","jiànmiàn","만나다"],[3,"角","jiǎo","각 (돈 단위)"],[3,"解决","jiějué","해결하다"],[3,"认为","rènwéi","여기다, 생각하다"],[3,"认真","rènzhēn","진지하다, 열심히"],[3,"记得","jìde","기억하다"],[3,"讲","jiǎng","말하다, 설명하다"],[3,"词典","cídiǎn","사전"],[3,"试","shì","시도하다"],[3,"请假","qǐngjià","휴가를 내다"],[3,"起来","qǐlai","일어나다"],[3,"起飞","qǐfēi","이륙하다"],[3,"超市","chāoshì","마트"],[3,"越","yuè","~할수록"],[3,"跟","gēn","~와; 따라가다"],[3,"辆","liàng","대 (차량 양사)"],[3,"过去","guòqù","과거; 지나가다"],[3,"还是","háishi","아니면; 여전히"],[3,"迟到","chídào","지각하다"],[3,"选择","xuǎnzé","선택하다"],[3,"遇到","yùdào","마주치다"],[3,"邻居","línjū","이웃"],[3,"重要","zhòngyào","중요하다"],[3,"银行","yínháng","은행"],[3,"锻炼","duànliàn","단련하다, 운동하다"],[3,"阿姨","āyí","아주머니, 이모"],[3,"附近","fùjìn","근처"],[3,"除了","chúle","~를 제외하고"],[3,"难","nán","어렵다"],[3,"难过","nánguò","괴롭다, 슬프다"],[3,"需要","xūyào","필요하다"],[3,"面包","miànbāo","빵"],[3,"音乐","yīnyuè","음악"],[3,"饮料","yǐnliào","음료"],[3,"饱","bǎo","배부르다"],[3,"饿","è","배고프다"],[3,"香蕉","xiāngjiāo","바나나"],[3,"马","mǎ","말"],[3,"马上","mǎshàng","곧, 즉시"],[3,"骑","qí","타다 (자전거 등)"],[3,"鸟","niǎo","새"],[3,"黄河","huánghé","황허강"],[3,"黑板","hēibǎn","칠판"],[3,"鼻子","bízi","코"]];
+const LV_NAME={h1:"HSK 1급",h2:"HSK 2급",h3:"HSK 3급"};
+const WQ_MODES=[["card","카드 뒤집기"],["meaning","뜻 맞히기"],["listen","듣고 고르기"],["hanzi","한자 고르기"],["write","손으로 쓰기"]];
+const CORE=WORDS.flatMap(([n,ws])=>ws.map(w=>({...w,g:n,lv:"core"})));
+const HSKW=HSK.map(([l,zh,py,ko])=>({zh,py,ko,g:"h"+l,lv:"h"+l}));
+const wordPool=g=>{
+  if(g==="all"){const seen=new Set();return CORE.concat(HSKW).filter(w=>!seen.has(w.zh)&&seen.add(w.zh))}
+  if(g==="core") return CORE;
+  if(g==="h1"||g==="h2"||g==="h3") return HSKW.filter(w=>w.lv===g);
+  if(g==="h12") return HSKW.filter(w=>w.lv!=="h3");
+  return CORE.filter(w=>w.g===g);
+};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const wrongSet=()=>store.get("tsc-wrong",[]);
+function quizHTML(){
+  const groups=WORDS.map(([g])=>g), wn=wrongSet().length;
+  return `<section class="wquiz" aria-labelledby="wq-title">
+   <div class="wq-top"><h2 id="wq-title">단어 시험</h2><span class="g-note" id="wq-last">${esc(store.get("tsc-wq-last",""))}</span></div>
+   <div class="filters" role="group" aria-label="시험 방식" id="wq-mode">${WQ_MODES.map(([k,l])=>`<button class="chip" data-wqm="${k}" aria-pressed="${WQ.mode===k}">${l}</button>`).join("")}</div>
+   <div class="wq-row"><label for="wq-group" class="g-note">범위</label><select id="wq-group">${[["core",`TSC 핵심 (${CORE.length})`],["h1",`HSK 1급 (${wordPool("h1").length})`],["h2",`HSK 2급 (${wordPool("h2").length})`],["h3",`HSK 3급 (${wordPool("h3").length})`],["h12","HSK 1~2급"],["all",`전체 (${wordPool("all").length})`]].map(([v,l])=>`<option value="${v}" ${WQ.group===v?"selected":""}>${l}</option>`).join("")}<optgroup label="TSC 핵심 분류별">${groups.map(g=>`<option value="${esc(g)}" ${WQ.group===g?"selected":""}>${esc(g)}</option>`).join("")}</optgroup></select></div>
+   <div class="simctl"><button class="btn" type="button" id="wq-start">${WQ.mode==="card"?"카드 20장 시작":"10문제 시작"}</button>${wn?`<button class="btn ghost" type="button" id="wq-review">틀린 단어 ${wn}개 다시</button>`:""}</div>
+   <div id="wq-box" class="wq-box" hidden></div></section>`;
+}
+function startWordQuiz(items){
+  WQ.items=items; WQ.i=0; WQ.score=0; WQ.wrong=[];
+  document.getElementById("wq-box").hidden=false; renderQ();
+  document.getElementById("wq-box").scrollIntoView({block:"start",behavior:"smooth"});
+}
+function options(item,key){
+  const same=(item.lv==="core"?wordPool(item.g):wordPool(item.lv)).filter(w=>w[key]!==item[key]);
+  const rest=wordPool("all").filter(w=>w[key]!==item[key]&&!same.includes(w));
+  const pick=shuffle(same).concat(shuffle(rest)).filter((w,i,a)=>a.findIndex(x=>x[key]===w[key])===i).slice(0,3);
+  return shuffle([item,...pick]);
+}
+function renderQ(){
+  const box=document.getElementById("wq-box"), it=WQ.items[WQ.i], n=WQ.items.length; WQ.answered=false;
+  const head=`<div class="wq-prog"><span>${WQ.i+1} / ${n}</span><span>맞힌 개수 ${WQ.score}</span></div><div class="tbar"><i style="width:${(WQ.i/n)*100}%"></i></div>`;
+  const say=`<button class="say" type="button" data-say="${esc(it.zh)}" aria-label="발음 듣기">${SPK}</button>`;
+  let body="";
+  if(WQ.mode==="card"){
+    const lvl=it.lv==="core"?"TSC 핵심":LV_NAME[it.lv];
+    box.innerHTML=head+`<div class="fc-card" role="button" tabindex="0" aria-label="카드 뒤집기"><div class="fc-in">
+      <div class="fc-face fc-front"><span class="tag green">${esc(lvl)}</span><span class="zh" lang="zh-CN">${esc(it.zh)}</span><span class="g-note">눌러서 뒤집기</span></div>
+      <div class="fc-face fc-back"><span class="zh" lang="zh-CN">${esc(it.zh)}</span><span class="py">${esc(it.py)}</span><span class="wq-ko">${esc(it.ko)}</span>${exHTML(it.zh)}
+        <span class="simctl" style="justify-content:center"><button class="say" type="button" data-say="${esc(it.zh)}" aria-label="발음 듣기">${SPK}</button><button class="btn ghost" type="button" data-fcw>써보기</button></span></div></div></div>
+      <div class="fc-btns"><button class="btn ghost" type="button" data-fc="n">몰라요</button><button class="btn" type="button" data-fc="y">알아요</button></div>`;
+    return;
+  }
+  if(WQ.mode==="meaning"){
+    body=`<div class="wq-q"><span class="zh" lang="zh-CN">${esc(it.zh)}</span>${say}</div><p class="g-note">뜻을 고르세요</p>
+      <div class="wq-opts">${options(it,"ko").map(o=>`<button class="wq-opt" data-ans="${esc(o.zh)}">${esc(o.ko)}</button>`).join("")}</div>`;
+  }else if(WQ.mode==="listen"){
+    body=`<div class="wq-q">${say}<span class="g-note">듣고 맞는 단어를 고르세요</span></div>
+      <div class="wq-opts">${options(it,"zh").map(o=>`<button class="wq-opt zh" lang="zh-CN" data-ans="${esc(o.zh)}">${esc(o.zh)}</button>`).join("")}</div>`;
+    setTimeout(()=>ttsSpeak(it.zh),150);
+  }else if(WQ.mode==="hanzi"){
+    body=`<div class="wq-q"><span class="wq-ko">${esc(it.ko)}</span></div><p class="g-note">맞는 한자를 고르세요</p>
+      <div class="wq-opts">${options(it,"zh").map(o=>`<button class="wq-opt zh" lang="zh-CN" data-ans="${esc(o.zh)}">${esc(o.zh)}</button>`).join("")}</div>`;
+  }else{
+    body=`<div class="wq-q"><span class="wq-ko">${esc(it.ko)}</span><span class="py">${esc(it.py)}</span>${say}</div>
+      <p class="g-note" id="wq-wmsg">윤곽 없이 손가락으로 써봐. 3번 틀리면 힌트가 떠.</p>
+      <div class="ws-pad wq-pad"><svg class="grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0V100M0 50H100M0 0L100 100M100 0L0 100"/></svg><div id="wq-target" style="position:absolute;inset:0"></div></div>
+      <div class="simctl" style="justify-content:center"><button class="btn ghost" type="button" id="wq-giveup">모르겠어</button></div>`;
+  }
+  box.innerHTML=head+body+`<div class="wq-fb" id="wq-fb" aria-live="polite"></div><div class="simctl" style="justify-content:center"><button class="btn" type="button" id="wq-next" hidden>${WQ.i+1<n?"다음":"결과 보기"}</button></div>`;
+  if(WQ.mode==="write") startWriteQ(it);
+}
+function mark(ok,it){
+  if(WQ.answered) return; WQ.answered=true;
+  const w=new Set(wrongSet());
+  if(ok){WQ.score++; w.delete(it.zh)} else {WQ.wrong.push(it); w.add(it.zh)}
+  store.set("tsc-wrong",[...w]);
+  const fb=document.getElementById("wq-fb");
+  fb.className="wq-fb "+(ok?"ok":"no");
+  fb.innerHTML=`${ok?"정답!":"아쉬워"} <span class="zh" lang="zh-CN">${esc(it.zh)}</span> <span class="py">${esc(it.py)}</span> · ${esc(it.ko)}`+exHTML(it.zh);
+  if(WQ.mode!=="listen") ttsSpeak(it.zh);
+  const nx=document.getElementById("wq-next"); nx.hidden=false;
+  if(ok&&WQ.mode!=="write") setTimeout(()=>{ if(document.getElementById("wq-next")===nx) nextQ() },1100);
+}
+function nextQ(){ WQ.i++; if(WQ.i<WQ.items.length) renderQ(); else endQuiz(); }
+function endQuiz(){
+  const n=WQ.items.length, box=document.getElementById("wq-box");
+  const label=WQ_MODES.find(m=>m[0]===WQ.mode)[1];
+  store.set("tsc-wq-last",`최근: ${label} ${WQ.score}/${n}`);
+  box.innerHTML=`<div class="wq-end"><b>${WQ.score} / ${n}</b>${WQ.mode==="card"?"<span>안다고 한 카드 수</span>":""}<span>${WQ.score===n?"다 맞혔어!":WQ.score>=n*0.7?"좋아, 틀린 것만 한 번 더":"틀린 단어 위주로 다시 보자"}</span></div>
+   ${WQ.wrong.length?`<div class="eyebrow">틀린 단어</div><div class="words">${WQ.wrong.map(w=>`<div class="word" role="button" tabindex="0" data-word="${esc(w.zh)}|${esc(w.py)}|${esc(w.ko)}"><div class="zh" lang="zh-CN">${esc(w.zh)}</div><div class="py">${esc(w.py)}</div><div class="ko">${esc(w.ko)}</div></div>`).join("")}</div>`:""}
+   <div class="simctl" style="justify-content:center">${WQ.wrong.length?`<button class="btn" type="button" id="wq-retry">틀린 것만 다시</button>`:""}<button class="btn ghost" type="button" id="wq-again">새로 10문제</button></div>`;
+  document.getElementById("wq-last").textContent=store.get("tsc-wq-last","");
+}
+function startWriteQ(it){
+  const msg=t=>{const m=document.getElementById("wq-wmsg");if(m)m.textContent=t};
+  WQ.mist=0; WQ.ci=0;
+  const cs=[...it.zh].filter(c=>/[一-鿿]/.test(c));
+  loadHW().then(()=>{
+    const go=()=>{
+      const t=document.getElementById("wq-target"); if(!t) return; t.innerHTML="";
+      const size=Math.floor(t.getBoundingClientRect().width)||240;
+      WQ.writer=HanziWriter.create(t,cs[WQ.ci],{width:size,height:size,padding:14,showOutline:false,showCharacter:false,
+        strokeColor:tok("--fg"),outlineColor:tok("--line"),drawingColor:tok("--accent"),highlightColor:tok("--seal"),drawingWidth:Math.max(14,size/16),
+        charDataLoader:(ch,ok,err)=>{STROKES&&STROKES[ch]?ok(STROKES[ch]):err()}});
+      msg(cs.length>1?`${WQ.ci+1}/${cs.length}번째 글자. 윤곽 없이 써봐.`:"윤곽 없이 손가락으로 써봐. 3번 틀리면 힌트가 떠.");
+      WQ.writer.quiz({showHintAfterMisses:3,onComplete:s=>{WQ.mist+=s.totalMistakes;
+        if(WQ.ci<cs.length-1){WQ.ci++;setTimeout(go,700)} else {msg(`틀린 획 ${WQ.mist}번`);mark(WQ.mist<=cs.length,it)}}});
+    }; go();
+  }).catch(()=>{msg("획순 데이터를 못 불러와서 쓰기 시험은 지금 못 해. 다른 방식으로 해줘.")});
+}
+function wireQuiz(){
+  const v=document.getElementById("v-words");
+  v.addEventListener("click",e=>{
+    const m=e.target.closest("[data-wqm]"); if(m){WQ.mode=m.dataset.wqm;v.querySelectorAll("[data-wqm]").forEach(x=>x.setAttribute("aria-pressed",String(x===m)));const sb=document.getElementById("wq-start");if(sb)sb.textContent=WQ.mode==="card"?"카드 20장 시작":"10문제 시작";return}
+    const fc=e.target.closest(".fc-card"); if(fc&&!e.target.closest("button,[data-say]")){fc.classList.toggle("flip");if(fc.classList.contains("flip"))ttsSpeak(WQ.items[WQ.i].zh);return}
+    const fk=e.target.closest("[data-fc]"); if(fk){const it=WQ.items[WQ.i];const know=fk.dataset.fc==="y";const w=new Set(wrongSet());if(know){WQ.score++;w.delete(it.zh)}else{WQ.wrong.push(it);w.add(it.zh)}store.set("tsc-wrong",[...w]);nextQ();return}
+    const fw=e.target.closest("[data-fcw]"); if(fw){const it=WQ.items[WQ.i];openWriter({zh:it.zh,py:it.py,ko:it.ko},0,true);return}
+    if(e.target.closest("#wq-start")||e.target.closest("#wq-again")){startWordQuiz(shuffle(wordPool(WQ.group)).slice(0,WQ.mode==="card"?20:10));return}
+    if(e.target.closest("#wq-retry")){startWordQuiz(shuffle(WQ.wrong));return}
+    if(e.target.closest("#wq-review")){const s=new Set(wrongSet());startWordQuiz(shuffle(wordPool("all").filter(w=>s.has(w.zh))).slice(0,10));return}
+    const o=e.target.closest(".wq-opt"); if(o&&!WQ.answered){const it=WQ.items[WQ.i];const ok=o.dataset.ans===it.zh;
+      o.classList.add(ok?"ok":"no"); if(!ok) v.querySelectorAll(".wq-opt").forEach(b=>{if(b.dataset.ans===it.zh)b.classList.add("ok")}); mark(ok,it);return}
+    if(e.target.closest("#wq-next")){nextQ();return}
+    if(e.target.closest("#wq-giveup")){const it=WQ.items[WQ.i];if(WQ.writer){try{WQ.writer.cancelQuiz();WQ.writer.showCharacter();WQ.writer.animateCharacter()}catch(_){}}mark(false,it);return}
+  });
+  v.addEventListener("change",e=>{if(e.target.id==="wq-group")WQ.group=e.target.value});
+}
+
+
+/* pronunciation basics */
+const PR_TONES=[["妈","mā","1성","높고 평평하게. '솔~' 음을 길게 끄는 느낌"],["麻","má","2성","아래에서 위로. '응?' 하고 되물을 때처럼"],["马","mǎ","3성","낮게 눌러 내려갔다가 살짝 올림. 실제 말할 땐 거의 낮게만"],["骂","mà","4성","위에서 뚝 떨어지게. '앗!' 하듯 짧고 세게"]];
+const PR_NEUTRAL=[["妈妈","māma","두 번째 妈는 경성: 짧고 가볍게"],["谢谢","xièxie","두 번째 谢는 경성"],["朋友","péngyou","友가 경성"]];
+const PR_SANDHI=[["你好","nǐ hǎo → ní hǎo","3성 + 3성이면 앞 글자를 2성으로"],["不是","bù shì → bú shì","不 뒤에 4성이 오면 不는 2성"],["不好","bù hǎo","不 뒤가 1·2·3성이면 그대로 4성"],["一个","yī gè → yí ge","一 뒤에 4성이 오면 一는 2성"],["一起","yī qǐ → yì qǐ","一 뒤에 1·2·3성이 오면 一는 4성"]];
+const PR_SOUNDS=[["zh","中国","Zhōngguó","혀끝을 입천장 쪽으로 말아 올리고 '즈'"],["ch","吃饭","chīfàn","혀를 말고 바람을 세게 '츠'"],["sh","老师","lǎoshī","혀를 말고 '스'"],["r","日本","Rìběn","혀를 말고 '르'와 '즈' 사이"],["z","再见","zàijiàn","혀를 펴고 '쯔'"],["c","菜单","càidān","혀를 펴고 바람 세게 '츠'"],["s","四个","sì ge","혀를 펴고 '쓰'"],["j","鸡蛋","jīdàn","혀를 펴고 '지'"],["q","汽车","qìchē","'치'인데 바람을 세게"],["x","谢谢","xièxie","'시'"],["ü","绿色","lǜsè","입술은 '우' 모양, 소리는 '이' → '위'를 한 번에"],["f","飞机","fēijī","윗니를 아랫입술에 대고 'f'"],["e","饿了","è le","'으'와 '어' 사이"],["-i","吃","chī","zh·ch·sh·r·z·c·s 뒤의 i는 '이'가 아니라 '으'"]];
+const PR_FINALS=[["ian","面条","miàntiáo","'이안'이 아니라 '이엔'"],["ui","对不起","duìbuqǐ","ui는 '우에이'를 줄인 소리 '웨이'"],["iu","六","liù","iu는 '이오우'를 줄인 소리 '여우'"],["ong","中国","Zhōngguó","'옹'에 가깝게"],["eng","朋友","péngyou","'엉'"]];
+function prRow(zh,py,a,b){return `<div class="pr-row tap" role="button" tabindex="0" data-say="${esc(zh)}"><div class="pr-k">${a?`<span class="pr-tag">${esc(a)}</span>`:""}<span class="zh" lang="zh-CN">${esc(zh)}</span>${SPKS}</div><div class="pr-v"><span class="py">${esc(py)}</span><span class="ko">${esc(b)}</span></div></div>`}
+function renderPron(){
+  document.getElementById("v-pron").innerHTML=`<p class="lead">1~2주차에 매일 10분. 줄을 누르면 소리가 나와. 듣고 바로 소리 내서 3번씩 따라 하기.</p>
+  <h2>성조 4개</h2><p class="g-note">같은 ma라도 성조가 다르면 다른 뜻이 돼 (엄마·삼·말·욕하다).</p>
+  <div class="pr-list">${PR_TONES.map(([z,p,t,d])=>prRow(z,p,t,d)).join("")}</div>
+  <svg class="tone-chart" viewBox="0 0 320 120" role="img" aria-label="성조 높낮이 그림"><path class="tg" d="M30 20H310M30 50H310M30 80H310M30 110H310"/>
+   <path class="tl" d="M40 22H100"/><path class="tl" d="M115 75L170 22"/><path class="tl" d="M185 60Q205 112 240 45"/><path class="tl" d="M255 20L305 105"/>
+   <text x="70" y="14">1성</text><text x="142" y="14">2성</text><text x="212" y="14">3성</text><text x="280" y="14">4성</text></svg>
+  <h2>경성</h2><div class="pr-list">${PR_NEUTRAL.map(([z,p,d])=>prRow(z,p,"",d)).join("")}</div>
+  <h2>성조 변화 규칙</h2><p class="g-note">병음 표기는 원래 성조 그대로지만 말할 때는 바뀌어. 시험에서 자주 나오는 것만.</p>
+  <div class="pr-list">${PR_SANDHI.map(([z,p,d])=>prRow(z,p,"",d)).join("")}</div>
+  <h2>한국 사람이 헷갈리는 소리</h2><div class="pr-list">${PR_SOUNDS.map(([k,z,p,d])=>prRow(z,p,k,d)).join("")}</div>
+  <h2>헷갈리는 모음</h2><div class="pr-list">${PR_FINALS.map(([k,z,p,d])=>prRow(z,p,k,d)).join("")}</div>
+  <p class="g-note">발음은 기계 음성이라 실제 원어민과 조금 다를 수 있어. 성조 높낮이를 익히는 용도로 써줘.</p>`;
+}
+
+
+/* character origin info */
+let CI=null, ciLoading=null, ciCtl=null;
+const CI_TY={"상형":"사물 모양을 본뜬 글자","회의":"뜻을 가진 부분끼리 합친 글자","형성":"뜻 부분 + 소리 부분을 합친 글자"};
+function loadCI(){ if(CI) return Promise.resolve(CI); if(ciLoading) return ciLoading;
+  ciLoading=fetch("chars.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{CI=d;return d}).catch(e=>{ciLoading=null;throw e}); return ciLoading; }
+function renderCI(){
+  const box=document.getElementById("ws-info"); if(!box||!wsWord) return;
+  const c=chars()[wsIdx]; if(!c){box.innerHTML="";return}
+  loadCI().then(d=>{
+    if(chars()[wsIdx]!==c) return;
+    const x=d[c];
+    if(!x){box.innerHTML=`<div class="ci-h"><b class="zh" lang="zh-CN">${esc(c)}</b><span class="g-note">글자 정보가 없어</span></div>`;return}
+    const parts=x.ty==="형성"&&x.se&&x.ph?`<span class="zh" lang="zh-CN">${esc(x.se)}</span>(뜻) + <span class="zh" lang="zh-CN">${esc(x.ph)}</span>(소리)`:(x.cp||[]).map(p=>`<span class="zh" lang="zh-CN">${esc(p)}</span>`).join(" + ");
+    const cached=store.get("tsc-ci:"+c,null);
+    box.innerHTML=`<div class="ci-h"><b class="zh" lang="zh-CN">${esc(c)}</b>${x.k?`<span>한국 한자음 <b>${esc(x.k)}</b></span>`:""}${x.t?`<span>번체 <span class="zh" lang="zh-CN">${esc(x.t)}</span></span>`:""}${x.r?`<span>부수 <span class="zh" lang="zh-CN">${esc(x.r)}</span></span>`:""}</div>
+      ${x.ty||parts?`<div class="ci-l">${x.ty?`<b>${esc(x.ty)}자</b> · ${esc(CI_TY[x.ty]||"")}`:""}${parts?`<div class="ci-p">${parts}</div>`:""}</div>`:""}
+      <div class="ci-out" id="ci-out">${cached?mdLite(cached):""}</div>
+      ${SAMPLE?`<div class="simctl" style="justify-content:center"><button class="gram" style="display:inline-block" type="button" id="ci-ask">${cached?"AI 설명 다시 받기":"AI로 훈음·유래 자세히"}</button></div>`:""}`;
+    const b=document.getElementById("ci-ask"); if(b) b.addEventListener("click",()=>askCI(c,x,!!cached));
+  }).catch(()=>{box.innerHTML=`<p class="g-note">글자 정보를 못 불러왔어.</p>`});
+}
+async function askCI(c,x,force){
+  if(!SAMPLE) return; const out=document.getElementById("ci-out"); if(!out) return;
+  ciCtl&&ciCtl.abort(); ciCtl=new AbortController();
+  out.innerHTML='<p class="wait">설명 만드는 중…</p>';
+  const prompt=`너는 한국 학습자에게 한자를 가르치는 선생님이야. 중국어 간체자 「${c}」에 대해 한국어로 짧게 설명해줘.
+번체: ${x.t||c} / 한국 한자음: ${x.k||"모름"} / 부수: ${x.r||"-"} / 구성: ${(x.cp||[]).join(" + ")} / 유형: ${x.ty||"-"}
+참고(영어 자료): 뜻 ${x.d||"-"}; 유래 메모 ${x.h||"-"}
+
+아래 마크다운 형식으로만, 짧게 써줘.
+## 훈음
+'굳셀 건'처럼 한국식 훈과 음 한 줄. 간체와 번체가 다르면 번체 모양도 짧게 언급.
+## 유래
+2~3문장. 어떤 모양이나 뜻이 합쳐져 만들어졌는지.
+## 구성 요소
+- 부분: 뜻 (부분마다 한 줄)
+## 외우는 팁
+한 줄.
+## 같은 부분이 들어간 글자
+- 2개. "글자(병음): 뜻" 형식.`;
+  try{
+    const {text}=await SAMPLE(prompt,{modelTier:"quick",signal:ciCtl.signal,cache:!force,onText:({text})=>{const o=document.getElementById("ci-out");if(o)o.innerHTML=mdLite(text)}});
+    store.set("tsc-ci:"+c,text); const o=document.getElementById("ci-out"); if(o) o.innerHTML=mdLite(text);
+    const b=document.getElementById("ci-ask"); if(b) b.textContent="AI 설명 다시 받기";
+  }catch(e){const o=document.getElementById("ci-out"); if(o&&(!e||e.code!=="cancelled")) o.innerHTML=(e&&e.text?mdLite(e.text):"")+`<p class="wait">${esc((e&&G_ERR[e.code])||"설명을 못 받아왔어. 다시 눌러줘.")}</p>`}
+}
+
+/* toggles */
+function setToggle(id,cls,key){
+  const b=document.getElementById(id); let on=store.get(key,true);
+  const apply=()=>{b.setAttribute("aria-pressed",String(on));document.body.classList.toggle(cls,!on)};
+  b.addEventListener("click",()=>{on=!on;store.set(key,on);apply()}); apply();
+}
+setToggle("t-py","no-py","tsc-py"); setToggle("t-ko","no-ko","tsc-ko");
+(function(){const b=document.getElementById("t-voice");const apply=()=>{b.setAttribute("aria-pressed",String(male));b.textContent=male?"남자 목소리":"여자 목소리 (발음 더 정확)"};
+  b.addEventListener("click",()=>{male=!male;store.set("tsc-male",male);apply();ttsSpeak("我叫黄俊善。")});apply();})();
+(function(){const b=document.getElementById("t-slow");const apply=()=>b.setAttribute("aria-pressed",String(slow));
+  b.addEventListener("click",()=>{slow=!slow;store.set("tsc-slow",slow);apply()});apply();})();
+
+/* pronunciation: tap to hear, shadowing */
+let shadowRun=null;
+function stopShadow(){shadowRun=null;stopAudio();
+  document.querySelectorAll(".line.playing,.line.repeat,.word.playing").forEach(x=>x.classList.remove("playing","repeat"));
+  document.querySelectorAll("[data-shadow]").forEach(b=>b.textContent="따라 말하기");
+  document.querySelectorAll(".shadowbar .st").forEach(s=>{s.textContent="";s.className="st"});}
+async function playOne(el,text){
+  if(shadowRun) stopShadow();
+  document.querySelectorAll(".line.playing,.word.playing").forEach(x=>x.classList.remove("playing"));
+  el&&el.classList.add("playing"); await ttsSpeak(text); el&&el.classList.remove("playing");
+}
+document.addEventListener("click",e=>{
+  const sh=e.target.closest("[data-shadow]");
+  if(sh){e.preventDefault();runShadow(sh);return}
+  const b=e.target.closest("[data-say]"); if(!b) return;
+  e.preventDefault(); playOne(b.closest(".line")||b, b.dataset.say);
+});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".tap[data-say]")){e.preventDefault();playOne(e.target,e.target.dataset.say)}});
+const wordOf=el=>{const [zh,py,ko]=el.dataset.word.split("|");return {zh,py,ko}};
+document.addEventListener("click",e=>{const w=e.target.closest(".word[data-word]");if(w){e.preventDefault();openWriter(wordOf(w))}});
+document.addEventListener("click",e=>{const h=e.target.closest(".hz");if(!h)return;const ln=h.closest(".line");if(!ln)return;e.preventDefault();
+  const all=[...ln.querySelectorAll(".zh .hz")];const zh=ln.querySelector("[data-say]")?ln.querySelector("[data-say]").dataset.say:all.map(x=>x.textContent).join("");
+  const py=(ln.querySelector(".c > .py")||{}).textContent||"";const ko=(ln.querySelector(".c > .ko")||{}).textContent||"";
+  openWriter({zh,py,ko},Math.max(0,all.indexOf(h)),true)});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".word[data-word]")){e.preventDefault();openWriter(wordOf(e.target))}});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function runShadow(btn){
+  if(shadowRun){const was=btn.textContent==="멈추기";stopShadow();if(was)return}
+  const token={};shadowRun=token;btn.textContent="멈추기";
+  const body=btn.closest(".pbody"), st=body.querySelector(".shadowbar .st");
+  const lines=[...body.querySelectorAll(":scope > .line")];
+  for(let i=0;i<lines.length;i++){
+    if(shadowRun!==token) return;
+    const ln=lines[i], text=ln.querySelector("[data-say]").dataset.say;
+    ln.scrollIntoView({block:"center",behavior:"smooth"});
+    ln.classList.add("playing"); st.className="st"; st.textContent=`${i+1}/${lines.length} 듣기`;
+    await ttsSpeak(text); if(shadowRun!==token) return;
+    ln.classList.remove("playing"); ln.classList.add("repeat");
+    st.className="st rep"; st.textContent=`${i+1}/${lines.length} 따라 말하기`;
+    const len=text.replace(/[^一-鿿]/g,"").length;
+    await wait(Math.max(2500,(900+len*380)/rateNow())); if(shadowRun!==token) return;
+    ln.classList.remove("repeat");
+  }
+  if(shadowRun===token){shadowRun=null;btn.textContent="다시 따라 말하기";st.className="st";st.textContent="끝";}
+}
+function checkVoices(){return;try{const vs=speechSynthesis.getVoices();const n=document.getElementById("voice-note");if(n&&vs.length)n.hidden=!!zhVoice()}catch(e){}}
+try{speechSynthesis.addEventListener&&speechSynthesis.addEventListener("voiceschanged",checkVoices)}catch(e){}
+setTimeout(checkVoices,800);
+
+/* routing */
+const VIEWS=["plan","pron","sim","tpl","qs","words","day"];
+function show(){
+  let h=location.hash.replace("#",""); if(!VIEWS.includes(h)) h="plan";
+  VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=(x!==h));
+  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  document.getElementById("toggles").hidden=(h==="plan"||h==="day");
+}
+(function(){const h=document.querySelector("header.top");let c=false;
+  window.addEventListener("scroll",()=>{const y=window.scrollY;if(!c&&y>140){c=true;h.classList.add("compact")}else if(c&&y<20){c=false;h.classList.remove("compact")}},{passive:true});})();
+window.addEventListener("hashchange",()=>{show();window.scrollTo(0,0)});
+wireWriter();wireRec();wireQuiz();renderPlan();renderPron();renderSimView();renderTpl();renderQs();renderWords();renderDay();show();
+</script>
+
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+</script>
+</body></html>
