@@ -366,6 +366,23 @@ ul.tasks input:checked+span{text-decoration:line-through;color:var(--muted)}
 .review .q{gap:6px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .fc-card:focus-visible .fc-in{outline:2px solid var(--accent);outline-offset:3px;border-radius:14px}
+
+.slog{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0}
+.slog h2{margin-top:0}
+.slog .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.slog .stats div{background:var(--accent-soft);border-radius:10px;padding:8px;text-align:center}
+.slog .stats b{display:block;font-size:20px;color:var(--accent)}
+.slog .stats span{font-size:12px}
+.slog .days{display:flex;gap:3px;align-items:flex-end;height:64px;margin:6px 0 2px}
+.slog .days i{flex:1;background:var(--accent);border-radius:3px 3px 0 0;min-height:2px;opacity:.85}
+.slog .days i.zero{background:var(--line)}
+.slog .dlab{display:flex;justify-content:space-between;font-size:11px;opacity:.7}
+.slog table{width:100%;font-size:13px;border-collapse:collapse}
+.slog td,.slog th{padding:4px 6px;border-bottom:1px solid var(--line);text-align:left}
+.slog .simctl{flex-wrap:wrap}
+.word.studied{border-color:var(--accent)}
+.word.studied .zh::after,.line.studied .zhrow>.zh::after{content:" ✓";font-size:12px;color:var(--accent);font-family:sans-serif}
+.word.written .zh::after,.line.written .zhrow>.zh::after{content:" ✓✍";font-size:12px;color:var(--accent);font-family:sans-serif}
 </style>
 
 <div class="wrap">
@@ -581,7 +598,7 @@ function currentWeek(){
 
 function renderPlan(){
   const cw=currentWeek(), v=document.getElementById("v-plan"), end=addD(START,90);
-  let h=`<div class="startbox"><label for="startdate"><b>공부 시작일</b><span class="g-note">바꾸면 주차 날짜가 전부 다시 계산돼</span></label><input type="date" id="startdate" value="${isoD(START)}"></div>
+  let h=`<div class="startbox"><label for="startdate"><b>공부 시작일</b><span class="g-note">바꾸면 주차 날짜가 전부 다시 계산돼</span></label><input type="date" id="startdate" value="${isoD(START)}"></div><section class="slog" id="studylog" aria-label="공부 기록"></section>
   <p class="lead">노베이스에서 주 4~5시간, 이 페이지만으로 하는 13주 계획. 시험은 ${fmt(addD(START,84))}~${fmt(end)} 주에 보는 걸 목표로 해. 솔직히 13주면 빠듯해서 1차에 3급이 나와도 이상한 게 아니야. 그러면 W10~W13을 4주 더 반복하고 2차에서 4급을 노리면 돼.</p>
   <div class="routine">
     <div><b>10분</b><span>평일<br>단어 카드 20장</span></div>
@@ -606,7 +623,7 @@ function renderPlan(){
   <div class="scroll"><table class="parts"><thead><tr><th>파트</th><th>유형</th><th>문항</th><th>준비/답변(초)</th><th>4급 목표</th></tr></thead><tbody>
   ${PARTS.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td>${p[3]}</td><td>${p[4]}</td></tr>`).join("")}
   </tbody></table></div>`;
-  v.innerHTML=h;
+  v.innerHTML=h; renderLog();
   v.querySelectorAll("input[data-t]").forEach(cb=>cb.addEventListener("change",()=>{
     store.set("tsc-t"+cb.dataset.t,cb.checked);
     const wk=cb.closest(".week"), n=+wk.dataset.wk, all=WEEKS[n-1].tasks.every((_,k)=>store.get(`tsc-t${n}-${k}`,false));
@@ -921,6 +938,7 @@ function loadHW(){ if(hwLoading) return hwLoading;
 const wsMsg=t=>{document.getElementById("ws-msg").textContent=t};
 function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#333"}
 function openWriter(w,start,quiet){
+  if(!quiet) LOG.add(w.zh,0);
   wsWord=w; wsIdx=start||0; wsBlind=false; document.getElementById("ws-blind").setAttribute("aria-pressed","false"); document.getElementById("ws-quiz").removeAttribute("aria-pressed");
   const sh=document.getElementById("wsheet"); sh.hidden=false;
   document.getElementById("ws-title").textContent=w.zh;
@@ -970,7 +988,7 @@ function startQuiz(){
     onMistake:s=>wsMsg(`${s.strokeNum+1}번째 획 다시. ${wsBlind?3:2}번 틀리면 힌트가 떠.`),
     onCorrectStroke:s=>wsMsg(`${s.strokeNum+1} / ${s.strokeNum+1+s.strokesRemaining}획 좋아`),
     onComplete:s=>{const cs=chars();wsMsg(`완성! 틀린 횟수 ${s.totalMistakes}번`+(wsIdx<cs.length-1?" · 다음 글자로 넘어갈게":""));
-      if(wsIdx<cs.length-1) setTimeout(()=>{wsIdx++;showChar();startQuiz()},1300);}});
+      if(wsIdx<cs.length-1) setTimeout(()=>{wsIdx++;showChar();startQuiz()},1300); else if(wsWord) LOG.add(wsWord.zh,1);}});
   wsMsg(wsBlind?"윤곽 없이 기억만으로 써봐. 막히면 '획순 보기'.":"회색 윤곽 위에 획순대로 손가락으로 그어봐.");
   document.getElementById("ws-blind").setAttribute("aria-pressed",String(wsBlind));
   document.getElementById("ws-quiz").setAttribute("aria-pressed",String(!wsBlind));
@@ -1177,7 +1195,7 @@ function nextQ(){ WQ.i++; if(WQ.i<WQ.items.length) renderQ(); else endQuiz(); }
 function endQuiz(){
   const n=WQ.items.length, box=document.getElementById("wq-box");
   const label=WQ_MODES.find(m=>m[0]===WQ.mode)[1];
-  store.set("tsc-wq-last",`최근: ${label} ${WQ.score}/${n}`);
+  store.set("tsc-wq-last",`최근: ${label} ${WQ.score}/${n}`); LOG.quiz(label,WQ.score,n);
   box.innerHTML=`<div class="wq-end"><b>${WQ.score} / ${n}</b>${WQ.mode==="card"?"<span>안다고 한 카드 수</span>":""}<span>${WQ.score===n?"다 맞혔어!":WQ.score>=n*0.7?"좋아, 틀린 것만 한 번 더":"틀린 단어 위주로 다시 보자"}</span></div>
    ${WQ.wrong.length?`<div class="eyebrow">틀린 단어</div><div class="words">${WQ.wrong.map(w=>`<div class="word" role="button" tabindex="0" data-word="${esc(w.zh)}|${esc(w.py)}|${esc(w.ko)}"><div class="zh" lang="zh-CN">${esc(w.zh)}</div><div class="py">${esc(w.py)}</div><div class="ko">${esc(w.ko)}</div></div>`).join("")}</div>`:""}
    <div class="simctl" style="justify-content:center">${WQ.wrong.length?`<button class="btn" type="button" id="wq-retry">틀린 것만 다시</button>`:""}<button class="btn ghost" type="button" id="wq-again">새로 10문제</button></div>`;
@@ -1316,7 +1334,7 @@ document.addEventListener("click",e=>{
   const sh=e.target.closest("[data-shadow]");
   if(sh){e.preventDefault();runShadow(sh);return}
   const b=e.target.closest("[data-say]"); if(!b) return;
-  e.preventDefault(); playOne(b.closest(".line")||b, b.dataset.say);
+  e.preventDefault(); LOG.add(b.dataset.say,0); playOne(b.closest(".line")||b, b.dataset.say);
 });
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".tap[data-say]")){e.preventDefault();playOne(e.target,e.target.dataset.say)}});
 const wordOf=el=>{const [zh,py,ko]=el.dataset.word.split("|");return {zh,py,ko}};
@@ -1334,7 +1352,7 @@ async function runShadow(btn){
   const lines=[...body.querySelectorAll(":scope > .line")];
   for(let i=0;i<lines.length;i++){
     if(shadowRun!==token) return;
-    const ln=lines[i], text=ln.querySelector("[data-say]").dataset.say;
+    const ln=lines[i], text=ln.querySelector("[data-say]").dataset.say; LOG.add(text,0);
     ln.scrollIntoView({block:"center",behavior:"smooth"});
     ln.classList.add("playing"); st.className="st"; st.textContent=`${i+1}/${lines.length} 듣기`;
     await ttsSpeak(text); if(shadowRun!==token) return;
@@ -1349,6 +1367,60 @@ async function runShadow(btn){
 function checkVoices(){return;try{const vs=speechSynthesis.getVoices();const n=document.getElementById("voice-note");if(n&&vs.length)n.hidden=!!zhVoice()}catch(e){}}
 try{speechSynthesis.addEventListener&&speechSynthesis.addEventListener("voiceschanged",checkVoices)}catch(e){}
 setTimeout(checkVoices,800);
+
+/* 공부 기록 (폰 안에만 저장) */
+const LOG={
+  day(){return isoD(new Date())},
+  bump(k,v){const d=store.get("tsc-days",{}),t=LOG.day(),x=d[t]||{h:0,w:0,q:0};x[k]=(x[k]||0)+v;d[t]=x;store.set("tsc-days",d)},
+  add(text,kind){ if(!text) return; const s=store.get("tsc-seen",{}), r=s[text]||[0,0,""]; r[kind]++; r[2]=LOG.day(); s[text]=r; store.set("tsc-seen",s);
+    LOG.bump(kind?"w":"h",1); markSeen(); renderLog(); },
+  quiz(label,score,n){ const h=store.get("tsc-wq-hist",[]), g=document.getElementById("wq-group"), d=new Date();
+    h.push({d:`${isoD(d)} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,l:label,g:g&&g.selectedOptions[0]?g.selectedOptions[0].textContent.replace(/\s*\(\d+\)$/,""):"",s:score,n});
+    store.set("tsc-wq-hist",h.slice(-500)); LOG.bump("q",n); renderLog(); }
+};
+let markT=null;
+function markSeen(){ clearTimeout(markT); markT=setTimeout(()=>{ const s=store.get("tsc-seen",{});
+  document.querySelectorAll(".word[data-word]").forEach(el=>{const r=s[el.dataset.word.split("|")[0]];el.classList.toggle("studied",!!r&&!r[1]);el.classList.toggle("written",!!r&&r[1]>0)});
+  document.querySelectorAll(".line").forEach(el=>{const b=el.querySelector("[data-say]");const r=b&&s[b.dataset.say];el.classList.toggle("studied",!!r&&!r[1]);el.classList.toggle("written",!!r&&r[1]>0)});
+ },150) }
+new MutationObserver(markSeen).observe(document.body,{childList:true,subtree:true});
+function renderLog(){
+  const box=document.getElementById("studylog"); if(!box) return;
+  const s=store.get("tsc-seen",{}), days=store.get("tsc-days",{}), hist=store.get("tsc-wq-hist",[]), t=days[LOG.day()]||{h:0,w:0,q:0};
+  const allW=new Set([...CORE,...HSKW].map(w=>w.zh)), seenW=[...allW].filter(z=>s[z]).length, wroteW=[...allW].filter(z=>s[z]&&s[z][1]).length;
+  const sentN=Object.keys(s).filter(z=>!allW.has(z)).length, dayN=Object.values(days).filter(x=>x.h+x.w+x.q>0).length;
+  const last=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const x=days[isoD(d)]||{h:0,w:0,q:0};last.push(x.h+x.w+x.q)}
+  const mx=Math.max(1,...last);
+  box.innerHTML=`<h2>공부 기록</h2>
+   <div class="eyebrow">오늘</div>
+   <div class="stats"><div><b>${t.h}</b><span>들은 단어·문장</span></div><div><b>${t.w}</b><span>써 본 단어</span></div><div><b>${t.q}</b><span>시험 문항</span></div></div>
+   <div class="eyebrow">누적</div>
+   <div class="stats"><div><b>${seenW}<small>/${allW.size}</small></b><span>본 단어 (✍ ${wroteW})</span></div><div><b>${sentN}</b><span>들은 문장</span></div><div><b>${dayN}</b><span>공부한 날</span></div></div>
+   <div class="eyebrow">최근 14일</div>
+   <div class="days" aria-label="최근 14일 공부량">${last.map(v=>`<i class="${v?"":"zero"}" style="height:${Math.round(v/mx*100)}%" title="${v}"></i>`).join("")}</div>
+   <div class="dlab"><span>2주 전</span><span>오늘</span></div>
+   <div class="eyebrow" style="margin-top:10px">단어 시험 기록 (${hist.length}회)</div>
+   ${hist.length?`<div class="scroll"><table><thead><tr><th>날짜</th><th>방식</th><th>범위</th><th>점수</th></tr></thead><tbody>${hist.slice(-10).reverse().map(r=>`<tr><td>${esc(r.d)}</td><td>${esc(r.l)}</td><td>${esc(r.g)}</td><td>${r.s}/${r.n}</td></tr>`).join("")}</tbody></table></div>${hist.length>10?'<p class="g-note">최근 10회만 보여 줘. 전체는 백업 파일에 들어 있어.</p>':""}`:'<p class="g-note">아직 없어. 단어 탭에서 시험을 보면 여기에 쌓여.</p>'}
+   <p class="g-note">기록은 이 폰 안에만 저장돼. 목록에서 ✓는 들어 본 것, ✓✍는 써 본 것. 폰을 바꾸거나 앱을 지우기 전에 백업해 둬.</p>
+   <div class="simctl"><button class="btn" type="button" id="log-export">백업 파일 저장</button><button class="btn ghost" type="button" id="log-import">백업 불러오기</button><input type="file" id="log-file" accept=".json,application/json" hidden></div>`;
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#log-export")){
+    const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith("tsc-")&&!k.startsWith("tsc-ci:"))data[k]=localStorage.getItem(k)}
+    const blob=new Blob([JSON.stringify({app:"tsc4",v:1,saved:new Date().toISOString(),data})],{type:"application/json"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`TSC공부기록_${LOG.day()}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+  }
+  if(e.target.closest("#log-import")) document.getElementById("log-file").click();
+});
+document.addEventListener("change",e=>{
+  if(e.target.id!=="log-file"||!e.target.files[0]) return;
+  e.target.files[0].text().then(txt=>{const j=JSON.parse(txt); if(j.app!=="tsc4"||!j.data) throw 0;
+    if(!confirm(`${String(j.saved||"").slice(0,10)} 백업으로 지금 기록을 바꿀까? (지금 기록은 사라져)`)) return;
+    Object.keys(localStorage).filter(k=>k.startsWith("tsc-")&&!k.startsWith("tsc-ci:")).forEach(k=>localStorage.removeItem(k));
+    Object.entries(j.data).forEach(([k,v])=>{if(k.startsWith("tsc-"))localStorage.setItem(k,v)}); alert("불러왔어. 앱을 다시 열게."); location.reload();
+  }).catch(()=>alert("이 파일은 TSC 공부 기록 백업이 아니야.")).finally(()=>{e.target.value=""});
+});
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 
 /* routing */
 const VIEWS=["plan","pron","sim","tpl","qs","words","day"];

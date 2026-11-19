@@ -1,5 +1,5 @@
 // TSC 4급 13주 — offline cache
-const VER = "tsc4-v2";
+const VER = "tsc4-v3";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "maskable-512.png"];
 
 self.addEventListener("install", e => {
