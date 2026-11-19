@@ -305,6 +305,12 @@ ul.tasks input:checked+span{text-decoration:line-through;color:var(--muted)}
 .ci-l{color:var(--muted)}
 .ci-l b{color:var(--fg)}
 .ci-p{font-size:15px;color:var(--fg);margin-top:2px}
+.ci-o{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:14px;line-height:1.6}
+.ci-o h3{margin:0 0 4px;font-size:14px;color:var(--accent)}
+.ci-o p{margin:0}
+.ci-o .src{display:block;margin-top:6px;font-size:11px;opacity:.75}
+.ci-o .src a{color:var(--accent)}
+.ci-o .est{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--line);font-size:11px;color:var(--fg);font-weight:normal}
 .ci .zh{font-family:var(--f-zh)}
 .ci-out{font-size:14px;line-height:1.6}
 .ci-out h4{margin:10px 0 2px;font-size:13px;color:var(--accent)}
@@ -703,7 +709,7 @@ function renderQs(){
 }
 
 function renderWords(){
-  document.getElementById("v-words").innerHTML=quizHTML()+`<h2>단어장</h2><p class="lead">TSC 핵심 단어부터 외우고, HSK 1급 → 2급 → 3급 순서로 넓혀가. 보통 HSK 3급 정도 단어면 TSC 4급 답변에 충분해. 카드를 누르면 발음과 획순을 보면서 써볼 수 있어.</p><p class="g-note">단어 예문은 <a href="https://github.com/no7z/hsk-sentences-audio" target="_blank" rel="noopener" style="color:var(--accent)">hsk-sentences-audio</a> (CC BY-SA 4.0)에서 가져왔고, 한국어 해석은 따로 붙였어. 음성은 Microsoft 신경망 음성(Xiaoxiao·Yunxi)으로 새로 만들었어.</p>`+
+  document.getElementById("v-words").innerHTML=quizHTML()+`<h2>단어장</h2><p class="lead">TSC 핵심 단어부터 외우고, HSK 1급 → 2급 → 3급 순서로 넓혀가. 보통 HSK 3급 정도 단어면 TSC 4급 답변에 충분해. 카드를 누르면 발음과 획순을 보면서 써볼 수 있어.</p><p class="g-note">단어 예문은 <a href="https://github.com/no7z/hsk-sentences-audio" target="_blank" rel="noopener" style="color:var(--accent)">hsk-sentences-audio</a> (CC BY-SA 4.0)에서 가져왔고, 한국어 해석은 따로 붙였어. 음성은 Microsoft 신경망 음성(Xiaoxiao·Yunxi)으로 새로 만들었어. 한자 유래·역사는 <a href="https://en.wiktionary.org/" target="_blank" rel="noopener" style="color:var(--accent)">위키낱말사전(Wiktionary)</a> (CC BY-SA 4.0)의 글자 유래 항목을 한국어로 옮겨 줄였고, 간체자 변화나 뜻이 넓어진 과정은 Claude가 일부 덧붙였어. 「추정」 표시는 자료가 없어 Claude가 쓴 설명이야.</p>`+
   `<div class="eyebrow">TSC 핵심 단어</div>`+WORDS.map(([g,ws])=>`<div class="wgroup"><h3>${g}</h3><div class="words">${ws.map(w=>`<div class="word" role="button" tabindex="0" aria-label="${esc(w.zh)} 써보기" data-word="${esc(w.zh)}|${esc(w.py)}|${esc(w.ko)}"><div class="zh" lang="zh-CN">${esc(w.zh)}</div><div class="py">${esc(w.py)}</div><div class="ko">${esc(w.ko)}</div></div>`).join("")}</div></div>`).join("")+
   `<div class="eyebrow">HSK 급수별 단어 · 누르면 펼쳐져</div>`+["h1","h2","h3"].map(l=>`<details class="part lvl" data-lv="${l}"><summary><span class="pn">${LV_NAME[l].replace("HSK ","")}</span><span class="pt">${LV_NAME[l]}</span><span class="pm">${wordPool(l).length}개</span></summary><div class="pbody"><div class="words"></div></div></details>`).join("");
   document.querySelectorAll("#v-words details.lvl").forEach(d=>d.addEventListener("toggle",()=>{const box=d.querySelector(".words");if(!d.open||box.childElementCount)return;
@@ -1277,6 +1283,7 @@ function renderCI(){
     const cached=store.get("tsc-ci:"+c,null);
     box.innerHTML=`<div class="ci-h"><b class="zh" lang="zh-CN">${esc(c)}</b>${x.k?`<span>한국 한자음 <b>${esc(x.k)}</b></span>`:""}${x.t?`<span>번체 <span class="zh" lang="zh-CN">${esc(x.t)}</span></span>`:""}${x.r?`<span>부수 <span class="zh" lang="zh-CN">${esc(x.r)}</span></span>`:""}</div>
       ${x.ty||parts?`<div class="ci-l">${x.ty?`<b>${esc(x.ty)}자</b> · ${esc(CI_TY[x.ty]||"")}`:""}${parts?`<div class="ci-p">${parts}</div>`:""}</div>`:""}
+      ${x.o?`<div class="ci-o"><h3>유래·역사${x.os==="c"?'<span class="est">추정</span>':""}</h3><p>${esc(x.o)}</p><span class="src">${x.os==="c"?"위키낱말사전에 자료가 없어 Claude가 쓴 설명이야. 틀릴 수 있어.":`출처: <a href="https://en.wiktionary.org/wiki/${encodeURIComponent(c)}" target="_blank" rel="noopener">위키낱말사전 「${esc(c)}」</a> (CC BY-SA 4.0)을 옮겨 줄임`}</span></div>`:""}
       <div class="ci-out" id="ci-out">${cached?mdLite(cached):""}</div>
       ${SAMPLE?`<div class="simctl" style="justify-content:center"><button class="gram" style="display:inline-block" type="button" id="ci-ask">${cached?"AI 설명 다시 받기":"AI로 훈음·유래 자세히"}</button></div>`:""}`;
     const b=document.getElementById("ci-ask"); if(b) b.addEventListener("click",()=>askCI(c,x,!!cached));
