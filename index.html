@@ -194,6 +194,10 @@ ul.rules li .zh{font-size:16px;display:inline}
 /* handwriting sheet */
 .sheet{position:fixed;inset:0;z-index:30;background:rgba(10,16,14,.5);display:flex;align-items:flex-end;justify-content:center}
 .sheet[hidden]{display:none!important}
+.ws-float{position:sticky;top:0;height:0;margin-bottom:-12px;z-index:5;align-self:stretch}
+.sheet-in.long .ws-float{margin-bottom:-8px}
+.ws-float button{position:absolute;right:0;top:0;width:44px;height:44px;border-radius:50%;border:1px solid var(--line,#ccd);background:var(--bg);color:var(--fg);font-size:20px;line-height:1;box-shadow:0 2px 10px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .15s}
+.sheet-in.scrolled .ws-float button{opacity:1;pointer-events:auto}
 .sheet-in{background:var(--bg);width:100%;max-width:520px;border-radius:16px 16px 0 0;padding-block:16px calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;max-height:94vh;overflow:auto}
 .ws-head{display:flex;align-items:flex-start;gap:10px}
 .ws-head>div{flex:1;min-width:0}
@@ -430,6 +434,7 @@ ul.tasks input:checked+span{text-decoration:line-through;color:var(--muted)}
 </div>
 <div class="sheet" id="wsheet" hidden>
   <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="ws-title">
+    <div class="ws-float"><button type="button" data-close aria-label="닫기">✕</button></div>
     <div class="ws-head"><div><div class="zh" id="ws-title" lang="zh-CN"></div><div class="py" id="ws-py"></div><div class="ko" id="ws-ko"></div><div id="ws-ex"></div></div>
       <button class="say" type="button" id="ws-say" data-say="" aria-label="발음 듣기"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <button class="btn ghost" type="button" id="ws-close">닫기</button></div>
@@ -442,6 +447,7 @@ ul.tasks input:checked+span{text-decoration:line-through;color:var(--muted)}
 </div>
 <div class="sheet" id="gsheet" hidden>
   <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="gs-title">
+    <div class="ws-float"><button type="button" data-close aria-label="닫기">✕</button></div>
     <div class="ws-head"><div><div class="eyebrow">AI 문법 분석</div><div class="zh" id="gs-title" lang="zh-CN" style="font-size:20px;line-height:1.45"></div><div class="py" id="gs-py"></div><div class="ko" id="gs-ko"></div></div>
       <button class="btn ghost" type="button" id="gs-close">닫기</button></div>
     <div class="g-out" id="gs-out" aria-live="polite"></div>
@@ -947,7 +953,7 @@ function tok(n){return getComputedStyle(document.documentElement).getPropertyVal
 function openWriter(w,start,quiet){
   if(!quiet) LOG.add(w.zh,0);
   wsWord=w; wsIdx=start||0; wsBlind=false; document.getElementById("ws-blind").setAttribute("aria-pressed","false"); document.getElementById("ws-quiz").removeAttribute("aria-pressed");
-  const sh=document.getElementById("wsheet"); sh.hidden=false;
+  const sh=document.getElementById("wsheet"); if(sh.hidden) sheetOpen("wsheet"); sh.hidden=false;
   document.getElementById("ws-title").textContent=w.zh;
   document.getElementById("ws-py").textContent=w.py;
   document.getElementById("ws-ko").textContent=w.ko;
@@ -1013,7 +1019,7 @@ function fallbackPad(){
   cv.addEventListener("pointerup",()=>{down=false});
   writer=null;
 }
-function closeWriter(){ciCtl&&ciCtl.abort();document.getElementById("wsheet").hidden=true;document.getElementById("ws-target").innerHTML="";writer=null;stopAudio()}
+function closeWriter(fromPop){if(document.getElementById("wsheet").hidden)return;sheetBack(fromPop);ciCtl&&ciCtl.abort();document.getElementById("wsheet").hidden=true;document.getElementById("ws-target").innerHTML="";writer=null;stopAudio()}
 function wireWriter(){
   const sh=document.getElementById("wsheet");
   sh.addEventListener("click",e=>{ if(e.target===sh) closeWriter();
@@ -1103,10 +1109,17 @@ function openGram(ln){
   document.getElementById("gs-title").textContent=zh;
   document.getElementById("gs-py").textContent=py;
   document.getElementById("gs-ko").textContent=ko;
+  if(document.getElementById("gsheet").hidden) sheetOpen("gsheet");
   document.getElementById("gsheet").hidden=false;
   runGram(false);
 }
-function closeGram(){gCtl&&gCtl.abort();document.getElementById("gsheet").hidden=true}
+function closeGram(fromPop){if(document.getElementById("gsheet").hidden)return;sheetBack(fromPop);gCtl&&gCtl.abort();document.getElementById("gsheet").hidden=true}
+/* 시트 닫기: 폰 뒤로 가기로 닫힘, 내려도 ✕ 떠 있음 */
+function sheetOpen(id){const el=document.getElementById(id);const si=el.querySelector(".sheet-in");si.scrollTop=0;si.classList.remove("scrolled");if(!(history.state&&history.state.sheet))history.pushState({sheet:1},"")}
+function sheetBack(fromPop){if(fromPop!==true&&history.state&&history.state.sheet)history.back()}
+window.addEventListener("popstate",()=>{closeWriter(true);closeGram(true)});
+document.querySelectorAll(".sheet-in").forEach(si=>{si.addEventListener("scroll",()=>si.classList.toggle("scrolled",si.scrollTop>80),{passive:true});
+  const b=si.querySelector("[data-close]"); b&&b.addEventListener("click",()=>{si.closest("#gsheet")?closeGram():closeWriter()})});
 (function(){
   const sh=document.getElementById("gsheet");
   sh.addEventListener("click",e=>{if(e.target===sh)closeGram()});
