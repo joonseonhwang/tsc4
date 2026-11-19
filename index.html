@@ -270,6 +270,7 @@ header.top.compact{padding-block:4px 0}
 .fc-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:14px;background:var(--bg);backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:12px;text-align:center}
 .fc-front .zh{font-size:56px}
 .fc-back{transform:rotateY(180deg)}
+.fc-card.flip .fc-front,.fc-card:not(.flip) .fc-back{pointer-events:none}
 .fc-back .zh{font-size:34px}
 .fc-back .py{font-size:18px}
 .fc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -812,7 +813,7 @@ function playSprite(sp,fin){
   clearTimeout(spTimer); clearInterval(spPoll); player.onended=fin; player.onerror=()=>fin(); player.defaultPlaybackRate=1;
   const stop=()=>{clearInterval(spPoll);clearTimeout(spTimer);try{player.pause()}catch(e){} fin()};
   const go=()=>{try{player.currentTime=Math.max(0,st-0.1)}catch(e){} player.muted=false; player.playbackRate=1; const pr=player.play(); if(pr&&pr.catch)pr.catch(()=>fin());
-    spPoll=setInterval(()=>{if(player.currentTime>=end)stop()},20); spTimer=setTimeout(stop,(du+4)*1000);};
+    let inClip=false; spPoll=setInterval(()=>{const t=player.currentTime; if(t>=st-0.3&&t<end-0.05) inClip=true; else if(inClip&&t>=end) stop()},20); spTimer=setTimeout(stop,(du+4)*1000);};
   if(player.dataset.src!==url){player.dataset.src=url; player.src=url; player.muted=true; const pr=player.play(); if(pr&&pr.catch)pr.catch(()=>{});
     const ready=()=>{try{player.pause()}catch(e){} go()}; if(player.readyState>=1) ready(); else player.addEventListener("loadedmetadata",ready,{once:true});}
   else go();
